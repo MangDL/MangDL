@@ -98,7 +98,7 @@ The following are the required programs and/or packages to run this project:
 - For all operating systems:
     - Python 3.6 and higher
         <details>
-        <summary>To check that you have Chocolatey installed, in your preffered terminal, run the following command:</summary>
+        <summary>To check that you have Python 3.6 and higher installed, in your preferred terminal, run the following command:</summary>
 
         ```bash
         python3 --version
@@ -108,7 +108,7 @@ The following are the required programs and/or packages to run this project:
 
     - pip (Package Installer for Python)
         <details>
-        <summary>To check that you have Chocolatey installed, in your preffered terminal, run the following command:</summary>
+        <summary>To check that you have pip installed, in your preferred terminal, run the following command:</summary>
 
         ```bash
         pip3 --version
@@ -118,7 +118,7 @@ The following are the required programs and/or packages to run this project:
 
     - git
         <details>
-        <summary>To check that you have Chocolatey installed, in your preffered terminal, run the following command:</summary>
+        <summary>To check that you have git installed, in your preferred terminal, run the following command:</summary>
 
         ```bash
         git --version
@@ -131,7 +131,7 @@ The following are the required programs and/or packages to run this project:
 - For windows:
     - [Chocolatey](https://chocolatey.org)
         <details>
-        <summary>To check that you have Chocolatey installed, in your preffered terminal, run the following command:</summary>
+        <summary>To check that you have Chocolatey installed, in your preferred terminal, run the following command:</summary>
 
         ```bash
         choco --version
@@ -141,7 +141,7 @@ The following are the required programs and/or packages to run this project:
 
     - [7zip](https://7-zip.org)
         <details>
-        <summary>To check that you have Chocolatey installed, in your preffered terminal, run the following command:</summary>
+        <summary>To check that you have 7zip installed, in your preferred terminal, run the following command:</summary>
 
         ```bash
         7z --version
@@ -154,7 +154,7 @@ The following are the required programs and/or packages to run this project:
 - For [macOS](https://www.apple.com/mac/):
     - [Homebrew](https://brew.sh)
         <details>
-        <summary>To check that you have Chocolatey installed, in your preffered terminal, run the following command:</summary>
+        <summary>To check that you have Homebrew installed, in your preferred terminal, run the following command:</summary>
 
         ```bash
         brew --version
@@ -162,6 +162,28 @@ The following are the required programs and/or packages to run this project:
 
         </details>
 
+    - [p7zip](https://github.com/jinfeihan57/p7zip)
+        <details>
+        <summary>To check that you have p7zip installed, in your preferred terminal, run the following command:</summary>
+
+        ```bash
+        7z --version
+        ```
+
+        </details>
+
+    ![2](assets/images/prereq_2.png)
+
+- For [Linux](https://www.linux.org/)
+    - [p7zip](https://github.com/jinfeihan57/p7zip)
+        <details>
+        <summary>To check that you have p7zip installed, in your preferred terminal, run the following command:</summary>
+
+        ```bash
+        7z --version
+        ```
+
+        </details>
     ![2](assets/images/prereq_2.png)
 
 If any or all of the above is not installed, follow [this link](python_install.md):
@@ -234,25 +256,25 @@ After checking or installing Python, pip, and git in your machine, proceed to th
 
 ### Main to do
 
-[ ] Library
+- [ ] Library
 
-- [ ] Manga Update notifier
+    - [ ] Manga Update notifier
 
-[ ] GUI
+- [ ] GUI
 
-- [ ] Reader
+    - [ ] Reader
 
-[ ] MAL / Anilist sync
+- [ ] MAL / Anilist sync
 
 ### Side Quests
 
-[ ] Package update notifier
+- [ ] Package update notifier
 
-[ ] Saving command options to config file
+- [ ] Saving command options to config file
 
-[ ] Submission of new color theme
+- [ ] Submission of new color theme
 
-[ ] Returning/Downloading translated languages using locale of the machine and an option to override it
+- [ ] Returning/Downloading translated languages using locale of the machine and an option to override it
 
 ### Done
 
