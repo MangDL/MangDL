@@ -58,6 +58,6 @@ def credits():
 - To Arjix, who helped me in implementing majority of the features and de-minifying
   my code, making it more readable and more efficient at the same time
 - To KR, who let me use the KR-naming scheme like "AnimDL" do
-- To whi~nyaan, my alter ego, for just existing
+- To whi~nyaan, my alter ego, for just existing (and purring, ofc)
 - And to everyone who supported me from the very beginning of this humble
   project to its release!\n"""))
