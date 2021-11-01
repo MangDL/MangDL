@@ -151,7 +151,7 @@ The following are the required programs and/or packages to run this project:
 
     <details>
     <summary>You should get a similar output like the following image:</summary>
-    ![1](assets/images/prereq_1.png)
+    <img src="assets/images/prereq_1.png" alt="1">
     </details>
 
 - For [macOS](https://www.apple.com/mac/):
@@ -177,7 +177,7 @@ The following are the required programs and/or packages to run this project:
 
     <details>
     <summary>You should get a similar output like the following image:</summary>
-    ![2](assets/images/prereq_2.png)
+    <img src="assets/images/prereq_2.png" alt="2">
     </details>
 
 - For [Linux](https://www.linux.org/)
@@ -193,7 +193,7 @@ The following are the required programs and/or packages to run this project:
 
     <details>
     <summary>You should get a similar output like the following image:</summary>
-    ![3](assets/images/prereq_3.png)
+    <img src="assets/images/prereq_3.png" alt="3">
     </details>
 
 If any or all of the above is not installed, follow [this link](INSTALLATION.md):
