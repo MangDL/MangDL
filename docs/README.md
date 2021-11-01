@@ -30,11 +30,17 @@
 ---
 
 <h4 align="center">
-Hewwwoooooo, whi~nyaan created a manga downloader for you. Now, give whi~nyaan lotsa hugs 'n pats. Now!
+Hewwwoooooo, whi\~nyaan created a manga downloader for you.
 
-Whi~nyaan seems to forget something that is needed to be fixed tho', so please, do not use it yet.
+Now, give whi\~nyaan lotsa hugs 'n pats. Now!
 
-Whi~nyaan is super ashamed of this, but just wait for whi~nyaan shall fix this mess nyaan~
+Whi\~nyaan seems to forget something that is needed to be fixed tho',
+
+so please, do not use it yet.
+
+Whi\~nyaan is super ashamed of this,
+
+but just wait for whi\~nyaan shall fix this mess nyaan\~
 </h4>
 
 <h6 align="center">
