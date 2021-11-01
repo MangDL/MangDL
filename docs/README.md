@@ -149,7 +149,10 @@ The following are the required programs and/or packages to run this project:
 
         </details>
 
+    <details>
+    <summary>You should get a similar output like the following image:</summary>
     ![1](assets/images/prereq_1.png)
+    </details>
 
 - For [macOS](https://www.apple.com/mac/):
     - [Homebrew](https://brew.sh)
@@ -172,7 +175,10 @@ The following are the required programs and/or packages to run this project:
 
         </details>
 
+    <details>
+    <summary>You should get a similar output like the following image:</summary>
     ![2](assets/images/prereq_2.png)
+    </details>
 
 - For [Linux](https://www.linux.org/)
     - [p7zip](https://github.com/jinfeihan57/p7zip)
@@ -184,9 +190,13 @@ The following are the required programs and/or packages to run this project:
         ```
 
         </details>
-    ![2](assets/images/prereq_2.png)
 
-If any or all of the above is not installed, follow [this link](python_install.md):
+    <details>
+    <summary>You should get a similar output like the following image:</summary>
+    ![3](assets/images/prereq_3.png)
+    </details>
+
+If any or all of the above is not installed, follow [this link](INSTALLATION.md):
 
 After checking or installing Python, pip, and git in your machine, proceed to the [setup](#setup) section.
 
@@ -199,9 +209,6 @@ After checking or installing Python, pip, and git in your machine, proceed to th
     ```bash
     python3 -m venv venv
     ```
-
-    You should get a similar output like the following image:
-    ![setup](assets/images/setup1.png)
 
 - Enter the virtual environment
     - For [Windows 7 and up](https://www.microsoft.com/en-us/windows):

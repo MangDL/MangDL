@@ -4,7 +4,7 @@
 
 - [**Windows 7 and up**](#windows)
 - [**Mac**](#mac)
-- [**Linux**](#linux)23
+- [**Linux**](#linux)
     - [**Arch-based distros**](#arch-based-distros)
     - [**Debian-based distros**](#debian-based-distros)
     - [**CentOS 8 (and newer), Fedora, and Red Hat-based distros**](#centos-8-and-newer-fedora-and-red-hat-based-distros)
@@ -98,6 +98,11 @@ The following is a summary of [this](https://docs.python-guide.org/starting/inst
     ```
 
 ## [Linux](https://www.linux.org/)
+
+Part of the following is a summary of the following guides, modified to fit accordingly:
+
+- [Install pip on Linux](https://linuxconfig.org/install-pip-on-linux)
+- [Download for Linux and Unix](https://git-scm.com/download/linux)
 
 ### [Arch](https://archlinux.org/)-based distros
 
