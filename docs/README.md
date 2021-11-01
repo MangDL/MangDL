@@ -126,7 +126,7 @@ The following are the required programs and/or packages to run this project:
 
         </details>
 
-    ![prereq](assets/images/prereq.png)
+    ![uni](assets/images/prereq_uni.png)
 
 - For windows:
     - [Chocolatey](https://chocolatey.org)
@@ -149,7 +149,7 @@ The following are the required programs and/or packages to run this project:
 
         </details>
 
-    ![2](assets/images/prereq2.png)
+    ![1](assets/images/prereq_1.png)
 
 - For [macOS](https://www.apple.com/mac/):
     - [Homebrew](https://brew.sh)
@@ -162,7 +162,7 @@ The following are the required programs and/or packages to run this project:
 
         </details>
 
-    ![2](assets/images/prereq2.png)
+    ![2](assets/images/prereq_2.png)
 
 If any or all of the above is not installed, follow [this link](python_install.md):
 
@@ -172,18 +172,16 @@ After checking or installing Python, pip, and git in your machine, proceed to th
 
 - Open your preferred console or terminal
 
-- Clone this repository and create a virtual environment using the following command:
+- Create a virtual environment using the following command:
 
     ```bash
-    git clone https://github.com/whinee/mangdl.git
-    cd mangdl
     python3 -m venv venv
     ```
 
     You should get a similar output like the following image:
     ![setup](assets/images/setup1.png)
 
-- Setup a virtual environment
+- Enter the virtual environment
     - For [Windows 7 and up](https://www.microsoft.com/en-us/windows):
         - For `cmd`, run the following command:
 
@@ -222,7 +220,7 @@ After checking or installing Python, pip, and git in your machine, proceed to th
             source venv/bin/activate.csh
             ```
 
-- Install the python dependencies by running the following command in your preffered terminal:
+- Install the project and its python dependencies by running the following commands:
 
     ```bash
     python3 -m pip install git+https://www.github.com/whinee/mangdl
