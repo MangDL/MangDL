@@ -1,0 +1,453 @@
+cmd:
+  dl:
+    args:
+    kwargs:
+    help:
+      - download manga
+      - |-
+        Search and download manga.  Filter the results using the following options.
+        Please do note that some options are only applicable for certain providers.
+    arguments:
+      title:
+        args:
+        kwargs:
+        help:
+          - str
+          - |-
+            Title of the manga.
+    options:
+      p:
+        args:
+          - provider
+        kwargs:
+          metavar: ''
+          type:
+            Choice:
+              args:
+                - - mangadex
+                  - mangakakalot
+                  - manganato
+              kwargs:
+                case_sensitive: false
+        help:
+          - str
+          - |-
+            Choose a provider to download from.
+            (mangadex | manganato | mangakakalot). Defaults to "mangadex".
+      l:
+        args:
+        - lang
+        kwargs:
+          metavar: ''
+        help:
+          - list[str]
+          - |-
+            Only applicable for the provider "mangadex". Filter by original language.
+            [ja, ko, zh]
+          - |-
+            "[ja]" or [ja] (the former is preferred)
+      el:
+        args:
+        - excludelang
+        kwargs:
+          metavar: ''
+        help:
+          - list[str]
+          - |-
+            Only applicable for the provider "mangadex". Filter through excluding by original language.
+            [ja, ko, zh]
+          - |-
+            "[ko, zh]" or [ko,zh] (the former is preferred)
+      d:
+        args:
+          - demo
+        kwargs:
+          metavar: ''
+        help:
+          - list[str]
+          - |-
+            Only applicable for the provider "mangadex". Filter by demographics.
+            [shounen, shoujo, josei, seinen, none]
+          - |-
+            "[shounen, seinen]" or [shounen,seinen] (the former is preferred)
+      cr:
+        args:
+          - contentrating
+        kwargs:
+          metavar: ''
+        help:
+          - list[str]
+          - |-
+            Only applicable for the provider "mangadex". Filter by content rating.
+            [safe, suggestive, erotica, pornographic]. Defaults to [safe, suggestive, erotica].
+          - |-
+            "[safe, suggestive, erotica]" or [safe,suggestive,erotica] (the former is preferred)
+      s:
+        args:
+          - status
+        kwargs:
+          metavar: ''
+          type:
+            Choice:
+              args:
+                - - ongoing
+                  - completed
+                  - hiatus
+                  - cancelled
+              kwargs:
+                case_sensitive: false
+        help:
+          - list[str]
+          - |-
+            Only applicable for the provider "mangadex". Filter by status.
+            [ongoing, completed, hiatus, cancelled]
+          - |-
+            "[Ongoing, Completed]" or [Ongoing,Completed]  (the former is preferred)
+      o:
+        args:
+          - order
+        kwargs:
+          metavar: ''
+        help:
+          - str
+          - |-
+            Only applicable for the provider "mangadex". Order results by <order>.
+            (title | year | createdAt | updatedAt | latestUploadedChapter | followedCount | relevance):(asc | desc).
+            Defaults to "latestUploadedChapter:desc"
+          - |-
+            "followedCount:desc"
+      au:
+        args:
+          - authors
+        kwargs:
+          metavar: ''
+        help:
+          - list[str]
+          - |-
+            Only applicable for the provider "mangadex". Filter by author/s.
+          - |-
+            "[Fuse, Azuma Kei]"
+      ar:
+        args:
+          - artists
+        kwargs:
+          metavar: ''
+        help:
+          - list[str]
+          - |-
+            Only applicable for the provider "mangadex". Filter by artist/s.
+          - |-
+            "[Kawakami Taiki, Kino Kotora]"
+      y:
+        args:
+          - year
+        kwargs:
+          metavar: ''
+        help:
+          - int
+          - |-
+            Only applicable for the provider "mangadex". Filter by year.
+      it:
+        args:
+          - includetags
+        kwargs:
+          metavar: ''
+        help:
+          - list[str]
+          - |-
+            Only applicable for the provider "mangadex". Filter by including tags.
+            Choices can be seen on https://mangadex.org/tag.
+          - |-
+            "[psychological, action]" or [pyschological,action] (the former is preferred)
+      im:
+        args:
+          - includemode
+        kwargs:
+          metavar: ''
+        help:
+          - str
+          - |-
+            Only applicable for the provider "mangadex" and when there are arguments passed to "includetags" option.
+            Included tags mode. (and | or). Defaults to "and".
+      et:
+        args:
+          - excludetags
+        kwargs:
+          metavar: ''
+        help:
+          - list[str]
+          - |-
+            Only applicable for the provider "mangadex". Filter by excluding tags.
+            Choices can be seen on https://mangadex.org/tag.
+          - |-
+            "[loli, gore, sexual violence, isekai]"
+      em:
+        args:
+          - excludemode
+        kwargs:
+          metavar: ''
+        help:
+          - list[str]
+          - |-
+            Only applicable for the provider "mangadex" and when there are arguments passed to "excludetags" option.
+            Excluded tags mode. (and | or). Defaults to "or".
+      r:
+        args:
+          - range
+        kwargs:
+          metavar: ''
+        help:
+          - str
+          - |-
+            Chapters to be downloaded
+          - |-
+            "5:-1 7 10-40 50-45.5" means chapter -1 to 5 (inclusive), 7, 10 to 40 (inclusive),
+            and 45.5 to 50 (inclusive)
+      c:
+        args:
+          - cover
+        kwargs:
+          is_flag: true
+          metavar: ''
+        help:
+          - N/A (flag)
+          - |-
+            Determines if the downloaded chapter includes a cover.
+      dir:
+        args:
+          - directory
+        kwargs:
+          metavar: ''
+        help:
+          - str
+          - |-
+            Location where to download the manga. Defaults to ~/Manga for Linux-based operating systems and
+            Desktop/Manga for Windows.
+      ow:
+        args:
+          - overwrite
+        kwargs:
+          is_flag: true
+          metavar: ''
+        help:
+          - N/A (flag)
+          - |-
+            Determines if the downloader overwrites the file if it exists.
+            (True | False). Defaults to True.
+      f:
+        args:
+          - format
+        kwargs:
+          default: cbz
+          metavar: ''
+          type:
+            Choice:
+              args:
+                - - 7zip
+                  - cb7
+                  - cbr
+                  - cbt
+                  - cbz
+                  - rar
+                  - tar
+                  - zip
+              kwargs:
+                case_sensitive: False
+        help:
+          - str
+          - |-
+            The container of the downloaded chapter.
+            (7zip | cb7 | cbr | cbt | cbz | rar | tar | zip). Defaults to cbz.
+      df:
+        args:
+          - delfolder
+        kwargs:
+          is_flag: true
+          metavar: ''
+        help:
+          - N/A (flag)
+          - |-
+            Only applicable if there is an argument passed to "format".
+            Determines if the folder will be deleted after a chapter had been archived to the proper format.
+      rt:
+        args:
+          - retry
+        kwargs:
+          default: 3
+          metavar: ''
+          type: int
+        help:
+          - int
+          - |-
+            Number of times to retry a failed download. Defaults to 3.
+      rp:
+        args:
+          - retryprompt
+        kwargs:
+          is_flag: true
+          metavar: ''
+        help:
+          - N/A (flag)
+          - |-
+            Determines if the program prompts the user to retry the failed download.
+      t:
+        args:
+          - threads
+        kwargs:
+          default: 5
+          metavar: ''
+          type: int
+        help:
+          - int
+          - |-
+            Determines how many threads to use for downloading a chapter. Defaults to 5, Recommended to use 30-50.
+      ct:
+        args:
+          - colortheme
+        kwargs:
+          default: whine
+          metavar: ''
+          type: str
+        help:
+          - str
+          - |-
+            Set the color theme. Defaults to whine.
+      v:
+        args:
+          - verbosity
+        kwargs:
+          count: true
+          default: 4
+          metavar: ''
+        help:
+          - N/A (count flag)
+          - |-
+            Set the verbosity level of the logger. 0-6 with 0 being silent and 6 printing everything that is logged.
+            Defaults to 2.
+          - -vvv means verbosity level of 3
+      sc:
+        args:
+          - saveconfig
+        kwargs:
+          metavar: ''
+        help:
+          - str
+          - |-
+            Saves the arguments and options except for <title>, sc, lc, and olc with the given name.
+      lc:
+        args:
+          - loadconfig
+        kwargs:
+          metavar: ''
+        help:
+          - str
+          - |-
+            Loads the arguments and options except for <title>, sc, lc, and olc with the given name.
+      olc:
+        args:
+          - overridelc
+        kwargs:
+          is_flag: true
+          metavar: ''
+        help:
+          - N/A (flag)
+          - |-
+            Only applicable when there is an argument passed to "loadconfig".
+            Determines if the options and arguments will override the one in the loaded config.
+  config:
+    args:
+    kwargs:
+    help:
+      - configs
+      - |-
+        tweak configurations
+    arguments:
+      command:
+        args:
+        kwargs:
+        help:
+          - str
+          - |-
+            Name of the command.
+            (ls | view | edit | remove)
+    options:
+      v:
+        args:
+          - verbosity
+        kwargs:
+          count: true
+          default: 2
+          metavar: ''
+        help:
+          - N/A (count flag)
+          - |-
+            Set the verbosity level of the logger. 0-6 with 0 being silent and 6 printing everything that is logged.
+            Defaults to 2.
+          - -vvv means verbosity level of 3
+  credits:
+    args:
+    kwargs:
+    help:
+      - credits
+      - |-
+        It's the credits, whaddya expect?
+    arguments:
+    options:
+mangadex:
+  cli_search:
+    lang:
+      - - ja
+        - ko
+        - zh
+      - list of original languages
+      - Will not be included on "lang". [ja, ko, zh].
+    excludelang:
+      - - ja
+        - ko
+        - zh
+      - list of original languages
+      - Will not be included on "excludelang". [ja, ko, zh].
+    demo:
+      - - shounen
+        - shoujo
+        - josei
+        - seinen
+      - list of demographics
+      - Will not be included on "demo". [shounen, shoujo, josei, seinen].
+    contentrating:
+      - - safe
+        - suggestive
+        - erotica
+        - pornographic
+      - list of content ratings
+      - Will not be included to "contentrating". [safe, suggestive, erotica, pornographic].
+    status:
+      - - ongoing
+        - completed
+        - hiatus
+        - cancelled
+      - list of status
+      - Will not be included to "status". [ongoing, completed, hiatus, cancelled].
+    authors: null
+    artists:
+    includetags:
+      - tags
+      - list of tags
+      - Will not be included on "includetags". For the list of tags, visit https://mangadex.org/tag.
+    excludetags:
+      - tags
+      - list of tags
+      - Will not be included on "excludetags". For the list of tags, visit https://mangadex.org/tag.
+  search:
+    lang: originalLanguage
+    excludelang: excludedOriginalLanguage
+    demo: publicationDemographic
+    contentrating: contentRating
+    status: status
+    order:  order
+    authors: authors
+    artists: artists
+    includetags: includedTags
+    includemode: includedTagsMode
+    excludetags: excludedTags
+    excludemode: excludedTagsMode

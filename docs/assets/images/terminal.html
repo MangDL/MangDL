@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Terminal</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="prism.css" />
+    <style type="text/css">
+        div pre code {
+            background-color: #232627;
+            color: white;
+            display: block;
+            padding: 5px;
+            inline-size: 1100px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        div {
+            background-color: #232627;
+            inline-size: 1100px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="prereq_uni"><pre><code><span style="font-weight:1000">Linux(Arch) - fish</span>
+
+<span style="color:#1cdc9a;">whi~nyaan</span>@blackspace<span style="color:#11d116;"> ~</span>> <span style="color:#00afff;"><span style="color:#005fd7;">python</span> --version</span>
+Python 3.10.0
+<span style="color:#1cdc9a;">whi~nyaan</span>@blackspace<span style="color:#11d116;"> ~</span>> <span style="color:#00afff;"><span style="color:#005fd7;">pip</span> --version</span>
+pip 21.2.4 from /usr/lib/python3.9/site-packages/pip (python 3.10)
+<span style="color:#1cdc9a;">whi~nyaan</span>@blackspace<span style="color:#11d116;"> ~</span>> <span style="color:#00afff;"><span style="color:#005fd7;">git</span> --version</span>
+git version 2.33.1</code></pre></div>
+
+<!-- HTML generated using https://hilite.me, modified by me(https://github.com/whitespace-negative) -->
+<div id="prereq_1"><pre><code><span style="font-weight:1000">Windows(Win10) - Windows Powershell(Administrator)</span>
+
+PS C:\Windows\system32&gt; choco<span style="color:#767676;"> --version</span>
+0.11.3</code></pre></div>
+
+<div id="prereq_2"><pre><code><span style="font-weight:1000">macOS(10.15 Catalina) - zsh</span>
+
+whi~nyaan@blackspace ~ % brew --version
+Homebrew 3.3.2
+Homebrew/homebrew-core (git revision 5f1bc0e1a3a; last commit 2021-10-31)
+Homebrew/homebrew-cask (git revision 5730bae2aa; last commit 2021-10-31)</code></pre></div>
+
+<!-- HTML generated using https://hilite.me, modified by me(https://github.com/whitespace-negative) -->
+<div id="choco_install_1"><pre><code><span style="font-weight:1000">Windows(Win10) - Windows Powershell(Administrator)</span>
+
+PS C:\Windows\system32&gt; <span style="color:#f9f1a5;">Set-ExecutionPolicy</span> AllSigned
+Execution Policy Change
+The execution policy helps protect you from scripts that you do not trust. Changing the execution policy might expose
+you to the security risks described in the about_Execution_Policies help topic at
+https:/go.microsoft.com/fwlink/?LinkID=135170. Do you want to change the execution policy?
+[Y] Yes  [A] Yes to All  <span style="color:#f9f1a5;">[N] No</span>  [L] No to All  [S] Suspend  [?] Help (default is "N"): A</code></pre></div>
+
+<!-- HTML generated using https://hilite.me, modified by me(https://github.com/whitespace-negative) -->
+<div id="choco_install_2"><pre><code><span style="font-weight:1000">Windows(Win10) - Windows Powershell(Administrator)</span>
+
+PS C:\Windows\system32&gt; <span style="color:#f9f1a5;">Set-ExecutionPolicy</span> Bypass<span style="color:#767676;"> -Scope</span> <span style="color:#f9f1a5;">Process</span><span style="color:#767676;"> -Force</span>; <span style="color:#f9f1a5;">iex</span> ((<span style="color:#f9f1a5;">New-Object</span> System.Net.WebClient).DownloadString(<span style="color: #3a96dd">'https://community.chocolatey.org/install.ps1'</span>))
+Forcing web requests to allow TLS v1.2 (Required for requests to Chocolatey.org)
+Getting latest version of the Chocolatey package for download.
+Not using proxy.
+Getting Chocolatey from https://community.chocolatey.org/api/v2/package/chocolatey/0.10.15.
+Downloading https://community.chocolatey.org/api/v2/package/chocolatey/0.10.15 to C:\Users\whi~nyaan\AppData\Local\Temp\chocolatey\chocoInstall\chocolatey.zip
+Not using proxy.
+Extracting C:\Users\whi~nyaan\AppData\Local\Temp\chocolatey\chocoInstall\chocolatey.zip to C:\Users\whi~nyaan\AppData\Local\Temp\chocolatey\chocoInstall
+Installing Chocolatey on the local machine
+<span style="color:#C50F1F;">...</span>
+Chocolatey (choco.exe) is now ready.
+You can call choco from anywhere, command line or powershell by typing choco.
+Run choco /? for a list of functions.
+You may need to shut down and restart powershell and/or consoles
+first prior to using choco.
+Ensuring Chocolatey commands are on the path
+Ensuring chocolatey.nupkg is in the lib folder</code></pre></div>
+
+<div id="setup1"><pre><code><span style="font-weight:1000">Linux(Arch) - fish</span>
+
+<span style="color:#1cdc9a;">whi~nyaan</span>@blackspace<span style="color:#11d116;"> ~</span>> <span style="color:#00afff;"><span style="color:#005fd7;">git</span> clone https://github.com/whitespace-negative/mangdl.git
+                        <span style="color:#005fd7;">cd</span> mangDL
+                        <span style="color:#005fd7;">python3</span> -m venv venv</span>
+Cloning into mangDL..
+remote: Enumerating objects: 275, done.
+<span style="color:#C50F1F;">...</span>
+Resolving deltas: 100% (69/69), done.
+Creating the virtual environment...
+Done.</code></pre></div>
+
+<div id="usage1"><pre><code><span style="font-weight:1000">Linux(Arch) - fish</span>
+
+<span style="color:#1cdc9a;">whi~nyaan</span>@blackspace<span style="color:#11d116;"> ~</span>> <span style="color:#00afff;"><span style="color:#005fd7;">mangdl</span> dl -h</span>
+Usage: mangdl dl [OPTIONS] &lt;title&gt;
+
+  Title of the manga.
+  &lt;title&gt;  str  Title of the manga.
+
+Options:
+  -p, --provider         str                Choose a provider to download from.
+                                            (mangadex | manganato | mangakakalot). Defaults to "mangadex".
+  -l, --lang             list[str]          Only applicable for the provider "mangadex". Filter by original language.
+                                            [ja, ko, zh]
+                                              Ex.: "[ja]" or [ja] (the former is preferred)
+  -el, --excludelang     list[str]          Only applicable for the provider "mangadex". Filter through excluding by original language.
+                                            [ja, ko, zh]
+                                              Ex.: "[ko, zh]" or [ko,zh] (the former is preferred)
+  -d, --demo             list[str]          Only applicable for the provider "mangadex". Filter by demographics.
+                                            [shounen, shoujo, josei, seinen, none]
+                                              Ex.: "[shounen, seinen]" or [shounen,seinen] (the former is preferred)
+  -cr, --contentrating   list[str]          Only applicable for the provider "mangadex". Filter by content rating.
+                                            [safe, suggestive, erotica, pornographic]. Defaults to [safe, suggestive, erotica].
+                                              Ex.: "[safe, suggestive, erotica]" or [safe,suggestive,erotica] (the former is preferred)
+  -s, --status           list[str]          Only applicable for the provider "mangadex". Filter by status.
+                                            [ongoing, completed, hiatus, cancelled]
+                                              Ex.: "[Ongoing, Completed]" or [Ongoing,Completed]  (the former is preferred)
+  -o, --order            str                Only applicable for the provider "mangadex". Order results by &lt;order&gt;.
+                                            (title | year | createdAt | updatedAt | latestUploadedChapter | followedCount | relevance):(asc | desc).
+                                            Defaults to "latestUploadedChapter:desc"
+                                              Ex.: "followedCount:desc"
+  -au, --authors         list[str]          Only applicable for the provider "mangadex". Filter by author/s.
+                                              Ex.: "[Fuse, Azuma Kei]"
+  -ar, --artists         list[str]          Only applicable for the provider "mangadex". Filter by artist/s.
+                                              Ex.: "[Kawakami Taiki, Kino Kotora]"
+  -y, --year             int                Only applicable for the provider "mangadex". Filter by year.
+  -it, --includetags     list[str]          Only applicable for the provider "mangadex". Filter by including tags.
+                                            Choices can be seen on https://mangadex.org/tag.
+                                              Ex.: "[psychological, action]" or [pyschological,action] (the former is preferred)
+  -im, --includemode     str                Only applicable for the provider "mangadex" and when there are arguments passed to "includetags" option.
+                                            Included tags mode. (and | or). Defaults to "and".
+  -et, --excludetags     list[str]          Only applicable for the provider "mangadex". Filter by excluding tags.
+                                            Choices can be seen on https://mangadex.org/tag.
+                                              Ex.: "[loli, gore, sexual violence, isekai]"
+  -em, --excludemode     list[str]          Only applicable for the provider "mangadex" and when there are arguments passed to "excludetags" option.
+                                            Excluded tags mode. (and | or). Defaults to "or".
+  -r, --range            str                Chapters to be downloaded
+                                              Ex.: "5:-1 7 10-40 50-45.5" means chapter -1 to 5 (inclusive), 7, 10 to 40 (inclusive),
+                                                    and 45.5 to 50 (inclusive)
+  -c, --cover            N/A (flag)         Determines if the downloaded chapter includes a cover.
+  -dir, --directory      str                Location where to download the manga. Defaults to ~/Manga for Linux-based operating systems and
+                                            Desktop/Manga for Windows.
+  -ow, --overwrite       N/A (flag)         Determines if the downloader overwrites the file if it exists.
+                                            (True | False). Defaults to True.
+  -f, --format           str                The container of the downloaded chapter.
+                                            (7zip | cb7 | cbr | cbt | cbz | rar | tar | zip). Defaults to cbz.
+  -df, --delfolder       N/A (flag)         Only applicable if there is an argument passed to "format".
+                                            Determines if the folder will be deleted after a chapter had been archived to the proper format.
+  -rt, --retry           int                Number of times to retry a failed download. Defaults to 3.
+  -rp, --retryprompt     N/A (flag)         Determines if the program prompts the user to retry the failed download.
+  -t, --threads          int                Determines how many threads to use for downloading a chapter. Defaults to 5, Recommended to use 30-50.
+  -ct, --colortheme      str                Set the color theme. Defaults to whine.
+  -v, --verbosity        N/A (count flag)   Set the verbosity level of the logger. 0-6 with 0 being silent and 6 printing everything that is logged.
+                                            Defaults to 2.
+                                              Ex.: -vvv means verbosity level of 3
+  -sc, --saveconfig      str                Saves the arguments and options except for &lt;title&gt;, sc, lc, and olc with the given name.
+  -lc, --loadconfig      str                Loads the arguments and options except for &lt;title&gt;, sc, lc, and olc with the given name.
+  -olc, --overridelc     N/A (flag)         Only applicable when there is an argument passed to "loadconfig".
+                                            Determines if the options and arguments will override the one in the loaded config.
+  -h, --help             Show this message and exit.</code></pre></div>
+<script src="prism.js"></script>
+</body>
+</html>

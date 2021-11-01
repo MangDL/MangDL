@@ -1,0 +1,11 @@
+setuptools
+wheel
+click
+lxml
+patool
+pyyaml
+tabulate
+tarfile
+toml
+tqdm
+yachalk

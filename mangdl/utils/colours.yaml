@@ -1,0 +1,16 @@
+whine:
+  t1: F3F78D
+  t2: FF8D5C
+  t3: E84855
+  t4: B56B45
+  t5: 404E7C
+  t6: 55828B
+  t7: 4E8098
+  ac1: F0544F
+  fg1: 2C497F
+  bg1: 808A9F
+  critical: A40606
+  error: 9C0B1D
+  warning: FCDC4D
+  info: 3279A1
+  debug: 11B180
