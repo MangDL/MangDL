@@ -340,6 +340,13 @@ Check the [LICENSE](LICENSE.md) for more details.
 
 ## **Credits**
 
+### Thank you:
+
+- To [Arjix](https://github.com/ArjixWasTaken), who helped me in implementing majority of the features and de-minifying my code, making it more readable and more efficient at the same time
+- To [KR](https://github/com/justfoolingaround), who let me use the KR-naming scheme like "AnimDL" do
+- To whi~nyaan, my alter ego, for just existing (and purring, ofc)
+- And to everyone who supported me from the very beginning of this humble project to its release!
+
 ### MIT Logo
 
 <a target="_blank" href="https://commons.wikimedia.org/wiki/File:MIT_logo.svg">Massachusetts Institute of Technology</a> (vectorized by <a target="_blank" href="https://en.wikipedia.org/wiki/User:Mysid">Mysid</a>, modified by [whinee](https://github.com/whinee)), Public domain, via Wikimedia Commons
