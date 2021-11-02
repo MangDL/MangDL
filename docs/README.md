@@ -32,6 +32,8 @@
 ---
 
 <h4 align="center">
+The most inefficient manga downloader for PC (and soon, also a reader)
+
 Hewwwoooooo, whi~nyaan created a manga downloader for you.
 
 Now, give whi~nyaan lotsa hugs 'n pats. Now!
