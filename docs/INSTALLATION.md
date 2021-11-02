@@ -61,9 +61,12 @@ Part of the following is a summary of [this](https://community.chocolatey.org/co
 - After the command has finished running, install the rest of the prerequisites by running the following command:
 
     ```
+    choco install python
     choco install git -params '"/GitAndUnixToolsOnPath"'
     choco install 7zip.install
     ```
+
+- And you're done! Proceed now to [setup](README.md#setup) to install this project.
 
 ## [Mac](https://www.apple.com/mac/)
 
@@ -97,6 +100,8 @@ The following is a summary of [this](https://docs.python-guide.org/starting/inst
     brew install p7zip
     ```
 
+- And you're done! Proceed now to [setup](README.md#setup) to install this project.
+
 ## [Linux](https://www.linux.org/)
 
 Part of the following is a summary of the following guides, modified to fit accordingly:
@@ -116,6 +121,8 @@ Part of the following is a summary of the following guides, modified to fit acco
     sudo pacman -S p7zip
     ```
 
+- And you're done! Proceed now to [setup](README.md#setup) to install this project.
+
 ### [Debian](https://www.debian.org/)-based distros
 
 - Open your preferred terminal and run the following command:
@@ -130,6 +137,8 @@ Part of the following is a summary of the following guides, modified to fit acco
     sudo apt-get install p7zip-full
     ```
 
+- And you're done! Proceed now to [setup](README.md#setup) to install this project.
+
 ### [CentOS](https://www.centos.org/) 8 (and newer), [Fedora](https://getfedora.org/), and [Red Hat](https://www.redhat.com/en)-based distros
 
 - Open your preferred terminal and run the following command:
@@ -140,6 +149,8 @@ Part of the following is a summary of the following guides, modified to fit acco
     sudo dnf install git-all
     sudo dnf install p7zip p7zip-plugins
     ```
+
+- And you're done! Proceed now to [setup](README.md#setup) to install this project.
 
 ### [CentOS](https://www.centos.org/) 6 and 7, and older versions of [Red Hat](https://www.redhat.com/en)-based distros
 
@@ -155,6 +166,8 @@ Part of the following is a summary of the following guides, modified to fit acco
     sudo yum install git
     sudo yum install p7zip
     ```
+
+- And you're done! Proceed now to [setup](README.md#setup) to install this project.
 
 ## **Credits**
 

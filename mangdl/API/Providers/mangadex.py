@@ -1,22 +1,22 @@
 import ast
 import time
-from typing import Any, Dict, List, Union
 from importlib import import_module
+from typing import Any, Dict, List, Union
 
 import httpx
 
+from ...utils import style
+from ...utils.settings import stg
 from ...utils.utils import ddir, de, dnrp, parse_list
 from ..Base import Vls
-from ...utils.settings import stg
-from ...utils import style
 
 try:
     from ...utils.globals import log
 except ImportError:
     log = import_module(f'mangdl.utils.globals').log
-from ..Base import Ch, Downloader, Manga, req, tblp, Search
-
 from ...utils import globals
+from ..Base import Ch, Downloader, Manga, Search, req, tblp
+
 if not globals.log:
     from ...utils.log import logger
     log = logger(2)

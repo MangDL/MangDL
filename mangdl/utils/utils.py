@@ -16,16 +16,15 @@ from .settings import stg
 
 
 def dnrp(file: str, n: int=1) -> str:
-    #FIXME: the docs aint clear
     """
-    Returns the directory component of a pathname by n times.
+    Get the directory component of a pathname by n times recursively then return it.
 
     Args:
         file (str): File to get the directory of.
         n (int, optional): Number of times to get up the directory???? Defaults to 1.
 
     Returns:
-        op (str): [description]
+        op (str): The directory component got recursively by n times from the given pathname
     """
     op = rp(file)
     for _ in range(n):
@@ -48,7 +47,7 @@ def de(a: Any, d: Any) -> Any:
     else:
         return d
 
-def dd(default: dict[Any, Any], d: dict[Any, Any] | None):
+def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]):
     op = default
     if d:
         for a, v in d.items():
@@ -95,25 +94,11 @@ def dt(dt: str) -> str:
     else:
         raise exceptions.UnexpectedDatetimeFormat(datetime)
 
-def texc(fn:Callable[[Any], Any], exc: Callable[[Any], Any]=lambda: None, e: Exception = BaseException):
-    """try except statement in a line
-
-    Args:
-        fn (function): Function to execute/catch.
-        exc (function, optional): Function to executch when fn failed. Defaults to lambda:None.
-        e (exception, optional): Exception to catch. Defaults to BaseException.
-    """
-    try:
-        return fn()
-    except e:
-        return exc()
-
 def cao(group: click.group, module: dict[Any, Any]):
     module = stg(f"cmd/{module}", f"{dnrp(__file__)}/config.yaml")
     arguments = module["arguments"]
 
     def c(f: Callable[[Any], Any]):
-        s, h = module["help"]
         help = []
         if arguments:
             for k, v in arguments.items():
@@ -122,6 +107,7 @@ def cao(group: click.group, module: dict[Any, Any]):
                 t, h, e = v["help"]
                 e = '\nEx.: {e}' if e else ""
                 help.append([f"<{k}>", t, f'{h}{e}'])
+        s, h = module["help"]
         return group.command(*de(module["args"], []), **dd({"context_settings": {'help_option_names': ['-h', '--help']}, "short_help": s, "help": f"\b\n{h}\n{tabulate(help, tablefmt='plain')}"}, module["kwargs"]))(f)
 
     def a(f: Callable[[Any], Any]):
@@ -137,8 +123,7 @@ def cao(group: click.group, module: dict[Any, Any]):
         return f
 
     def o(f: Callable[[Any], Any]):
-        opts = module["options"]
-        if opts:
+        if opts:= module["options"]:
             n = 0
             args = {}
             kwargs = {}

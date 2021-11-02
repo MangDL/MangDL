@@ -8,18 +8,18 @@ from dataclasses import dataclass, field
 from functools import lru_cache, partial
 from multiprocessing.pool import ThreadPool
 from typing import Any, Callable, Dict, List, Union
-from bs4 import BeautifulSoup
-from tqdm import tqdm
 
 import click
 import httpx
+import patoolib
+from bs4 import BeautifulSoup
 from tabulate import tabulate
+from tqdm import tqdm
 from yachalk import chalk
 
+from ..utils import style
 from ..utils.globals import log
 from ..utils.settings import stg
-from ..utils import style
-import patoolib
 
 session = httpx.Client()
 

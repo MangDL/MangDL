@@ -1,14 +1,15 @@
+import fcntl
 import inspect
+import struct
+import termios
 import textwrap
 from datetime import datetime
 from functools import partial
 from threading import Lock
-import fcntl
-import termios
-import struct
+
+from yachalk import chalk
 
 from . import style
-from yachalk import chalk
 
 levels = {
     "critical": "A40606",

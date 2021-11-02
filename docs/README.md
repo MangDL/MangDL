@@ -35,14 +35,6 @@
 Hewwwoooooo, whi~nyaan created a manga downloader for you.
 
 Now, give whi~nyaan lotsa hugs 'n pats. Now!
-
-Whi~nyaan seems to forget something that is needed to be fixed tho',
-
-so please, do not use it yet.
-
-Whi~nyaan is super ashamed of this,
-
-but just wait for whi~nyaan shall fix this mess nyaan\~
 </h4>
 
 <h6 align="center">
@@ -60,9 +52,24 @@ Developed and tested in Python 3.10.0, Arch Linux 5.14.14-arch1-1.
 
 ---
 
+## **Important**
+
+The downloader part of this project is being re-written. Thus, it is not recommended to use this project at the moment.
+
+Watch this repository for the latest updates regarding this project.
+
+## **Features**
+
+- Ad free
+- Batch downloading
+- 0% tracking and analytics
+- Can be used as a library
+
 <!-- TOC section. Update when adding sections and subsections fitted in TOC. -->
 ## **Table of Contents**
 
+- [**Important**](#important)
+- [**Features**](#features)
 - [**Table of Contents**](#table-of-contents)
 - [**Usage**](#usage)
 - [**Getting Started**](#getting-started)
@@ -78,6 +85,8 @@ Developed and tested in Python 3.10.0, Arch Linux 5.14.14-arch1-1.
 
 <!-- Mention examples of application of this repository. -->
 ## **Usage**
+
+Before using this project, it is recommended to visit [LICENSE.md](LICENSE.md) and [DISCLAIMER.md](DISCLAIMER.md) for the Terms of usage and legals.
 
 ```bash
 mangdl -h

@@ -1,10 +1,13 @@
-from ..Base import soup, Ch, Downloader, Manga, tblp
-from ...utils.globals import log
 import ast
-from typing import Any, Callable, Dict, Union
-from datetime import datetime
 import re
+from datetime import datetime
+from typing import Any, Callable, Dict, Union
+
 from yachalk import chalk
+
+from ...utils.globals import log
+from ..Base import Ch, Downloader, Manga, soup, tblp
+
 
 def manga(url: str) -> Manga:
     log.debug(f"Converting {url} to Manga dataclass.", "manga")
@@ -94,6 +97,11 @@ def cli_search(title: str, **kwargs: dict[str, Any]):
     return search(title, **kwargs)
 
 def fastdl(title: str, **kwargs: Dict[str: Any]):
+    """[summary]
+
+    Args:
+        title (str): Title of the manga to download
+    """
     sr = cli_search(title, **kwargs)
     if sr:
         ls = list(sr.keys())
