@@ -22,7 +22,6 @@ setup(
         "patool",
         "pyyaml",
         "tabulate",
-        "tarfile",
         "toml",
         "tqdm",
         "yachalk"

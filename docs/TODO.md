@@ -6,11 +6,15 @@
 
     - [ ] Manga Update notifier
 
+    - [ ] Backupable library with an option to store an offsite backup in [supabase.io](https://supabase.io)
+
 - [ ] GUI
 
     - [ ] Reader
 
 - [ ] MAL / Anilist sync
+
+- [ ] Fully opt-in 99% configureable (mostly opinionated) analytics for new and some sampled features
 
 ## Side Quests
 
@@ -18,12 +22,6 @@
 
 - [ ] Saving command options to config file
 
-- [ ] Submission of new color theme
+- [ ] Submission of new color theme for the CLI and possibly for the future GUI
 
 - [ ] Returning/Downloading translated languages using locale of the machine and an option to override it
-
-## Done
-
-### Main to do
-
-### Side Quests

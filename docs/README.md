@@ -67,11 +67,17 @@ Watch this repository for the latest updates regarding this project.
 - 0% tracking and analytics
 - Can be used as a library
 
+## **Sites**
+
+- [mangadex.org](https://mangadex.org)
+- [manganato.com](https://manganato.com)
+
 <!-- TOC section. Update when adding sections and subsections fitted in TOC. -->
 ## **Table of Contents**
 
 - [**Important**](#important)
 - [**Features**](#features)
+- [**Sites**](#sites)
 - [**Table of Contents**](#table-of-contents)
 - [**Usage**](#usage)
 - [**Getting Started**](#getting-started)
@@ -280,11 +286,15 @@ After checking or installing Python, pip, and git in your machine, proceed to th
 
     - [ ] Manga Update notifier
 
+    - [ ] Backupable library with an option to store an offsite backup in [supabase.io](https://supabase.io)
+
 - [ ] GUI
 
     - [ ] Reader
 
 - [ ] MAL / Anilist sync
+
+- [ ] Fully opt-in 99% configureable (mostly opinionated) analytics for new and some sampled features
 
 ### Side Quests
 
@@ -292,15 +302,9 @@ After checking or installing Python, pip, and git in your machine, proceed to th
 
 - [ ] Saving command options to config file
 
-- [ ] Submission of new color theme
+- [ ] Submission of new color theme for the CLI and possibly for the future GUI
 
 - [ ] Returning/Downloading translated languages using locale of the machine and an option to override it
-
-### Done
-
-#### Main to do
-
-#### Side Quests
 
 ## **FAQs**
 
@@ -308,7 +312,7 @@ After checking or installing Python, pip, and git in your machine, proceed to th
 
 *A. Thru discord, friend requests are accepted but is not required.*
 
-Discord Account: **<a target="_blank" href="https://discord.com/users/867696753434951732">\S#5135</a>**
+Discord Account: **<a target="_blank" href="https://discord.com/users/867696753434951732">whi_ne#5135</a>**
 
 ## **Contributions**
 
@@ -370,6 +374,6 @@ Check the [LICENSE](LICENSE.md) for more details.
 
 <sub>
     <i>
-        <b>NOTE:</b> If a reference or source material is not attributed properly or not at all, please kindly message me at Discord: <a target="_blank" href="https://discord.com/users/867696753434951732">\S#5135</a> (or create a pull request, but at the moment there are no template for pull request so creating one I suppose would be hard) so I can properly give credit to their respective authors.
+        <b>NOTE:</b> If a reference or source material is not attributed properly or not at all, please kindly message me at Discord: <a target="_blank" href="https://discord.com/users/867696753434951732">whi_ne#5135</a> (or create a pull request, but at the moment there are no template for pull request so creating one I suppose would be hard) so I can properly give credit to their respective authors.
     </i>
 </sub>
