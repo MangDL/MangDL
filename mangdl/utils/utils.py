@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from functools import lru_cache
 from os.path import dirname as dn
 from os.path import realpath as rp
-from typing import Any, Callable
+from typing import Any, Callable, Dict, Union
 
 import click
 from tabulate import tabulate
@@ -168,7 +168,7 @@ def command(group: click.group):
         return f
     return inner
 
-def parse_list(opt: str | None):
+def parse_list(opt: Union[str, None]):
     """
     Takes a string and evaluates it to a list if it is a list,
     else it splits it into a list.

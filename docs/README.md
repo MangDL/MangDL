@@ -33,10 +33,6 @@
 
 <h4 align="center">
 The most inefficient manga downloader for PC (and soon, also a reader)
-
-Hewwwoooooo, whi~nyaan created a manga downloader for you.
-
-Now, give whi~nyaan lotsa hugs 'n pats. Now!
 </h4>
 
 <h6 align="center">
@@ -54,12 +50,6 @@ Developed and tested in Python 3.10.0, Arch Linux 5.14.14-arch1-1.
 
 ---
 
-## **Important**
-
-The downloader part of this project is being re-written. Thus, it is not recommended to use this project at the moment.
-
-Watch this repository for the latest updates regarding this project.
-
 ## **Features**
 
 - Ad free
@@ -72,10 +62,13 @@ Watch this repository for the latest updates regarding this project.
 - [mangadex.org](https://mangadex.org)
 - [manganato.com](https://manganato.com)
 
+### Coming soon
+
+- [catmanga.org](https://catmanga.org)
+
 <!-- TOC section. Update when adding sections and subsections fitted in TOC. -->
 ## **Table of Contents**
 
-- [**Important**](#important)
 - [**Features**](#features)
 - [**Sites**](#sites)
 - [**Table of Contents**](#table-of-contents)
@@ -281,6 +274,8 @@ After checking or installing Python, pip, and git in your machine, proceed to th
 # TODO
 
 ### Main to do
+
+- [ ] Documentation
 
 - [ ] Library
 

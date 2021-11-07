@@ -57,7 +57,7 @@ class logger:
                 ln = style.t6(f'{ln:04d}')
                 l = chalk.hex(levels[level]).bold(f"{level.upper(): <8}")
                 def fmsg(x: int, indent: str=None) -> str:
-                    f, *ls = textwrap.TextWrapper(width=TERM_WIDTH - x).wrap(text=msg)
+                    f, *ls = textwrap.TextWrapper(width=TERM_WIDTH - x).wrap(text=str(msg))
                     if not indent:
                         n = TERM_WIDTH - (TERM_WIDTH - x)
                         indent = " " * n

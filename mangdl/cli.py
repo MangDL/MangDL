@@ -18,7 +18,7 @@ print(chalk.hex("D2748D").bold(r"""
    \ \_\    \ \_\\ \_\ \ \_\\ \_\＼ ＼____\\ \________\\ \_____/ \ \_____\
     \/_/     \/_/ \/_/  \/_/ \/_/  ＼/____/ \/________/ \/____/   \/_____/
 
-The most inefficient, user-friendly and colorful manga downloader (and soon, also a reader)""") + chalk.hex("3279a1")('\nWIP ofc, whaddya expect?\n'))
+The most inefficient, non user-friendly and colorful manga downloader (and soon, also a reader)""") + chalk.hex("3279a1")('\nWIP ofc, whaddya expect?\n'))
 
 @click.group(context_settings={'help_option_names': ['-h', '--help']})
 def cli():
@@ -45,7 +45,7 @@ def dl(title: str, **kwargs: dict[str, Any]):
         wr_stg(f'config/dl/{sc}', kwargs)
     else:
         prov = kwargs.pop("provider")
-        getattr(importlib.import_module(f'mangdl.API.Providers.{prov if prov else "mangadex"}'), "fastdl")(title, **kwargs)
+        getattr(importlib.import_module(f'mangdl.API.Providers.{prov if prov else "mangadex"}'), "dl")(title, **kwargs)
 
 @command(cli)
 def credits():

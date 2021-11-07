@@ -74,7 +74,7 @@ def chapter(url: str) -> Ch:
         imgs            = [i["src"] for i in soup(url).select(".container-chapter-reader img")]
     )
 
-def search(title: str, **kwargs: dict[str, Any]):
+def search(title: str, **kwargs: Dict[str, Any]):
     log.info("Ignoring all keword arguments at the moment. Will add advanced searching later.", "search")
     title = re.sub(r'[^A-Za-z0-9 ]+', '', title).replace(" ", "_")
     sr = {}
@@ -92,35 +92,18 @@ def search(title: str, **kwargs: dict[str, Any]):
             sr[r["title"]] = r["href"]
     return sr
 
-def cli_search(title: str, **kwargs: dict[str, Any]):
+def cli_search(title: str, **kwargs: Dict[str, Any]):
     log.debug('No processing to do with the arguments, will be immediately passed to the function "search".', "cli search")
     return search(title, **kwargs)
 
-def fastdl(title: str, **kwargs: Dict[str: Any]):
-    """[summary]
-
-    Args:
-        title (str): Title of the manga to download
-    """
+def dl(title: str, **kwargs: Dict[str, Any]):
     sr = cli_search(title, **kwargs)
-    if sr:
-        ls = list(sr.keys())
-        choice = ls[int(tblp(ls))]
-        log.debug("fastdl epoch", "fastdl")
-        n = 1
-        chaps = {}
+    def ch_fn(url: str):
+        return [i["src"] for i in soup(url).select(".container-chapter-reader img")]
+    def chs_fn(choice: str):
+        op = []
         for c in soup(sr[choice]).select("li.a-h"):
             a = c.select_one("a")
-            if ch:= a["href"].split("-")[-1]:
-                k = ast.literal_eval(ch)
-            else:
-                k = -n
-                n += 1
-            chaps[k] = a["href"]
-        def inner(chap: Dict[Union[int, float], str]):
-            k, v = list(chap.items())[0]
-            return k, [i["src"] for i in soup(v).select(".container-chapter-reader img")]
-        Downloader(choice, chaps, inner, lambda *args, **kwargs: 3, kwargs["directory"], **kwargs).dl(headers={"Referer": "https://readmanganato.com/"})
-    else:
-        log.debug("No manga found.", "download")
-        print(chalk.hex("e76f51").bold(f"No manga titled {title} or anything similar found. Use other search terms or remove some filters."))
+            op.append({a["href"].split("-")[-1]: a["href"]})
+        return op
+    Downloader(sr, chs_fn, ch_fn, headers={"Referer": "https://readmanganato.com/"}, **kwargs)

@@ -196,7 +196,7 @@ def search(s: Search):
                      params.append(f"{ad[k]}[]={vv}")
     for page in paginate(f'https://api.mangadex.org/manga?{"&".join(params)}'):
         for comic in page["data"]:
-            sr[value(ddir(comic, "attributes/title"))] = comic["id"]
+            sr[value(ddir(comic, "attributes/title"))] = f'https://mangadex.org/title/{comic["id"]}'
     return sr
 
 def msearch(s: Search):
@@ -268,43 +268,23 @@ def cli_search(title: str, **kwargs: Dict[str, Any]):
 
     return search(Search(title, **params))
 
-
-def fastdl(title: str, **kwargs: Dict[str, Any]):
-    """Download the manga without fetching unnecessary metadata for
-    downloading.
-    Theoretically faster than download, but hasn't been tested scientifically yet.
-
-    Args:
-        title (str): Title of the manga to download
-    """
+def dl(title: str, **kwargs: Dict[str, Any]):
     sr = cli_search(title, **kwargs)
-    if sr:
-        ls = list(sr.keys())
-        choice = ls[int(tblp(ls))]
-        log.debug("fastdl epoch", "fastdl")
+    def ch_fn(id: str):
+        resp_obj = req.get(f"https://api.mangadex.org/chapter/{id}", ra).json()
+        hash = ddir(resp_obj, 'data/attributes/hash')
+        bu = req.get(f"https://api.mangadex.org/at-home/server/{ddir(resp_obj, 'data/id')}", ra).json()["baseUrl"]
+        return [f"{bu}/data/{hash}/{i}" for i in ddir(resp_obj, "data/attributes/data")]
+    def chs_fn(choice: str):
         url = sr[choice]
         url_parts = url.split('/')
         if len(url_parts) == 5:
             manga_id = url_parts[-1]
         else:
             manga_id = url
-        n = 1
-        chaps = {}
-        for d in paginate(f"https://api.mangadex.org/manga/{manga_id}/feed", 500, {"translatedLanguage[]": "en", "order[chapter]": "desc"}):
-            for r in d["data"]:
-                ch = ddir(r, "attributes/chapter")
-                if ch:
-                    k = ast.literal_eval(ch)
-                else:
-                    k = -n
-                    n += 1
-                chaps[k] = ddir(r, 'id')
-        def inner(chap: Dict[Union[int, float], str]):
-            k, v = list(chap.items())[0]
-            resp_obj = req.get(f"https://api.mangadex.org/chapter/{v}", ra).json()
-            bu = req.get(f"https://api.mangadex.org/at-home/server/{ddir(resp_obj, 'data/id')}", ra).json()["baseUrl"]
-            return k, [f"{bu}/data/{ddir(resp_obj, 'data/attributes/hash')}/{i}" for i in ddir(resp_obj, "data/attributes/data")]
-        Downloader(choice, chaps, inner, ra, kwargs["directory"], **kwargs).dl()
-    else:
-        log.debug("No manga found.", "fastdl")
-        print(style.warning(f"No manga titled {title} or anything similar found. Use other search terms or remove some filters."))
+        op = []
+        for i in paginate(f"https://api.mangadex.org/manga/{manga_id}/feed", 500, {"translatedLanguage[]": "en", "order[chapter]": "desc"}):
+            for d in i["data"]:
+                op.append({ddir(d, "attributes/chapter"): d["id"]})
+        return op
+    Downloader(sr, chs_fn, ch_fn, ra=ra, **kwargs)

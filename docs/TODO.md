@@ -2,6 +2,8 @@
 
 ## Main to do
 
+- [ ] Documentation
+
 - [ ] Library
 
     - [ ] Manga Update notifier
