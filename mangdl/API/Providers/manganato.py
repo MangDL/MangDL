@@ -6,7 +6,7 @@ from typing import Any, Callable, Dict, Union
 from yachalk import chalk
 
 from ...utils.globals import log
-from ..Base import Ch, Downloader, Manga, soup, tblp
+from ..Base import Ch, Downloader, Manga, Search, soup, tblp
 
 
 def manga(url: str) -> Manga:
@@ -74,9 +74,9 @@ def chapter(url: str) -> Ch:
         imgs            = [i["src"] for i in soup(url).select(".container-chapter-reader img")]
     )
 
-def search(title: str, **kwargs: Dict[str, Any]):
+def search(s: Search):
     log.info("Ignoring all keword arguments at the moment. Will add advanced searching later.", "search")
-    title = re.sub(r'[^A-Za-z0-9 ]+', '', title).replace(" ", "_")
+    title = re.sub(r'[^A-Za-z0-9 ]+', '', s.title).replace(" ", "_")
     sr = {}
     ms = soup(f"https://manganato.com/search/story/{title}")
     gp = ms.select_one(".group-page")
@@ -94,10 +94,20 @@ def search(title: str, **kwargs: Dict[str, Any]):
 
 def cli_search(title: str, **kwargs: Dict[str, Any]):
     log.debug('No processing to do with the arguments, will be immediately passed to the function "search".', "cli search")
-    return search(title, **kwargs)
+    return search(Search(title, **kwargs))
 
-def dl(title: str, **kwargs: Dict[str, Any]):
-    sr = cli_search(title, **kwargs)
+def dl(url: str, **kwargs: Dict[str, Any]):
+    ms = soup(url)
+    def ch_fn(url: str):
+        return [i["src"] for i in soup(url).select(".container-chapter-reader img")]
+    chdls = []
+    for c in ms.select("li.a-h"):
+        a = c.select_one("a")
+        chdls.append({a["href"].split("-")[-1]: a["href"]})
+    Downloader(ch_fn, headers={"Referer": "https://readmanganato.com/"}, **kwargs).cli(ms.select_one(".story-info-right h1").text, chdls)
+
+def cli_dl(title: str, **kwargs: Dict[str, Any]):
+    sr = cli_search(title)
     def ch_fn(url: str):
         return [i["src"] for i in soup(url).select(".container-chapter-reader img")]
     def chs_fn(choice: str):
@@ -106,4 +116,4 @@ def dl(title: str, **kwargs: Dict[str, Any]):
             a = c.select_one("a")
             op.append({a["href"].split("-")[-1]: a["href"]})
         return op
-    Downloader(sr, chs_fn, ch_fn, headers={"Referer": "https://readmanganato.com/"}, **kwargs)
+    Downloader(ch_fn, headers={"Referer": "https://readmanganato.com/"}, **kwargs).cli(sr, chs_fn)

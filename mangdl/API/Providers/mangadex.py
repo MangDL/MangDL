@@ -1,33 +1,37 @@
 import ast
 import time
-from importlib import import_module
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List
+from unittest.util import strclass
 
 import httpx
 
-from ...utils import style
 from ...utils.settings import stg
 from ...utils.utils import ddir, de, dnrp, parse_list
 from ..Base import Vls
 
-try:
-    from ...utils.globals import log
-except ImportError:
-    log = import_module(f'mangdl.utils.globals').log
+from ...utils.globals import log
 from ...utils import globals
-from ..Base import Ch, Downloader, Manga, Search, req, tblp
+from ..Base import Ch, Downloader, Manga, Search, req
 
 if not globals.log:
     from ...utils.log import logger
     log = logger(2)
 
 def ra(resp: httpx.Response) -> int:
+    """Return the current time subracted to retry after header from the given
+    response object.
+
+    Args:
+        resp (httpx.Response): Response object to get the retry after header from.
+
+    Returns:
+        int: current time subracted to retry after header.
+    """
     op = int(resp.headers["X-RateLimit-Retry-After"]) - int(time.time()) + 1
     return op
 
 def value(d: Dict[Any, Any]) -> Any:
-    """
-    Returns the first value of the first key from a dictionary
+    """Returns the first value of the first key from a dictionary
 
     Args:
         d (dict[Any, Any]): Dictionary to get the first value from.
@@ -38,8 +42,7 @@ def value(d: Dict[Any, Any]) -> Any:
     return list(d.values())[0]
 
 def paginate(url: str, limit: int = 100, params: Dict[Any, Any] = {}) -> List[Dict[str, Any]]:
-    """
-    Paginate results from an API endpoint with limited results per calls.
+    """Paginate results from an API endpoint with limited results per calls.
 
     Args:
         log (Callable[[str, str, str], None]): logger
@@ -70,8 +73,7 @@ def paginate(url: str, limit: int = 100, params: Dict[Any, Any] = {}) -> List[Di
 
 
 def manga(url: str) -> Manga:
-    """
-    Returns a Manga object from the given url.
+    """Returns a Manga object from the given url.
 
     Args:
         url (str): url of the manga
@@ -146,8 +148,7 @@ def manga(url: str) -> Manga:
 
 
 def chapter(url: str) -> Ch:
-    """
-    Return a Ch object from the given url.
+    """Return a Ch object from the given url.
 
     Args:
         url (str): url of the chapter
@@ -175,7 +176,15 @@ def chapter(url: str) -> Ch:
         imgs        = [f"{bu}/data/{attr('hash')}/{i}" for i in attr("data")],
     )
 
-def search(s: Search):
+def dl_search(s: Search) -> Dict[str, str]:
+    """Used for downloading when imported.
+
+    Args:
+        s (Search): [description]
+
+    Returns:
+        Dict[str, str]: [description]
+    """
     params = []
     sr = {}
     ad = stg(f"mangadex/search", f"{dnrp(__file__, 3)}/utils/config.yaml")
@@ -199,10 +208,27 @@ def search(s: Search):
             sr[value(ddir(comic, "attributes/title"))] = f'https://mangadex.org/title/{comic["id"]}'
     return sr
 
-def msearch(s: Search):
-    return [manga(i) for i in search(s).values()]
+def search(s: Search) -> List[Manga]:
+    """Can be used for searching manga when using this project as a module.
 
-def cli_search(title: str, **kwargs: Dict[str, Any]):
+    Args:
+        s (Search): Search dataclass, search parameters for searching.
+
+    Returns:
+        List[Manga]: Search results.
+    """
+    return [manga(i) for i in dl_search(s).values()]
+
+def cli_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
+    """Format click arguments and options to their respective types,
+    then pass that to `dl_search` for it to return the search results.
+
+    Args:
+        title (str): Title of the manga to search for.
+
+    Returns:
+        Dict[str, str]: Search results
+    """
     params = {}
     tags = {ddir(t, "attributes/name/en").lower(): t["id"] for t in req.get("https://api.mangadex.org/manga/tag", ra).json()["data"]}
     vls = {"tags": [*tags.keys()]}
@@ -266,9 +292,36 @@ def cli_search(title: str, **kwargs: Dict[str, Any]):
     elif et:
         log.debug('"excludemode" option is empty, defaults to "OR".', "excludetags")
 
-    return search(Search(title, **params))
+    return dl_search(Search(title, **params))
 
-def dl(title: str, **kwargs: Dict[str, Any]):
+def dl(url: str, **kwargs: Dict[str, Any]):
+    """Used for downloading when using the project as a module.
+
+    Args:
+        url (str): URL of the manga to download.
+    """
+    def ch_fn(id: str):
+        resp_obj = req.get(f"https://api.mangadex.org/chapter/{id}", ra).json()
+        hash = ddir(resp_obj, 'data/attributes/hash')
+        bu = req.get(f"https://api.mangadex.org/at-home/server/{ddir(resp_obj, 'data/id')}", ra).json()["baseUrl"]
+        return [f"{bu}/data/{hash}/{i}" for i in ddir(resp_obj, "data/attributes/data")]
+    url_parts = url.split('/')
+    if len(url_parts) == 5:
+        manga_id = url_parts[-1]
+    else:
+        manga_id = url
+    chdls = []
+    for i in paginate(f"https://api.mangadex.org/manga/{manga_id}/feed", 500, {"translatedLanguage[]": "en", "order[chapter]": "desc"}):
+        for d in i["data"]:
+            chdls.append({ddir(d, "attributes/chapter"): d["id"]})
+    Downloader(ch_fn, ra, **kwargs).dl_chdls(ddir(*req.get(f"https://api.mangadex.org/manga/{manga_id}").json(), "data/attributes/title").values()[0], chdls)
+
+def cli_dl(title: str, **kwargs: Dict[str, Any]):
+    """Used for downloading when using cli.
+
+    Args:
+        title (str): Title of the manga to download.
+    """
     sr = cli_search(title, **kwargs)
     def ch_fn(id: str):
         resp_obj = req.get(f"https://api.mangadex.org/chapter/{id}", ra).json()
@@ -287,4 +340,4 @@ def dl(title: str, **kwargs: Dict[str, Any]):
             for d in i["data"]:
                 op.append({ddir(d, "attributes/chapter"): d["id"]})
         return op
-    Downloader(sr, chs_fn, ch_fn, ra=ra, **kwargs)
+    Downloader(ch_fn, ra, **kwargs).cli(sr, chs_fn)

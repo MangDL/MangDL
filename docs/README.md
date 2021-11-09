@@ -50,6 +50,12 @@ Developed and tested in Python 3.10.0, Arch Linux 5.14.14-arch1-1.
 
 ---
 
+## **Important**
+
+The downloader is under a massive rewrite for the 2nd time. It is highly advised to NOT use this project until the rewrite is finished.
+
+To be updated in the latest commits, be sure to watch this repository. A package will be released soon as a beta.
+
 ## **Features**
 
 - Ad free
@@ -69,6 +75,7 @@ Developed and tested in Python 3.10.0, Arch Linux 5.14.14-arch1-1.
 <!-- TOC section. Update when adding sections and subsections fitted in TOC. -->
 ## **Table of Contents**
 
+- [**Important**]($important)
 - [**Features**](#features)
 - [**Sites**](#sites)
 - [**Table of Contents**](#table-of-contents)

@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from functools import lru_cache
 from os.path import dirname as dn
 from os.path import realpath as rp
-from typing import Any, Callable, Dict, Union
+from typing import Any, Callable, Dict, List, Union
 
 import click
 from tabulate import tabulate
@@ -47,7 +47,17 @@ def de(a: Any, d: Any) -> Any:
     else:
         return d
 
-def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]):
+def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -> dict[Any, Any]:
+    """Defaults dictionary. Overwrite the items in the default dict with the
+    items in the d dict.
+
+    Args:
+        default (Dict[Any, Any]): The dict to rewrite the items to.
+        d (Union[Dict[Any, Any], None]): The dict to rewrite the items from.
+
+    Returns:
+        dict[Any, Any]
+    """
     op = default
     if d:
         for a, v in d.items():
@@ -55,7 +65,11 @@ def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]):
     return op
 
 def ddir(d: dict[Any: Any], dir: str) -> Any:
-    """Retrieve dictionary value using directory.
+    """Retrieve dictionary value using recursive indexing with a string.
+    ex.:
+        `ddir({"data": {"attr": {"ch": 1}}}, "data/attr/ch")`
+        will return `1`
+
 
     Args:
         dict (dict): Dictionary to retrieve the value from.
@@ -94,11 +108,28 @@ def dt(dt: str) -> str:
     else:
         raise exceptions.UnexpectedDatetimeFormat(datetime)
 
-def cao(group: click.group, module: dict[Any, Any]):
-    module = stg(f"cmd/{module}", f"{dnrp(__file__)}/config.yaml")
-    arguments = module["arguments"]
+def cao(group: click.group, cmd: str) -> List[Callable[[Callable[[Any], Any]], Callable[[Any], Any]]]:
+    """Retruns wrappers for a click command evaluated from the given arguments.
 
-    def c(f: Callable[[Any], Any]):
+    Args:
+        group (click.group): Command group of the command to be under.
+        cmd (str): Name of the command.
+
+    Returns:
+        List[Callable[[Callable[[Any], Any]], Callable[[Any], Any]]]: The wrappers.
+    """
+    cmd = stg(f"cmd/{cmd}", f"{dnrp(__file__)}/config.yaml")
+    arguments = cmd["arguments"]
+
+    def c(f: Callable[[Any], Any]) -> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]:
+        """The command wrapper.
+
+        Args:
+            f (Callable[[Any], Any]): The command function to be decorated.
+
+        Returns:
+            Callable[[Callable[[Any], Any]], Callable[[Any], Any]]
+        """
         help = []
         if arguments:
             for k, v in arguments.items():
@@ -107,10 +138,18 @@ def cao(group: click.group, module: dict[Any, Any]):
                 t, h, e = v["help"]
                 e = '\nEx.: {e}' if e else ""
                 help.append([f"<{k}>", t, f'{h}{e}'])
-        s, h = module["help"]
-        return group.command(*de(module["args"], []), **dd({"context_settings": {'help_option_names': ['-h', '--help']}, "short_help": s, "help": f"\b\n{h}\n{tabulate(help, tablefmt='plain')}"}, module["kwargs"]))(f)
+        s, h = cmd["help"]
+        return group.command(*de(cmd["args"], []), **dd({"context_settings": {'help_option_names': ['-h', '--help']}, "short_help": s, "help": f"\b\n{h}\n{tabulate(help, tablefmt='plain')}"}, cmd["kwargs"]))(f)
 
-    def a(f: Callable[[Any], Any]):
+    def a(f: Callable[[Any], Any]) -> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]:
+        """The arguments wrapper.
+
+        Args:
+            f (Callable[[Any], Any]): The command function to be decorated.
+
+        Returns:
+            Callable[[Callable[[Any], Any]], Callable[[Any], Any]]
+        """
         args = {}
         kwargs = {}
         if arguments:
@@ -122,8 +161,16 @@ def cao(group: click.group, module: dict[Any, Any]):
                 f = click.argument(*args[i], **kwargs[i])(f)
         return f
 
-    def o(f: Callable[[Any], Any]):
-        if opts:= module["options"]:
+    def o(f: Callable[[Any], Any]) -> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]:
+        """The options wrapper.
+
+        Args:
+            f (Callable[[Any], Any]): The command function to be decorated.
+
+        Returns:
+            Callable[[Callable[[Any], Any]], Callable[[Any], Any]]
+        """
+        if opts:= cmd["options"]:
             n = 0
             args = {}
             kwargs = {}
@@ -157,9 +204,14 @@ def cao(group: click.group, module: dict[Any, Any]):
     return c, a, o
 
 
-def command(group: click.group):
-    """
-    Returns a decorator for wrapping cli commands.
+def command(group: click.group) -> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]:
+    """Wrapper for click commands.
+
+    Args:
+        group (click.group): Command group of the command to be under.
+
+    Returns:
+        Callable[[Callable[[Any], Any]], Callable[[Any], Any]]
     """
     def inner(f: Callable[[Any], Any]):
         m = inspect.getouterframes(inspect.currentframe())[1][4][0]
@@ -168,12 +220,16 @@ def command(group: click.group):
         return f
     return inner
 
+
 def parse_list(opt: Union[str, None]):
     """
     Takes a string and evaluates it to a list if it is a list,
     else it splits it into a list.
 
     It then evaluates the values of that list.
+
+    Args:
+        opt (Union[str, None]): The object to be evaluated.
     """
 
     if type(opt) is str:

@@ -22,15 +22,17 @@ The most inefficient, non user-friendly and colorful manga downloader (and soon,
 
 @click.group(context_settings={'help_option_names': ['-h', '--help']})
 def cli():
+    """Main command group.
+    """
     pass
 
 @command(cli)
-def config(command: str, **kwargs: dict[str, Any]):
-    globals.log = logger(kwargs["verbosity"])
-    print("cool")
-
-@command(cli)
 def dl(title: str, **kwargs: dict[str, Any]):
+    """Download command.
+
+    Args:
+        title (str): The title of the manga to be search for and download.
+    """
     globals.log = logger(kwargs["verbosity"])
     globals.style = kwargs["colortheme"]
     sc = kwargs["saveconfig"]
@@ -45,10 +47,12 @@ def dl(title: str, **kwargs: dict[str, Any]):
         wr_stg(f'config/dl/{sc}', kwargs)
     else:
         prov = kwargs.pop("provider")
-        getattr(importlib.import_module(f'mangdl.API.Providers.{prov if prov else "mangadex"}'), "dl")(title, **kwargs)
+        getattr(importlib.import_module(f'mangdl.API.Providers.{prov if prov else "mangadex"}'), "cli_dl")(title, **kwargs)
 
 @command(cli)
 def credits():
+    """Credits command. Display credits.
+    """
     print(chalk.hex("D2748D").bold(r"""
  ______  ______  ______  _____   __  ______  ______
 /\  ___\/\  == \/\  ___\/\  __-./\ \/\__  _\/\  ___\
