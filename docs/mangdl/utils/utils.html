@@ -25,7 +25,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/utils.py#L1-L248" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/5c9703cf55402f7b9746460440f87c07af75b422/mangdl/utils/utils.py#L1-L248" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">import ast
 import builtins
@@ -285,7 +285,7 @@ def parse_list(opt: Union[str, None]):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="mangdl.utils.utils.cao"><code class="name flex">
-<span>def <span class="ident">cao</span></span>(<span>group: <function group at 0x7f906336be20>, cmd: str) ‑> List[Callable[[Callable[[Any], Any]], Callable[[Any], Any]]]</span>
+<span>def <span class="ident">cao</span></span>(<span>group: <function group at 0x7fc4dc3b7e20>, cmd: str) ‑> List[Callable[[Callable[[Any], Any]], Callable[[Any], Any]]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retruns wrappers for a click command evaluated from the given arguments.</p>
@@ -304,7 +304,7 @@ def parse_list(opt: Union[str, None]):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/utils.py#L111-L204" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/5c9703cf55402f7b9746460440f87c07af75b422/mangdl/utils/utils.py#L111-L204" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cao(group: click.group, cmd: str) -&gt; List[Callable[[Callable[[Any], Any]], Callable[[Any], Any]]]:
     &#34;&#34;&#34;Retruns wrappers for a click command evaluated from the given arguments.
@@ -403,7 +403,7 @@ def parse_list(opt: Union[str, None]):
 </details>
 </dd>
 <dt id="mangdl.utils.utils.command"><code class="name flex">
-<span>def <span class="ident">command</span></span>(<span>group: <function group at 0x7f906336be20>) ‑> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]</span>
+<span>def <span class="ident">command</span></span>(<span>group: <function group at 0x7fc4dc3b7e20>) ‑> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Wrapper for click commands.</p>
@@ -417,7 +417,7 @@ def parse_list(opt: Union[str, None]):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/utils.py#L207-L221" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/5c9703cf55402f7b9746460440f87c07af75b422/mangdl/utils/utils.py#L207-L221" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def command(group: click.group) -&gt; Callable[[Callable[[Any], Any]], Callable[[Any], Any]]:
     &#34;&#34;&#34;Wrapper for click commands.
@@ -454,7 +454,7 @@ items in the d dict.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/utils.py#L50-L65" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/5c9703cf55402f7b9746460440f87c07af75b422/mangdl/utils/utils.py#L50-L65" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -&gt; dict[Any, Any]:
     &#34;&#34;&#34;Defaults dictionary. Overwrite the items in the default dict with the
@@ -494,7 +494,7 @@ will return <code>1</code></p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/utils.py#L67-L84" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/5c9703cf55402f7b9746460440f87c07af75b422/mangdl/utils/utils.py#L67-L84" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ddir(d: dict[Any: Any], dir: str) -&gt; Any:
     &#34;&#34;&#34;Retrieve dictionary value using recursive indexing with a string.
@@ -533,7 +533,7 @@ will return <code>1</code></p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/utils.py#L34-L48" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/5c9703cf55402f7b9746460440f87c07af75b422/mangdl/utils/utils.py#L34-L48" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def de(a: Any, d: Any) -&gt; Any:
     &#34;&#34;&#34;
@@ -569,7 +569,7 @@ will return <code>1</code></p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/utils.py#L18-L32" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/5c9703cf55402f7b9746460440f87c07af75b422/mangdl/utils/utils.py#L18-L32" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def dnrp(file: str, n: int=1) -&gt; str:
     &#34;&#34;&#34;
@@ -606,7 +606,7 @@ at the following format: ``</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/utils.py#L86-L109" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/5c9703cf55402f7b9746460440f87c07af75b422/mangdl/utils/utils.py#L86-L109" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">@lru_cache
 def dt(dt: str) -&gt; str:
@@ -649,7 +649,7 @@ else it splits it into a list.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/utils.py#L224-L248" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/5c9703cf55402f7b9746460440f87c07af75b422/mangdl/utils/utils.py#L224-L248" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parse_list(opt: Union[str, None]):
     &#34;&#34;&#34;

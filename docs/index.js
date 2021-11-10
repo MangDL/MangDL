@@ -100,7 +100,7 @@ INDEX=[
 {
 "ref":"mangdl.API.Base.Search",
 "url":3,
-"doc":"Search(title: str, lang: List[str] =  , excludelang: List[str] =  , demo: List[str] =  , contentrating: List[str] =  , status: List[str] =  , order: str =  , authors: List[str] =  , artists: List[str] =  , year: int = None, includetags: List[str] =  , includemode: str = None, excludetags: List[str] =  , excludemode: str = None, range: Callable Union[int, float , bool] =  at 0x7f9062554040>, cover: bool = False, directory: str = None, overwrite: bool = False, retry: int = 3, retryprompt: bool = False, threads: int = 5, verbosity: int = 4, saveconfig: str = None, loadconfig: str = None, overridelc: bool = False)"
+"doc":"Search(title: str, lang: List[str] =  , excludelang: List[str] =  , demo: List[str] =  , contentrating: List[str] =  , status: List[str] =  , order: str =  , authors: List[str] =  , artists: List[str] =  , year: int = None, includetags: List[str] =  , includemode: str = None, excludetags: List[str] =  , excludemode: str = None, range: Callable Union[int, float , bool] =  at 0x7fc4db584040>, cover: bool = False, directory: str = None, overwrite: bool = False, retry: int = 3, retryprompt: bool = False, threads: int = 5, verbosity: int = 4, saveconfig: str = None, loadconfig: str = None, overridelc: bool = False)"
 },
 {
 "ref":"mangdl.API.Base.Search.title",
