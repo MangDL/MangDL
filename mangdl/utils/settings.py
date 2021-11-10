@@ -20,7 +20,7 @@ def readcfg(file: str) -> Any:
     with open(file, "r") as f:
         d = {
             "json": lambda f: json.load(f),
-            "yaml": lambda f: yaml.load(f.read(), yaml.FullLoader),
+            "yaml": lambda f: yaml.load(f.read(), yaml.SafeLoader),
             "toml": lambda f: toml.load(f)
         }
         return d[file.split(".")[-1]](f)

@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>mangdl.API.Providers.manganato API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/atom-one-dark.min.css" crossorigin>
+<style>html{scrollbar-face-color:#646464;scrollbar-base-color:#646464;scrollbar-3dlight-color:#646464;scrollbar-highlight-color:#646464;scrollbar-track-color:#000;scrollbar-arrow-color:#000;scrollbar-shadow-color:#646464;scrollbar-dark-shadow-color:#646464}::-webkit-scrollbar{width:14px;height:3px}::-webkit-scrollbar-button{background-color:#000;height:3px}::-webkit-scrollbar-track{background-color:#646464}::-webkit-scrollbar-track-piece{background-color:#000}::-webkit-scrollbar-thumb{height:50px;background-color:#666;border-radius:7px}::-webkit-scrollbar-corner{background-color:#646464}::-webkit-resizer{background-color:#666}:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em;color:#fff;background-color:#0f0f0f}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{color:#fff;width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver;background:#262626}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#70BAFF;text-decoration:none;transition:color .2s ease-in-out}a:hover{color:#CDB4DB}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#79aaf8}pre code{background:transparent;font-size:.8em;line-height:1.4em}code{background:rgba(255,255,255,0.1);padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:transparent;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #646464}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#000;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#0b0b0b}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{background:#282c34;max-height:500px;margin:0;overflow-x:scroll;overflow-y:scroll}.source pre code{font-size:12px;overflow-x:initial}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #1b1b1b}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>mangdl.API.Providers.manganato</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/API/Providers/manganato.py#L1-L119" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">import ast
+import re
+from datetime import datetime
+from typing import Any, Callable, Dict, Union
+
+from yachalk import chalk
+
+from ...utils.globals import log
+from ..Base import Ch, Downloader, Manga, Search, soup, tblp
+
+
+def manga(url: str) -&gt; Manga:
+    log.debug(f&#34;Converting {url} to Manga dataclass.&#34;, &#34;manga&#34;)
+    ms = soup(url)
+    ti = [i[&#34;class&#34;][0] for i in ms.select(&#34;.table-label i&#34;)]
+    si = [i[&#34;class&#34;][0] for i in ms.select(&#34;.stre-label i&#34;)]
+    def info(key: str, l: Callable[[str], Any]=None, d: Any=None) -&gt; Any:
+        key = f&#34;info-{key}&#34;
+        op = d
+        if key in ti:
+            op = ms.select(f&#39;.variations-tableInfo tbody tr:nth-child({ti.index(key) + 1}) td&#39;)[1]
+        elif key in si:
+            op = ms.select(f&#39;p:nth-child({si.index(key) + 1}) .stre-value&#39;)[0]
+        return l(op) if l else d
+    rc = ms.select(&#34;li.a-h&#34;)
+    def chap_dict():
+        n = 1
+        op = {}
+        for c in rc:
+            a = c.select_one(&#34;a&#34;)
+            ch = a[&#34;href&#34;].split(&#34;-&#34;)[-1]
+            if ch:
+                k = ast.literal_eval(ch)
+            else:
+                k = -n
+                n += 1
+            op[k] = Ch(
+                url             = a[&#34;href&#34;],
+                ch              = k,
+                vol             = None,
+                title           = a.text,
+                views           = int(c.select_one(&#34;span.chapter-view.text-nowrap&#34;).text.replace(&#34;,&#34;, &#34;&#34;)),
+                uploaded_at     = str(datetime.strptime(c.select_one(&#34;span.chapter-time.text-nowrap&#34;)[&#34;title&#34;], &#39;%b %d,%Y %H:%M&#39;)),
+            )
+        return op
+    return Manga(
+        url             = url,
+        title           = ms.select_one(&#34;.story-info-right h1&#34;).text,
+        author          = info(&#34;author&#34;, lambda x: [i.text for i in x.select(&#34;a&#34;) if i], []),
+        covers          = [ms.select_one(&#34;.info-image &gt; img&#34;)[&#34;src&#34;]],
+        alt_titles      = info(&#34;alternative&#34;, lambda x: [x.text], []),
+        status          = info(&#34;status&#34;, lambda x: {k: v for v, k in enumerate([&#34;ongoing&#34;, &#34;completed&#34;, &#34;hiatus&#34;, &#34;cancelled&#34;])}.get(x.text.lower()), -1),
+        genres          = info(&#34;genres&#34;, lambda x: {i.text: i[&#34;href&#34;] for i in x.select(&#34;a&#34;) if i}, None),
+        updated_at      = info(&#34;time&#34;, lambda x: str(datetime.strptime(x.text[:-3], &#39;%b %d,%Y - %H:%M&#39;)), &#34;&#34;),
+        created_at      = str(datetime.strptime(rc[-1].select_one(&#34;span.chapter-time.text-nowrap&#34;)[&#34;title&#34;], &#39;%b %d,%Y %H:%M&#39;)),
+        views           = info(&#34;view&#34;, lambda x: int(x.text.replace(&#39;,&#39;, &#39;&#39;)), 0),
+        description     = ms.select_one(&#34;.panel-story-info-description&#34;).text,
+        chapters        = chap_dict(),
+    )
+
+def chapter(url: str) -&gt; Ch:
+    log.debug(f&#34;Converting {url} to Ch dataclass.&#34;, &#34;chapter&#34;)
+    c = soup(&#34;/&#34;.join(url.split(&#34;/&#34;)[:-1])).select_one(f&#39;a[href=&#34;{url}&#34;]&#39;).find_parent()
+    a = c.select_one(&#34;a&#34;)
+    ch = a[&#34;href&#34;].split(&#34;-&#34;)[-1]
+    ch = ast.literal_eval(ch) if ch else ch
+    return Ch(
+        url             = url,
+        ch              = ch,
+        vol             = None,
+        title           = a.text,
+        views           = int(c.select_one(&#34;span.chapter-view.text-nowrap&#34;).text.replace(&#34;,&#34;, &#34;&#34;)),
+        uploaded_at     = str(datetime.strptime(c.select_one(&#34;span.chapter-time.text-nowrap&#34;)[&#34;title&#34;], &#39;%b %d,%Y %H:%M&#39;)),
+        imgs            = [i[&#34;src&#34;] for i in soup(url).select(&#34;.container-chapter-reader img&#34;)]
+    )
+
+def search(s: Search):
+    log.info(&#34;Ignoring all keword arguments at the moment. Will add advanced searching later.&#34;, &#34;search&#34;)
+    title = re.sub(r&#39;[^A-Za-z0-9 ]+&#39;, &#39;&#39;, s.title).replace(&#34; &#34;, &#34;_&#34;)
+    sr = {}
+    ms = soup(f&#34;https://manganato.com/search/story/{title}&#34;)
+    gp = ms.select_one(&#34;.group-page&#34;)
+    if gp:
+        log.debug(&#34;Multiple pages found. Starting to paginate.&#34;, &#34;paginator&#34;)
+        for p in range(len(gp.select(&#34;a&#34;)) - 2):
+            log.debug(f&#34;Paginating page {p+1}.&#34;, &#34;paginator&#34;)
+            for r in soup(f&#34;https://manganato.com/search/story/hello?page={p+1}&#34;).select(&#34;.a-h.text-nowrap.item-title&#34;):
+                sr[r[&#34;title&#34;]] = r[&#34;href&#34;]
+    else:
+        log.debug(&#34;Only one page found.&#34;, &#34;search&#34;)
+        for r in ms.select(&#34;.a-h.text-nowrap.item-title&#34;):
+            sr[r[&#34;title&#34;]] = r[&#34;href&#34;]
+    return sr
+
+def cli_search(title: str, **kwargs: Dict[str, Any]):
+    log.debug(&#39;No processing to do with the arguments, will be immediately passed to the function &#34;search&#34;.&#39;, &#34;cli search&#34;)
+    return search(Search(title, **kwargs))
+
+def dl(url: str, **kwargs: Dict[str, Any]):
+    ms = soup(url)
+    def ch_fn(url: str):
+        return [i[&#34;src&#34;] for i in soup(url).select(&#34;.container-chapter-reader img&#34;)]
+    chdls = []
+    for c in ms.select(&#34;li.a-h&#34;):
+        a = c.select_one(&#34;a&#34;)
+        chdls.append({a[&#34;href&#34;].split(&#34;-&#34;)[-1]: a[&#34;href&#34;]})
+    Downloader(ch_fn, headers={&#34;Referer&#34;: &#34;https://readmanganato.com/&#34;}, **kwargs).cli(ms.select_one(&#34;.story-info-right h1&#34;).text, chdls)
+
+def cli_dl(title: str, **kwargs: Dict[str, Any]):
+    sr = cli_search(title)
+    def ch_fn(url: str):
+        return [i[&#34;src&#34;] for i in soup(url).select(&#34;.container-chapter-reader img&#34;)]
+    def chs_fn(choice: str):
+        op = []
+        for c in soup(sr[choice]).select(&#34;li.a-h&#34;):
+            a = c.select_one(&#34;a&#34;)
+            op.append({a[&#34;href&#34;].split(&#34;-&#34;)[-1]: a[&#34;href&#34;]})
+        return op
+    Downloader(ch_fn, headers={&#34;Referer&#34;: &#34;https://readmanganato.com/&#34;}, **kwargs).cli(sr, chs_fn)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="mangdl.API.Providers.manganato.chapter"><code class="name flex">
+<span>def <span class="ident">chapter</span></span>(<span>url: str) ‑> <a title="mangdl.API.Base.Ch" href="../Base.html#mangdl.API.Base.Ch">Ch</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/API/Providers/manganato.py#L61-L75" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def chapter(url: str) -&gt; Ch:
+    log.debug(f&#34;Converting {url} to Ch dataclass.&#34;, &#34;chapter&#34;)
+    c = soup(&#34;/&#34;.join(url.split(&#34;/&#34;)[:-1])).select_one(f&#39;a[href=&#34;{url}&#34;]&#39;).find_parent()
+    a = c.select_one(&#34;a&#34;)
+    ch = a[&#34;href&#34;].split(&#34;-&#34;)[-1]
+    ch = ast.literal_eval(ch) if ch else ch
+    return Ch(
+        url             = url,
+        ch              = ch,
+        vol             = None,
+        title           = a.text,
+        views           = int(c.select_one(&#34;span.chapter-view.text-nowrap&#34;).text.replace(&#34;,&#34;, &#34;&#34;)),
+        uploaded_at     = str(datetime.strptime(c.select_one(&#34;span.chapter-time.text-nowrap&#34;)[&#34;title&#34;], &#39;%b %d,%Y %H:%M&#39;)),
+        imgs            = [i[&#34;src&#34;] for i in soup(url).select(&#34;.container-chapter-reader img&#34;)]
+    )</code></pre>
+</details>
+</dd>
+<dt id="mangdl.API.Providers.manganato.cli_dl"><code class="name flex">
+<span>def <span class="ident">cli_dl</span></span>(<span>title: str, **kwargs: Dict[str, Any])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/API/Providers/manganato.py#L109-L119" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def cli_dl(title: str, **kwargs: Dict[str, Any]):
+    sr = cli_search(title)
+    def ch_fn(url: str):
+        return [i[&#34;src&#34;] for i in soup(url).select(&#34;.container-chapter-reader img&#34;)]
+    def chs_fn(choice: str):
+        op = []
+        for c in soup(sr[choice]).select(&#34;li.a-h&#34;):
+            a = c.select_one(&#34;a&#34;)
+            op.append({a[&#34;href&#34;].split(&#34;-&#34;)[-1]: a[&#34;href&#34;]})
+        return op
+    Downloader(ch_fn, headers={&#34;Referer&#34;: &#34;https://readmanganato.com/&#34;}, **kwargs).cli(sr, chs_fn)</code></pre>
+</details>
+</dd>
+<dt id="mangdl.API.Providers.manganato.cli_search"><code class="name flex">
+<span>def <span class="ident">cli_search</span></span>(<span>title: str, **kwargs: Dict[str, Any])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/API/Providers/manganato.py#L95-L97" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def cli_search(title: str, **kwargs: Dict[str, Any]):
+    log.debug(&#39;No processing to do with the arguments, will be immediately passed to the function &#34;search&#34;.&#39;, &#34;cli search&#34;)
+    return search(Search(title, **kwargs))</code></pre>
+</details>
+</dd>
+<dt id="mangdl.API.Providers.manganato.dl"><code class="name flex">
+<span>def <span class="ident">dl</span></span>(<span>url: str, **kwargs: Dict[str, Any])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/API/Providers/manganato.py#L99-L107" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def dl(url: str, **kwargs: Dict[str, Any]):
+    ms = soup(url)
+    def ch_fn(url: str):
+        return [i[&#34;src&#34;] for i in soup(url).select(&#34;.container-chapter-reader img&#34;)]
+    chdls = []
+    for c in ms.select(&#34;li.a-h&#34;):
+        a = c.select_one(&#34;a&#34;)
+        chdls.append({a[&#34;href&#34;].split(&#34;-&#34;)[-1]: a[&#34;href&#34;]})
+    Downloader(ch_fn, headers={&#34;Referer&#34;: &#34;https://readmanganato.com/&#34;}, **kwargs).cli(ms.select_one(&#34;.story-info-right h1&#34;).text, chdls)</code></pre>
+</details>
+</dd>
+<dt id="mangdl.API.Providers.manganato.manga"><code class="name flex">
+<span>def <span class="ident">manga</span></span>(<span>url: str) ‑> <a title="mangdl.API.Base.Manga" href="../Base.html#mangdl.API.Base.Manga">Manga</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/API/Providers/manganato.py#L12-L59" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def manga(url: str) -&gt; Manga:
+    log.debug(f&#34;Converting {url} to Manga dataclass.&#34;, &#34;manga&#34;)
+    ms = soup(url)
+    ti = [i[&#34;class&#34;][0] for i in ms.select(&#34;.table-label i&#34;)]
+    si = [i[&#34;class&#34;][0] for i in ms.select(&#34;.stre-label i&#34;)]
+    def info(key: str, l: Callable[[str], Any]=None, d: Any=None) -&gt; Any:
+        key = f&#34;info-{key}&#34;
+        op = d
+        if key in ti:
+            op = ms.select(f&#39;.variations-tableInfo tbody tr:nth-child({ti.index(key) + 1}) td&#39;)[1]
+        elif key in si:
+            op = ms.select(f&#39;p:nth-child({si.index(key) + 1}) .stre-value&#39;)[0]
+        return l(op) if l else d
+    rc = ms.select(&#34;li.a-h&#34;)
+    def chap_dict():
+        n = 1
+        op = {}
+        for c in rc:
+            a = c.select_one(&#34;a&#34;)
+            ch = a[&#34;href&#34;].split(&#34;-&#34;)[-1]
+            if ch:
+                k = ast.literal_eval(ch)
+            else:
+                k = -n
+                n += 1
+            op[k] = Ch(
+                url             = a[&#34;href&#34;],
+                ch              = k,
+                vol             = None,
+                title           = a.text,
+                views           = int(c.select_one(&#34;span.chapter-view.text-nowrap&#34;).text.replace(&#34;,&#34;, &#34;&#34;)),
+                uploaded_at     = str(datetime.strptime(c.select_one(&#34;span.chapter-time.text-nowrap&#34;)[&#34;title&#34;], &#39;%b %d,%Y %H:%M&#39;)),
+            )
+        return op
+    return Manga(
+        url             = url,
+        title           = ms.select_one(&#34;.story-info-right h1&#34;).text,
+        author          = info(&#34;author&#34;, lambda x: [i.text for i in x.select(&#34;a&#34;) if i], []),
+        covers          = [ms.select_one(&#34;.info-image &gt; img&#34;)[&#34;src&#34;]],
+        alt_titles      = info(&#34;alternative&#34;, lambda x: [x.text], []),
+        status          = info(&#34;status&#34;, lambda x: {k: v for v, k in enumerate([&#34;ongoing&#34;, &#34;completed&#34;, &#34;hiatus&#34;, &#34;cancelled&#34;])}.get(x.text.lower()), -1),
+        genres          = info(&#34;genres&#34;, lambda x: {i.text: i[&#34;href&#34;] for i in x.select(&#34;a&#34;) if i}, None),
+        updated_at      = info(&#34;time&#34;, lambda x: str(datetime.strptime(x.text[:-3], &#39;%b %d,%Y - %H:%M&#39;)), &#34;&#34;),
+        created_at      = str(datetime.strptime(rc[-1].select_one(&#34;span.chapter-time.text-nowrap&#34;)[&#34;title&#34;], &#39;%b %d,%Y %H:%M&#39;)),
+        views           = info(&#34;view&#34;, lambda x: int(x.text.replace(&#39;,&#39;, &#39;&#39;)), 0),
+        description     = ms.select_one(&#34;.panel-story-info-description&#34;).text,
+        chapters        = chap_dict(),
+    )</code></pre>
+</details>
+</dd>
+<dt id="mangdl.API.Providers.manganato.search"><code class="name flex">
+<span>def <span class="ident">search</span></span>(<span>s: <a title="mangdl.API.Base.Search" href="../Base.html#mangdl.API.Base.Search">Search</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/API/Providers/manganato.py#L77-L93" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def search(s: Search):
+    log.info(&#34;Ignoring all keword arguments at the moment. Will add advanced searching later.&#34;, &#34;search&#34;)
+    title = re.sub(r&#39;[^A-Za-z0-9 ]+&#39;, &#39;&#39;, s.title).replace(&#34; &#34;, &#34;_&#34;)
+    sr = {}
+    ms = soup(f&#34;https://manganato.com/search/story/{title}&#34;)
+    gp = ms.select_one(&#34;.group-page&#34;)
+    if gp:
+        log.debug(&#34;Multiple pages found. Starting to paginate.&#34;, &#34;paginator&#34;)
+        for p in range(len(gp.select(&#34;a&#34;)) - 2):
+            log.debug(f&#34;Paginating page {p+1}.&#34;, &#34;paginator&#34;)
+            for r in soup(f&#34;https://manganato.com/search/story/hello?page={p+1}&#34;).select(&#34;.a-h.text-nowrap.item-title&#34;):
+                sr[r[&#34;title&#34;]] = r[&#34;href&#34;]
+    else:
+        log.debug(&#34;Only one page found.&#34;, &#34;search&#34;)
+        for r in ms.select(&#34;.a-h.text-nowrap.item-title&#34;):
+            sr[r[&#34;title&#34;]] = r[&#34;href&#34;]
+    return sr</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<form>
+<input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.css" integrity="sha512-j1u8eUJ4f23xPPxwOrLUPQaCD2dwzNqqmDDcWS4deWsMv2ohLqmXXuP3hU7g8TyzbMSakP/mMqoNBYWj8AEIFg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.js" integrity="sha512-plGUER9JkeEWPPqQBE4sdLqBoQug5Ap+BCGMc7bJ8BXkm+VVj6QzkpBz5Yv2yPkkq+cqg9IpkBaGCas6uDbW8g==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {
+width: auto;
+background: #0f0f0f;
+}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+#search-status{
+font-family: Liberation Mono;
+}
+footer{
+font-family: Liberation Mono;
+}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = '../../../doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="mangdl.API.Providers" href="index.html">mangdl.API.Providers</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="mangdl.API.Providers.manganato.chapter" href="#mangdl.API.Providers.manganato.chapter">chapter</a></code></li>
+<li><code><a title="mangdl.API.Providers.manganato.cli_dl" href="#mangdl.API.Providers.manganato.cli_dl">cli_dl</a></code></li>
+<li><code><a title="mangdl.API.Providers.manganato.cli_search" href="#mangdl.API.Providers.manganato.cli_search">cli_search</a></code></li>
+<li><code><a title="mangdl.API.Providers.manganato.dl" href="#mangdl.API.Providers.manganato.dl">dl</a></code></li>
+<li><code><a title="mangdl.API.Providers.manganato.manga" href="#mangdl.API.Providers.manganato.manga">manga</a></code></li>
+<li><code><a title="mangdl.API.Providers.manganato.search" href="#mangdl.API.Providers.manganato.search">search</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

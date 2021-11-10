@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>mangdl.utils.settings API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/atom-one-dark.min.css" crossorigin>
+<style>html{scrollbar-face-color:#646464;scrollbar-base-color:#646464;scrollbar-3dlight-color:#646464;scrollbar-highlight-color:#646464;scrollbar-track-color:#000;scrollbar-arrow-color:#000;scrollbar-shadow-color:#646464;scrollbar-dark-shadow-color:#646464}::-webkit-scrollbar{width:14px;height:3px}::-webkit-scrollbar-button{background-color:#000;height:3px}::-webkit-scrollbar-track{background-color:#646464}::-webkit-scrollbar-track-piece{background-color:#000}::-webkit-scrollbar-thumb{height:50px;background-color:#666;border-radius:7px}::-webkit-scrollbar-corner{background-color:#646464}::-webkit-resizer{background-color:#666}:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em;color:#fff;background-color:#0f0f0f}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{color:#fff;width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver;background:#262626}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#70BAFF;text-decoration:none;transition:color .2s ease-in-out}a:hover{color:#CDB4DB}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#79aaf8}pre code{background:transparent;font-size:.8em;line-height:1.4em}code{background:rgba(255,255,255,0.1);padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:transparent;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #646464}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#000;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#0b0b0b}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{background:#282c34;max-height:500px;margin:0;overflow-x:scroll;overflow-y:scroll}.source pre code{font-size:12px;overflow-x:initial}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #1b1b1b}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>mangdl.utils.settings</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/settings.py#L1-L92" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">import json
+from os import path
+from os.path import abspath as ap
+from os.path import dirname as dn
+from typing import Any
+
+import toml
+import yaml
+
+
+def readcfg(file: str) -&gt; Any:
+    &#34;&#34;&#34;Read the contents of a file with the given file name.
+
+    Args:
+        file (str): File name of the file to read the contents of.
+
+    Returns:
+        Any: The contents of the file.
+    &#34;&#34;&#34;
+    with open(file, &#34;r&#34;) as f:
+        d = {
+            &#34;json&#34;: lambda f: json.load(f),
+            &#34;yaml&#34;: lambda f: yaml.load(f.read(), yaml.SafeLoader),
+            &#34;toml&#34;: lambda f: toml.load(f)
+        }
+        return d[file.split(&#34;.&#34;)[-1]](f)
+
+
+def stg(stg: str, file: str = path.join(dn(ap(__file__)), &#34;settings.json&#34;)) -&gt; Any:
+    &#34;&#34;&#34;Retrieve dictionary value of the config file with the given file name
+    using recursive indexing with a string.
+    ex.:
+        Given that settings.json contains: `{&#34;data&#34;: {&#34;attr&#34;: {&#34;ch&#34;: 1}}}`
+        `stg(&#34;data/attr/ch&#34;, &#34;settings.json&#34;)` will return `1`
+
+    Args:
+        stg (str): Directory of the value to be retrieved.
+        file (str, optional): File name of the file to get the value from. Defaults to `path.join(dn(ap(__file__)), &#34;settings.json&#34;)`.
+
+    Returns:
+        Any: The retrieved value.
+    &#34;&#34;&#34;
+    op = readcfg(file)
+    if stg is not None:
+        for a in stg.split(&#34;/&#34;):
+            op = op[a]
+    return op
+
+
+def wr_stg(stg: str, value: Any, file: str = path.join(dn(ap(__file__)), &#34;settings.json&#34;)) -&gt; None:
+    &#34;&#34;&#34;Rewrite dictionary value of the config file with the given file name
+    using recursive indexing with a string.
+    ex.:
+        Given that settings.json contains: `{&#34;data&#34;: {&#34;attr&#34;: {&#34;ch&#34;: 1}}}`
+        `wr_stg(&#34;data/attr/ch&#34;, 2)`
+        will rewrite settings.json to be: `{&#34;data&#34;: {&#34;attr&#34;: {&#34;ch&#34;: 2}}}`
+
+    Args:
+        stg (str): Directory of the value to be rewrited.
+        value (Any): Value to rewrite to.
+        file (str, optional): File name of the file to rewrite the value from. Defaults to path.join(dn(ap(__file__)), &#34;settings.json&#34;).
+
+    Raises:
+        FileNotFoundError: Raised if the file is not found.
+    &#34;&#34;&#34;
+    stg_dict = readcfg(file)
+
+    def modify(stg: str, value: Any, stg_dict: dict[Any:Any]):
+        path_ls = stg.split(&#34;/&#34;)
+        key = path_ls[0]
+        if len(path_ls) &gt; 1:
+            try:
+                stg_dict[key]
+            except KeyError:
+                stg_dict[key] = {}
+            if isinstance(stg_dict[key], dict):
+                modify(stg.replace(f&#34;{key}/&#34;, &#34;&#34;), value, stg_dict[key])
+            else:
+                f_stg = &#39;&#34;][&#34;&#39;.join(stg.split(&#34;/&#34;))
+                raise FileNotFoundError(f&#39;[&#34;{f_stg}&#34;] at {file} not found.&#39;)
+        else:
+            stg_dict[key] = value
+            return stg_dict
+
+    modify(stg, value, stg_dict)
+    with open(path.join(dn(ap(__file__)), file), &#34;w&#34;) as f:
+        d = {
+            &#34;json&#34;: lambda f: json.dump(stg_dict, f, indent=4),
+            &#34;yaml&#34;: lambda f: yaml.dump(stg_dict, f, indent=4),
+            &#34;toml&#34;: lambda f: toml.dump(stg_dict, f)
+        }
+        d[file.split(&#34;.&#34;)[-1]](f)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="mangdl.utils.settings.readcfg"><code class="name flex">
+<span>def <span class="ident">readcfg</span></span>(<span>file: str) ‑> Any</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Read the contents of a file with the given file name.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>file</code></strong> :&ensp;<code>str</code></dt>
+<dd>File name of the file to read the contents of.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Any</code></dt>
+<dd>The contents of the file.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/settings.py#L11-L26" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def readcfg(file: str) -&gt; Any:
+    &#34;&#34;&#34;Read the contents of a file with the given file name.
+
+    Args:
+        file (str): File name of the file to read the contents of.
+
+    Returns:
+        Any: The contents of the file.
+    &#34;&#34;&#34;
+    with open(file, &#34;r&#34;) as f:
+        d = {
+            &#34;json&#34;: lambda f: json.load(f),
+            &#34;yaml&#34;: lambda f: yaml.load(f.read(), yaml.SafeLoader),
+            &#34;toml&#34;: lambda f: toml.load(f)
+        }
+        return d[file.split(&#34;.&#34;)[-1]](f)</code></pre>
+</details>
+</dd>
+<dt id="mangdl.utils.settings.stg"><code class="name flex">
+<span>def <span class="ident">stg</span></span>(<span>stg: str, file: str = '/home/whine/TOOLS/PROGRAMMING/PYTHON/mangDL/project/mangdl/utils/settings.json') ‑> Any</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Retrieve dictionary value of the config file with the given file name
+using recursive indexing with a string.
+ex.:
+Given that settings.json contains: <code>{"data": {"attr": {"ch": 1}}}</code>
+<code>stg("data/attr/ch", "settings.json")</code> will return <code>1</code></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>stg</code></strong> :&ensp;<code>str</code></dt>
+<dd>Directory of the value to be retrieved.</dd>
+<dt><strong><code>file</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>File name of the file to get the value from. Defaults to <code>path.join(dn(ap(__file__)), "settings.json")</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Any</code></dt>
+<dd>The retrieved value.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/settings.py#L29-L47" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def stg(stg: str, file: str = path.join(dn(ap(__file__)), &#34;settings.json&#34;)) -&gt; Any:
+    &#34;&#34;&#34;Retrieve dictionary value of the config file with the given file name
+    using recursive indexing with a string.
+    ex.:
+        Given that settings.json contains: `{&#34;data&#34;: {&#34;attr&#34;: {&#34;ch&#34;: 1}}}`
+        `stg(&#34;data/attr/ch&#34;, &#34;settings.json&#34;)` will return `1`
+
+    Args:
+        stg (str): Directory of the value to be retrieved.
+        file (str, optional): File name of the file to get the value from. Defaults to `path.join(dn(ap(__file__)), &#34;settings.json&#34;)`.
+
+    Returns:
+        Any: The retrieved value.
+    &#34;&#34;&#34;
+    op = readcfg(file)
+    if stg is not None:
+        for a in stg.split(&#34;/&#34;):
+            op = op[a]
+    return op</code></pre>
+</details>
+</dd>
+<dt id="mangdl.utils.settings.wr_stg"><code class="name flex">
+<span>def <span class="ident">wr_stg</span></span>(<span>stg: str, value: Any, file: str = '/home/whine/TOOLS/PROGRAMMING/PYTHON/mangDL/project/mangdl/utils/settings.json') ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Rewrite dictionary value of the config file with the given file name
+using recursive indexing with a string.
+ex.:
+Given that settings.json contains: <code>{"data": {"attr": {"ch": 1}}}</code>
+<code>wr_stg("data/attr/ch", 2)</code>
+will rewrite settings.json to be: <code>{"data": {"attr": {"ch": 2}}}</code></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>stg</code></strong> :&ensp;<code>str</code></dt>
+<dd>Directory of the value to be rewrited.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>Any</code></dt>
+<dd>Value to rewrite to.</dd>
+<dt><strong><code>file</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>File name of the file to rewrite the value from. Defaults to path.join(dn(ap(<strong>file</strong>)), "settings.json").</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>FileNotFoundError</code></dt>
+<dd>Raised if the file is not found.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/whinee/mangDL/blob/c085c4553f7ec221b4bc43c70d66b9e0c2fb6a46/mangdl/utils/settings.py#L50-L92" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def wr_stg(stg: str, value: Any, file: str = path.join(dn(ap(__file__)), &#34;settings.json&#34;)) -&gt; None:
+    &#34;&#34;&#34;Rewrite dictionary value of the config file with the given file name
+    using recursive indexing with a string.
+    ex.:
+        Given that settings.json contains: `{&#34;data&#34;: {&#34;attr&#34;: {&#34;ch&#34;: 1}}}`
+        `wr_stg(&#34;data/attr/ch&#34;, 2)`
+        will rewrite settings.json to be: `{&#34;data&#34;: {&#34;attr&#34;: {&#34;ch&#34;: 2}}}`
+
+    Args:
+        stg (str): Directory of the value to be rewrited.
+        value (Any): Value to rewrite to.
+        file (str, optional): File name of the file to rewrite the value from. Defaults to path.join(dn(ap(__file__)), &#34;settings.json&#34;).
+
+    Raises:
+        FileNotFoundError: Raised if the file is not found.
+    &#34;&#34;&#34;
+    stg_dict = readcfg(file)
+
+    def modify(stg: str, value: Any, stg_dict: dict[Any:Any]):
+        path_ls = stg.split(&#34;/&#34;)
+        key = path_ls[0]
+        if len(path_ls) &gt; 1:
+            try:
+                stg_dict[key]
+            except KeyError:
+                stg_dict[key] = {}
+            if isinstance(stg_dict[key], dict):
+                modify(stg.replace(f&#34;{key}/&#34;, &#34;&#34;), value, stg_dict[key])
+            else:
+                f_stg = &#39;&#34;][&#34;&#39;.join(stg.split(&#34;/&#34;))
+                raise FileNotFoundError(f&#39;[&#34;{f_stg}&#34;] at {file} not found.&#39;)
+        else:
+            stg_dict[key] = value
+            return stg_dict
+
+    modify(stg, value, stg_dict)
+    with open(path.join(dn(ap(__file__)), file), &#34;w&#34;) as f:
+        d = {
+            &#34;json&#34;: lambda f: json.dump(stg_dict, f, indent=4),
+            &#34;yaml&#34;: lambda f: yaml.dump(stg_dict, f, indent=4),
+            &#34;toml&#34;: lambda f: toml.dump(stg_dict, f)
+        }
+        d[file.split(&#34;.&#34;)[-1]](f)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<form>
+<input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.css" integrity="sha512-j1u8eUJ4f23xPPxwOrLUPQaCD2dwzNqqmDDcWS4deWsMv2ohLqmXXuP3hU7g8TyzbMSakP/mMqoNBYWj8AEIFg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.js" integrity="sha512-plGUER9JkeEWPPqQBE4sdLqBoQug5Ap+BCGMc7bJ8BXkm+VVj6QzkpBz5Yv2yPkkq+cqg9IpkBaGCas6uDbW8g==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {
+width: auto;
+background: #0f0f0f;
+}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+#search-status{
+font-family: Liberation Mono;
+}
+footer{
+font-family: Liberation Mono;
+}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = '../../doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="mangdl.utils" href="index.html">mangdl.utils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="mangdl.utils.settings.readcfg" href="#mangdl.utils.settings.readcfg">readcfg</a></code></li>
+<li><code><a title="mangdl.utils.settings.stg" href="#mangdl.utils.settings.stg">stg</a></code></li>
+<li><code><a title="mangdl.utils.settings.wr_stg" href="#mangdl.utils.settings.wr_stg">wr_stg</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
