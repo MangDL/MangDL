@@ -7,7 +7,7 @@
 
 <!-- Description. Preferrably 1 sentence long. -->
 <h3 align="center" style="font-weight: bold">
-    WIP: Manga Downloader (and soon, a reader too)
+    WIP: Manga Downloader
 </h3>
 
 <p align="center">
@@ -26,7 +26,7 @@
     <a href="https://github.com/whinee/mangdl/graphs/contributors">
         <img src="https://img.shields.io/github/contributors/whinee/mangdl.svg?style=flat-square&logo=data:image/png;base64,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">
     </a>
-    <a href="https://discord.gg/JbAtUxGcJZ">
+    <a target="_blank" href="https://discord.gg/JbAtUxGcJZ">
         <img src="https://img.shields.io/discord/889508240495366184.svg?style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAQAAADa613fAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQflCwsPNhJbdTGBAAABx0lEQVR42u1byw7DIAxbUP//l7fDVGktFPIwFDr7vDzcOElF2etFEARBEARBEP8CiZm/35lD6W0JJpInYkkoZl3ChqSAwNe7nY6gKfilFauOoEhIB5Fa/MqIjhgRAd6Y2g6y2bbJiI/G2XFkAOh8taiIncbRJWqGtb3WqUiEBnoQt3zXqBiJ7K567pLrGDUiydPkI1aiNa7ctcExg0FBZEYaNSrpKa/xjyEiawnrWlzPrsjM9biqCZt9AWnNLqyyuCit6aW1grBK4qK0JpfWKsLKxUVpkciIHvF2iOdkBXEa8+sjoZtOecDpsOksrTwJxfGmw6YzkXICjTNBh81/Tq2VlmGeMfcIiZCIksh6rQ6tSJl+/aF4bNq+wtLKE2in5LEZ0CPHJHQpeWyUb7+r9sj+asPxSyIkQiIPJSKCutBkGa36mMnm+I4NocNmdz5idQbuNLbT63kvyB9n/7XxFaU3Gbv/jIj3Et+4i2d1K2dS468CtiwDCUnwizDWPvwNETeSbZHPcUHf2SN0MPG2+3YFdsekGXY4ovaCKLrImO5wX5fVhUFULx5j0z6Hu7oG/G+F6yfX798K8/YpQRAEQRAEQRAEMTM+AjWseCjwIcoAAAAASUVORK5CYII=">
     </a>
 </p>
@@ -76,7 +76,7 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
 - Android
 
 <details>
-    <summary><sub>Warning</sub></summary>
+    <summary><sub>NOTES</sub></summary>
     <sub>
         <i>
             At the moment of writing, there is a fatal error that does not allow this project to run at Termux. Right now, it is being fixed.
@@ -107,7 +107,6 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
     - [**Prerequisites**](#prerequisites)
     - [**Setup**](#setup)
 - [**TODO**](#todo)
-- [**FAQs**](#faqs)
 - [**Contributions**](#contributions)
 - [**Known Issues and Limitations**](#known-issues-and-limitations)
 - [**Future of this project**](#future-of-this-project)
@@ -338,14 +337,6 @@ After checking or installing Python, pip, and git in your machine, proceed to th
 - [ ] Submission of new color theme for the CLI and possibly for the future GUI
 
 - [ ] Returning/Downloading translated languages using locale of the machine and an option to override it
-
-## **FAQs**
-
-**Q. How to contact you?**
-
-*A. Thru discord, friend requests are accepted but is not required.*
-
-Discord Account: **<a target="_blank" href="https://discord.com/users/867696753434951732">whi_ne#5135</a>**
 
 ## **Contributions**
 
