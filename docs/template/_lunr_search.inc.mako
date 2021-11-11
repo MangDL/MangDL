@@ -1,5 +1,5 @@
 <form>
-    <input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+    <input id="lunr-search" name="q" placeholder="Search..." aria-label="Search"
            disabled minlength="2">
 </form>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.css" integrity="sha512-j1u8eUJ4f23xPPxwOrLUPQaCD2dwzNqqmDDcWS4deWsMv2ohLqmXXuP3hU7g8TyzbMSakP/mMqoNBYWj8AEIFg==" crossorigin>

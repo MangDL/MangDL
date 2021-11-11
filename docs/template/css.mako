@@ -23,7 +23,7 @@
     ::-webkit-resizer { background-color: #666;}
 
     :root {
-        --highlight-color: #fe9;
+        --highlight-color: #978141;
     }
     .flex {
         display: flex !important;
@@ -86,7 +86,7 @@
     }
     h2 {
         font-size: 1.75em;
-        margin: 1em 0 .50em 0;
+        margin: .75em 0 .25em 0;
     }
     h3 {
         font-size: 1.4em;
@@ -192,7 +192,7 @@
             margin-bottom: 4em;
         }
     dd {
-        margin: 0 0 1em 3em;
+        margin: 0 0 1em 2em;
     }
         #header-classes + dl > dd {
             margin-bottom: 3em;
@@ -201,7 +201,7 @@
             margin-left: 2em;
         }
         dd p {
-            margin: 10px 0;
+            margin: 0 0;
         }
         .name {
         background: #000;
@@ -210,6 +210,7 @@
         padding: 5px 10px;
         display: inline-block;
         min-width: 40%;
+        margin: 0 0 1em 0;
         }
             .name:hover {
                 background: #0b0b0b;

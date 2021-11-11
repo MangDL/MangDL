@@ -1,4 +1,3 @@
-import importlib
 import os
 import re
 import shutil
@@ -20,7 +19,6 @@ from yachalk import chalk
 
 from ..utils import style
 from ..utils.globals import log
-from ..utils.settings import stg
 
 session = httpx.Client()
 
@@ -256,7 +254,10 @@ def cr(rs: str) -> Callable[[int], bool]:
         Callable[[int], bool]: The function that checks if the given int is within the range or not.
     """
 
-    return lambda x: any(condition(x) for condition in _cr(rs))
+    if rs:
+        return lambda x: any(condition(x) for condition in _cr(rs))
+    else:
+        return lambda x: True
 
 
 class Downloader:
@@ -384,7 +385,10 @@ class Downloader:
         for r in chdls:
             ch, arg = list(r.items())[0]
             if ch:
-                k = ast.literal_eval(ch)
+                if type(ch) is int or type(ch) is float:
+                    k = ch
+                else:
+                    k = ast.literal_eval(ch)
             else:
                 k = -n
                 n += 1

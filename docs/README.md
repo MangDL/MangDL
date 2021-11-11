@@ -52,9 +52,11 @@ Developed and tested in Python 3.10.0, Arch Linux 5.14.14-arch1-1.
 
 ## **Important**
 
-The downloader is under a massive rewrite for the 2nd time. It is highly advised to NOT use this project until the rewrite is finished.
+This project is a work in progress.
 
 To be updated in the latest commits, be sure to watch this repository. A package will be released soon as a beta.
+
+For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF USAGE & DISCLAIMER.md](TERMS-OF-USAGE-&-DISCLAIMER.md).
 
 ## **Features**
 
@@ -63,14 +65,32 @@ To be updated in the latest commits, be sure to watch this repository. A package
 - 0% tracking and analytics
 - Can be used as a library
 
+### Supported OSes
+
+- Widnows
+- MacOS
+- Linux
+- Android
+
+<details>
+    <summary><sub>Warning</sub></summary>
+    <sub>
+        <i>
+            At the moment of writing, there is a fatal error that does not allow this project to run at Termux. Right now, it is being fixed.
+            To be updated in the latest commits, be sure to watch this repository.
+        </i>
+    </sub>
+</details>
+
 ## **Sites**
 
 - [mangadex.org](https://mangadex.org)
 - [manganato.com](https://manganato.com)
-
-### Coming soon
-
 - [catmanga.org](https://catmanga.org)
+
+### Coming soon™
+
+- [lhtranslation.net](https://lhtranslation.net)
 
 <!-- TOC section. Update when adding sections and subsections fitted in TOC. -->
 ## **Table of Contents**
@@ -94,7 +114,7 @@ To be updated in the latest commits, be sure to watch this repository. A package
 <!-- Mention examples of application of this repository. -->
 ## **Usage**
 
-Before using this project, it is recommended to visit [LICENSE.md](LICENSE.md) and [DISCLAIMER.md](DISCLAIMER.md) for the Terms of usage and legals.
+Before using this project, it is recommended to visit [LICENSE.md](LICENSE.md) and [TERMS OF USAGE & DISCLAIMER.md](TERMS-OF-USAGE-&-DISCLAIMER.md) for the terms of usage and legals.
 
 ```bash
 mangdl -h
@@ -105,6 +125,8 @@ Downloading:
 ```bash
 mangdl dl <title> [OPTIONS]
 ```
+
+For using the project programatically, visit the following site for the docs: [whinee.github.io/mangDL/mangdl](https://whinee.github.io/mangDL/mangdl)
 
 ## **Getting Started**
 
@@ -284,6 +306,10 @@ After checking or installing Python, pip, and git in your machine, proceed to th
 
 - [ ] Documentation
 
+    - [x] Bare-bones sites
+
+    - [ ] Migrate every .md file to https://whinee.github.io/mangDL
+
 - [ ] Library
 
     - [ ] Manga Update notifier
@@ -299,6 +325,8 @@ After checking or installing Python, pip, and git in your machine, proceed to th
 - [ ] Fully opt-in 99% configureable (mostly opinionated) analytics for new and some sampled features
 
 ### Side Quests
+
+- [ ] Installation instructions for Android users
 
 - [ ] Package update notifier
 
@@ -339,7 +367,9 @@ The body must contain the following:
 <!-- Mention the issus and limitations of this repository. Preferrably 1-5 sentences long. -->
 ## **Known Issues and Limitations**
 
-Something is broken and I don't know what is, 'cause I forgot!
+At the time of writing, this project can not be run in Termux due to a fatal error.
+
+Also, something is broken and I don't know what is, 'cause I forgot!
 
 <!-- Mention the plans for the repository. Preferrably 2-5 sentences long. -->
 ## **Future of this project**

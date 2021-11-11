@@ -24,8 +24,8 @@ cmd:
           type:
             Choice:
               args:
-                - - mangadex
-                  - mangakakalot
+                - - catmanga
+                  - mangadex
                   - manganato
               kwargs:
                 case_sensitive: false

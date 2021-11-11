@@ -100,7 +100,7 @@ INDEX=[
 {
 "ref":"mangdl.API.Base.Search",
 "url":3,
-"doc":"Search(title: str, lang: List[str] =  , excludelang: List[str] =  , demo: List[str] =  , contentrating: List[str] =  , status: List[str] =  , order: str =  , authors: List[str] =  , artists: List[str] =  , year: int = None, includetags: List[str] =  , includemode: str = None, excludetags: List[str] =  , excludemode: str = None, range: Callable Union[int, float , bool] =  at 0x7f0fd8e80040>, cover: bool = False, directory: str = None, overwrite: bool = False, retry: int = 3, retryprompt: bool = False, threads: int = 5, verbosity: int = 4, saveconfig: str = None, loadconfig: str = None, overridelc: bool = False)"
+"doc":"Search(title: str, lang: List[str] =  , excludelang: List[str] =  , demo: List[str] =  , contentrating: List[str] =  , status: List[str] =  , order: str =  , authors: List[str] =  , artists: List[str] =  , year: int = None, includetags: List[str] =  , includemode: str = None, excludetags: List[str] =  , excludemode: str = None, range: Callable Union[int, float , bool] =  at 0x7f3c8170c040>, cover: bool = False, directory: str = None, overwrite: bool = False, retry: int = 3, retryprompt: bool = False, threads: int = 5, verbosity: int = 4, saveconfig: str = None, loadconfig: str = None, overridelc: bool = False)"
 },
 {
 "ref":"mangdl.API.Base.Search.title",
@@ -489,25 +489,37 @@ INDEX=[
 {
 "ref":"mangdl.API.Providers.catmanga.squery",
 "url":6,
-"doc":"",
+"doc":"Custom search query. Args: query (str): String to search for in the . possibilities (List[str]): [description] cutoff (int, optional): [description]. Defaults to 0.6. processor (Callable Any], Any], optional): [description]. Defaults to lambdar:r. Yields: [type]: [description]",
 "func":1
 },
 {
 "ref":"mangdl.API.Providers.catmanga.search",
 "url":6,
-"doc":"",
+"doc":"Can be used for searching manga when using this project as a module. Args: s (Search): Search dataclass, search parameters for searching. Returns: List[Manga]: Search results.",
 "func":1
 },
 {
 "ref":"mangdl.API.Providers.catmanga.dl_search",
 "url":6,
-"doc":"",
+"doc":"Used for downloading when imported. Args: s (Search): [description] Returns: Dict[str, str]: [description]",
 "func":1
 },
 {
 "ref":"mangdl.API.Providers.catmanga.cli_search",
 "url":6,
-"doc":"",
+"doc":"Format click arguments and options to their respective types, then pass that to  dl_search for it to return the search results. Args: title (str): Title of the manga to search for. Returns: Dict[str, str]: Search results",
+"func":1
+},
+{
+"ref":"mangdl.API.Providers.catmanga.dl",
+"url":6,
+"doc":"Used for downloading when using the project as a module. Args: url (str): URL of the manga to download.",
+"func":1
+},
+{
+"ref":"mangdl.API.Providers.catmanga.cli_dl",
+"url":6,
+"doc":"Used for downloading when using cli. Args: title (str): Title of the manga to download.",
 "func":1
 },
 {
