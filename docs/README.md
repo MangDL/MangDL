@@ -56,7 +56,7 @@ This project is a work in progress.
 
 To be updated in the latest commits, be sure to watch this repository. A package will be released soon as a beta.
 
-For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF USAGE & DISCLAIMER.md](TERMS-OF-USAGE-&-DISCLAIMER.md).
+For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF USAGE & DISCLAIMER.md](TERMS%20OF%20USAGE%20%26%20DISCLAIMER.md).
 
 ## **Features**
 
@@ -114,7 +114,7 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
 <!-- Mention examples of application of this repository. -->
 ## **Usage**
 
-Before using this project, it is recommended to visit [LICENSE.md](LICENSE.md) and [TERMS OF USAGE & DISCLAIMER.md](TERMS-OF-USAGE-&-DISCLAIMER.md) for the terms of usage and legals.
+Before using this project, it is recommended to visit [LICENSE.md](LICENSE.md) and [TERMS OF USAGE & DISCLAIMER.md](TERMS%20OF%20USAGE%20%26%20DISCLAIMER.md) for the terms of usage and legals.
 
 ```bash
 mangdl -h
