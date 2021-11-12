@@ -38,26 +38,17 @@
 The most inefficient manga downloader for PC (and soon, also a reader)
 </h4>
 
-<h6 align="center">
-
-<!-- NOTE: If this project is out of the testing phase, comment the line below. -->
-This project is still in testing phase so please expect a lot of bugs.
-
-<!-- Update the python version and OS if changed during the testing and/or development of this repository. -->
-Developed and tested in Python 3.10.0, Arch Linux 5.14.14-arch1-1.
-
-<!-- Can be omitted if the About section is too long. -->
-<!-- This project is not guaranteed to run in other operating systems, however compatibility is being kept in mind when creating this. -->
-
-</h6>
-
 ---
 
 ## **Important**
 
 This project is a work in progress.
 
-To be updated in the latest commits, be sure to watch this repository. A package will be released soon as a beta.
+[catmanga.org](https://catmanga.org) is down, and has been removed from the lists of providers.
+
+To be updated, whether it be the latest commits or announcements like the one above, be sure to watch this repository and join the [Discord Support Server](https://discord.gg/JbAtUxGcJZ) for mangDL.
+
+A package will be released soon as a beta.
 
 For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF USAGE & DISCLAIMER.md](TERMS%20OF%20USAGE%20%26%20DISCLAIMER.md).
 
@@ -89,7 +80,6 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
 
 - [mangadex.org](https://mangadex.org)
 - [manganato.com](https://manganato.com)
-- [catmanga.org](https://catmanga.org)
 
 ### Coming soon™
 
@@ -98,7 +88,7 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
 <!-- TOC section. Update when adding sections and subsections fitted in TOC. -->
 ## **Table of Contents**
 
-- [**Important**]($important)
+- [**Important**](#important)
 - [**Features**](#features)
 - [**Sites**](#sites)
 - [**Table of Contents**](#table-of-contents)

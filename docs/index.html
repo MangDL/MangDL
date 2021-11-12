@@ -1,648 +1,498 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-    <meta name="generator" content="pdoc 0.10.0" />
-    <title>mangdl API documentation</title>
-    <meta name="description" content="" />
-    <link rel="preload stylesheet" as="style"
-        href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css"
-        integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
-    <link rel="preload stylesheet" as="style"
-        href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css"
-        integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
-    <link rel="stylesheet preload" as="style"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/atom-one-dark.min.css" crossorigin>
-    <style>
-        html {
-            scrollbar-face-color: #646464;
-            scrollbar-base-color: #646464;
-            scrollbar-3dlight-color: #646464;
-            scrollbar-highlight-color: #646464;
-            scrollbar-track-color: #000;
-            scrollbar-arrow-color: #000;
-            scrollbar-shadow-color: #646464;
-            scrollbar-dark-shadow-color: #646464
-        }
-
-        ::-webkit-scrollbar {
-            width: 14px;
-            height: 3px
-        }
-
-        ::-webkit-scrollbar-button {
-            background-color: #000;
-            height: 3px
-        }
-
-        ::-webkit-scrollbar-track {
-            background-color: #646464
-        }
-
-        ::-webkit-scrollbar-track-piece {
-            background-color: #000
-        }
-
-        ::-webkit-scrollbar-thumb {
-            height: 50px;
-            background-color: #666;
-            border-radius: 7px
-        }
-
-        ::-webkit-scrollbar-corner {
-            background-color: #646464
-        }
-
-        ::-webkit-resizer {
-            background-color: #666
-        }
-
-        :root {
-            --highlight-color: #fe9
-        }
-
-        .flex {
-            display: flex !important
-        }
-
-        body {
-            line-height: 1.5em;
-            color: #fff;
-            background-color: #0f0f0f
-        }
-
-        #content {
-            padding: 20px
-        }
-
-        #sidebar {
-            padding: 30px;
-            overflow: hidden
-        }
-
-        #sidebar>*:last-child {
-            margin-bottom: 2cm
-        }
-
-        #lunr-search {
-            color: #fff;
-            width: 100%;
-            font-size: 1em;
-            padding: 6px 9px 5px 9px;
-            border: 1px solid transparent;
-            background: #262626
-        }
-
-        .http-server-breadcrumbs {
-            font-size: 130%;
-            margin: 0 0 15px 0
-        }
-
-        #footer {
-            font-size: .75em;
-            padding: 5px 30px;
-            border-top: 1px solid #ddd;
-            text-align: right
-        }
-
-        #footer p {
-            margin: 0 0 0 1em;
-            display: inline-block
-        }
-
-        #footer p:last-child {
-            margin-right: 30px
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5 {
-            font-weight: 300
-        }
-
-        h1 {
-            font-size: 2.5em;
-            line-height: 1.1em
-        }
-
-        h2 {
-            font-size: 1.75em;
-            margin: 1em 0 .50em 0
-        }
-
-        h3 {
-            font-size: 1.4em;
-            margin: 25px 0 10px 0
-        }
-
-        h4 {
-            margin: 0;
-            font-size: 105%
-        }
-
-        h1:target,
-        h2:target,
-        h3:target,
-        h4:target,
-        h5:target,
-        h6:target {
-            background: var(--highlight-color);
-            padding: .2em 0
-        }
-
-        a {
-            color: #70BAFF;
-            text-decoration: none;
-            transition: color .2s ease-in-out
-        }
-
-        a:hover {
-            color: #CDB4DB
-        }
-
-        .title code {
-            font-weight: bold
-        }
-
-        h2[id^="header-"] {
-            margin-top: 2em
-        }
-
-        .ident {
-            color: #79aaf8
-        }
-
-        pre code {
-            background: transparent;
-            font-size: .8em;
-            line-height: 1.4em
-        }
-
-        code {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1px 4px;
-            overflow-wrap: break-word
-        }
-
-        h1 code {
-            background: transparent
-        }
-
-        pre {
-            background: transparent;
-            padding: 1ex
-        }
-
-        #http-server-module-list {
-            display: flex;
-            flex-flow: column
-        }
-
-        #http-server-module-list div {
-            display: flex
-        }
-
-        #http-server-module-list dt {
-            min-width: 10%
-        }
-
-        #http-server-module-list p {
-            margin-top: 0
-        }
-
-        .toc ul,
-        #index {
-            list-style-type: none;
-            margin: 0;
-            padding: 0
-        }
-
-        #index code {
-            background: transparent
-        }
-
-        #index h3 {
-            border-bottom: 1px solid #646464
-        }
-
-        #index ul {
-            padding: 0
-        }
-
-        #index h4 {
-            margin-top: .6em;
-            font-weight: bold
-        }
-
-        @media (min-width:200ex) {
-            #index .two-column {
-                column-count: 2
-            }
-        }
-
-        @media (min-width:300ex) {
-            #index .two-column {
-                column-count: 3
-            }
-        }
-
-        dl {
-            margin-bottom: 2em
-        }
-
-        dl dl:last-child {
-            margin-bottom: 4em
-        }
-
-        dd {
-            margin: 0 0 1em 3em
-        }
-
-        #header-classes+dl>dd {
-            margin-bottom: 3em
-        }
-
-        dd dd {
-            margin-left: 2em
-        }
-
-        dd p {
-            margin: 10px 0
-        }
-
-        .name {
-            background: #000;
-            font-weight: bold;
-            font-size: .85em;
-            padding: 5px 10px;
-            display: inline-block;
-            min-width: 40%
-        }
-
-        .name:hover {
-            background: #0b0b0b
-        }
-
-        dt:target .name {
-            background: var(--highlight-color)
-        }
-
-        .name>span:first-child {
-            white-space: nowrap
-        }
-
-        .name.class>span:nth-child(2) {
-            margin-left: .4em
-        }
-
-        .inherited {
-            color: #999;
-            border-left: 5px solid #eee;
-            padding-left: 1em
-        }
-
-        .inheritance em {
-            font-style: normal;
-            font-weight: bold
-        }
-
-        .desc h2 {
-            font-weight: 400;
-            font-size: 1.25em
-        }
-
-        .desc h3 {
-            font-size: 1em
-        }
-
-        .desc dt code {
-            background: inherit
-        }
-
-        .source summary,
-        .git-link-div {
-            color: #666;
-            text-align: right;
-            font-weight: 400;
-            font-size: .8em;
-            text-transform: uppercase
-        }
-
-        .source summary>* {
-            white-space: nowrap;
-            cursor: pointer
-        }
-
-        .git-link {
-            color: inherit;
-            margin-left: 1em
-        }
-
-        .source pre {
-            background: #282c34;
-            max-height: 500px;
-            margin: 0;
-            overflow-x: scroll;
-            overflow-y: scroll
-        }
-
-        .source pre code {
-            font-size: 12px;
-            overflow-x: initial
-        }
-
-        .hlist {
-            list-style: none
-        }
-
-        .hlist li {
-            display: inline
-        }
-
-        .hlist li:after {
-            content: ',\2002'
-        }
-
-        .hlist li:last-child:after {
-            content: none
-        }
-
-        .hlist .hlist {
-            display: inline;
-            padding-left: 1em
-        }
-
-        img {
-            max-width: 100%
-        }
-
-        td {
-            padding: 0 .5em
-        }
-
-        .admonition {
-            padding: .1em .5em;
-            margin-bottom: 1em
-        }
-
-        .admonition-title {
-            font-weight: bold
-        }
-
-        .admonition.note,
-        .admonition.info,
-        .admonition.important {
-            background: #aef
-        }
-
-        .admonition.todo,
-        .admonition.versionadded,
-        .admonition.tip,
-        .admonition.hint {
-            background: #dfd
-        }
-
-        .admonition.warning,
-        .admonition.versionchanged,
-        .admonition.deprecated {
-            background: #fd4
-        }
-
-        .admonition.error,
-        .admonition.danger,
-        .admonition.caution {
-            background: lightpink
-        }
-    </style>
-    <style media="screen and (min-width: 700px)">
-        @media screen and (min-width:700px) {
-            #sidebar {
-                width: 30%;
-                height: 100vh;
-                overflow: auto;
-                position: sticky;
-                top: 0
-            }
-
-            #content {
-                width: 70%;
-                max-width: 100ch;
-                padding: 3em 4em;
-                border-left: 1px solid #1b1b1b
-            }
-
-            pre code {
-                font-size: 1em
-            }
-
-            .item .name {
-                font-size: 1em
-            }
-
-            main {
-                display: flex;
-                flex-direction: row-reverse;
-                justify-content: flex-end
-            }
-
-            .toc ul ul,
-            #index ul {
-                padding-left: 1.5em
-            }
-
-            .toc>ul>li {
-                margin-top: .5em
-            }
-        }
-    </style>
-    <style media="print">
-        @media print {
-            #sidebar h1 {
-                page-break-before: always
-            }
-
-            .source {
-                display: none
-            }
-        }
-
-        @media print {
-            * {
-                background: transparent !important;
-                color: #000 !important;
-                box-shadow: none !important;
-                text-shadow: none !important
-            }
-
-            a[href]:after {
-                content: " ("attr(href) ")";
-                font-size: 90%
-            }
-
-            a[href][title]:after {
-                content: none
-            }
-
-            abbr[title]:after {
-                content: " ("attr(title) ")"
-            }
-
-            .ir a:after,
-            a[href^="javascript:"]:after,
-            a[href^="#"]:after {
-                content: ""
-            }
-
-            pre,
-            blockquote {
-                border: 1px solid #999;
-                page-break-inside: avoid
-            }
-
-            thead {
-                display: table-header-group
-            }
-
-            tr,
-            img {
-                page-break-inside: avoid
-            }
-
-            img {
-                max-width: 100% !important
-            }
-
-            @page {
-                margin: 0.5cm
-            }
-
-            p,
-            h2,
-            h3 {
-                orphans: 3;
-                widows: 3
-            }
-
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
-                page-break-after: avoid
-            }
-        }
-    </style>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"
-        integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
-    <script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>mangDL API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/atom-one-dark.min.css" crossorigin>
+<style>html{scrollbar-face-color:#646464;scrollbar-base-color:#646464;scrollbar-3dlight-color:#646464;scrollbar-highlight-color:#646464;scrollbar-track-color:#000;scrollbar-arrow-color:#000;scrollbar-shadow-color:#646464;scrollbar-dark-shadow-color:#646464}::-webkit-scrollbar{width:14px;height:3px}::-webkit-scrollbar-button{background-color:#000;height:3px}::-webkit-scrollbar-track{background-color:#646464}::-webkit-scrollbar-track-piece{background-color:#000}::-webkit-scrollbar-thumb{height:50px;background-color:#666;border-radius:7px}::-webkit-scrollbar-corner{background-color:#646464}::-webkit-resizer{background-color:#666}:root{--highlight-color:#978141}.flex{display:flex !important}body{line-height:1.5em;color:#fff;background-color:#0f0f0f}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{color:#fff;width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid transparent;background:#262626}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em;font-family:Liberation Mono}h2{font-size:1.75em;margin:.75em 0 .25em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#70BAFF;text-decoration:none;transition:color .2s ease-in-out}a:hover{color:#CDB4DB}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#79aaf8}pre code{background:transparent;font-size:.8em;line-height:1.4em}code{background:rgba(255,255,255,0.1);padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#1e2122;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #646464}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 2em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:0 0}.name{background:#000;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%;margin:0 0 1em 0}.name:hover{background:#0b0b0b}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{background:#282c34;max-height:500px;margin:0;overflow-x:scroll;overflow-y:scroll}.source pre code{font-size:12px;overflow-x:initial}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #1b1b1b}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
 </head>
-
 <body>
-    <main>
-        <article id="content">
-            <header>
-                <h1 class="title"><code>mangDL</code> API Documentation</h1>
-            </header>
-            <section id="section-intro">
-            </section>
-            <section>
-                <h2 class="section-title" id="header-submodules">Table of Contents</h2>
-                <dl>
-                    <dt><code class="name"><a title="mangdl" href="mangdl/index.html">Package mangdl</a></code></dt>
-                    <dd>
-                        <div class="desc"></div>
-                    </dd>
-                </dl>
-            </section>
-            <section>
-            </section>
-            <section>
-            </section>
-            <section>
-            </section>
-        </article>
-        <nav id="sidebar">
-            <form>
-                <input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search" disabled minlength="2">
-            </form>
-            <link rel="preload stylesheet" as="style"
-                href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.css"
-                integrity="sha512-j1u8eUJ4f23xPPxwOrLUPQaCD2dwzNqqmDDcWS4deWsMv2ohLqmXXuP3hU7g8TyzbMSakP/mMqoNBYWj8AEIFg=="
-                crossorigin>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.js"
-                integrity="sha512-plGUER9JkeEWPPqQBE4sdLqBoQug5Ap+BCGMc7bJ8BXkm+VVj6QzkpBz5Yv2yPkkq+cqg9IpkBaGCas6uDbW8g=="
-                crossorigin></script>
-            <style>
-                .modal-dialog iframe {
-                    width: 100vw;
-                    height: calc(100vh - 80px);
-                }
+<main>
+<article id="content"><!-- ?xml version='1.0' encoding='UTF-8'? -->
 
-                @media screen and (min-width: 700px) {
-                    .modal-dialog iframe {
-                        width: 70vw;
-                        height: 80vh;
-                    }
-                }
-
-                .modal-dialog .tingle-modal-box {
-                    width: auto;
-                    background: #0f0f0f;
-                }
-
-                .modal-dialog .tingle-modal-box__content {
-                    padding: 0;
-                }
-
-                #search-status {
-                    font-family: Liberation Mono;
-                }
-
-                footer {
-                    font-family: Liberation Mono;
-                }
-            </style>
-            <script>
-                const input = document.getElementById('lunr-search');
-                input.disabled = false;
-                input.form.addEventListener('submit', (ev) => {
-                    ev.preventDefault();
-                    const url = new URL(window.location);
-                    url.searchParams.set('q', input.value);
-                    history.replaceState({}, null, url.toString());
-                    search(input.value);
-                });
-                const query = new URL(window.location).searchParams.get('q');
-                if (query)
-                    search(query);
-                function search(query) {
-                    const url = 'doc-search.html#' + encodeURIComponent(query);
-                    new tingle.modal({
-                        cssClass: ['modal-dialog'],
-                        onClose: () => {
-                            const url = new URL(window.location);
-                            url.searchParams.delete('q');
-                            history.replaceState({}, null, url.toString());
-                            setTimeout(() => input.focus(), 100);
-                        }
-                    }).setContent('<iframe src="' + url + '"></iframe>').open();
-                }
-            </script>
-            <h1>Index</h1>
-            <ul id="index">
-                <li><code><a title="mangdl" href="mangdl/index.html">Reference</a></code></li>
-            </ul>
-        </nav>
-    </main>
-    <footer id="footer">
-        <p>Generated by <a href="https://pdoc3.github.io/pdoc"
-                title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
-    </footer>
+<meta charset="utf-8" content="text/html"/>
+<div class="gist">
+<style class="formula-style">
+        svg.gh-md-to-html-formula {
+            fill: black;
+        }
+    </style>
+<div class="gist-file"> <!-- This is the class that is responsible for the boxing! -->
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div class="file" id="article-README">
+<div class="Box-body readme blob js-code-block-container p-5 p-xl-6" id="file-docker-image-pull-md-readme" style="margin-left: 40px; margin-right: 40px; margin-top: 20px; margin-bottom: 20px">
+<article class="markdown-body entry-content container-lg" itemprop="text">
+<h1 align="center" id="----mangdl">
+<a aria-hidden="true" class="anchor" href="#----mangdl" id="----mangdl" name="user-content-----mangdl"><span aria-hidden="true" class="octicon octicon-link"></span></a>
+    mangDL
+</h1>
+<h3 align="center" id="----wip-manga-downloader">
+<a aria-hidden="true" class="anchor" href="#----wip-manga-downloader" id="----wip-manga-downloader" name="user-content-----wip-manga-downloader"><span aria-hidden="true" class="octicon octicon-link"></span></a>
+    WIP: Manga Downloader
+</h3>
+<p align="center">
+<a href="https://github.com/whinee/mangdl/blob/master/LICENSE.html">
+<img data-canonical-src="https://img.shields.io/badge/LICENSE-A31F34?style=flat-square&amp;logoWidth=25&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANwAAAByCAYAAAA4TL8fAAADvElEQVR4nO3bsYkdVxiG4c2EA6kCY5WgAt2AMuVbgntRC+rgcoeFTRbDcQ3/OxwxjJ8P/vTwBvOE8/J8PteuO47j35cTO47jubNvrfX5RNuvzW1/nWj7ubPt4+PjW21ba33Z2Xb1e9n5OHCn2oC74QHX24ALA27j48CdagPuhgdcbwMuDLiNjwN3qg24Gx5wvQ24MOA2Pg7cqTbgbnjA9TbgwoDb+Dhwp9qAu+EB19uACwNu4+PAnWoD7oYHXG8DLgy4jY8Dd6oNuBsecL0NuDDgNj4O3Kk24G54wPU24MKA2/g4cKfagLvhAdfbgAsDbuPjwJ1qA+6GB1xvAy4MuI2PA3eqDbgbHnC97bLg3t7evr+/v/+z69ZaX2vbWuuPnW1XP+B622XB2YUHXG4DzuYDLrcBZ/MBl9uAs/mAy23A2XzA5TbgbD7gchtwNh9wuQ04mw+43AaczQdcbgPO5gMutwFn8wGX24Cz+YDLbcDZfMDltsuCW2v9vdZ63Xh/nmj7dBzH6657PB4/attvGXC57crgfq69O/M/3OfN39yztv2WAZfbgGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AXRXc4/H4cRzH665ba32qbcDlNuCuCu7KAy63AQfcfMDlNuCAmw+43AYccPMBl9uAA24+4HIbcMDNB1xuAw64+YDLbcABNx9wuQ044OYDLrcBB9x8wOU24ICbD7jcBhxw8wGX24ADbj7gchtwwM0HXG4DDrj5gMttwAE3H3C5DTjg5gMutwEH3HzA5TbggJsPuNwGHHDzAZfbgANuPuByG3DAzQdcbgMOuPmAy23AATcfcLkNOODmAy63AQfcfMDlNuCAmw+43AYccPMBl9uAA24+4HIbcMDNB1xuAw64+YDLbcABNx9wuQ044OYDLrcBB9x8wOU24ICbD7jcBhxw8wGX2/7X4P4DxDPxnlw4RDoAAAAASUVORK5CYII=" src="https://img.shields.io/badge/LICENSE-A31F34?style=flat-square&amp;logoWidth=25&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANwAAAByCAYAAAA4TL8fAAADvElEQVR4nO3bsYkdVxiG4c2EA6kCY5WgAt2AMuVbgntRC+rgcoeFTRbDcQ3/OxwxjJ8P/vTwBvOE8/J8PteuO47j35cTO47jubNvrfX5RNuvzW1/nWj7ubPt4+PjW21ba33Z2Xb1e9n5OHCn2oC74QHX24ALA27j48CdagPuhgdcbwMuDLiNjwN3qg24Gx5wvQ24MOA2Pg7cqTbgbnjA9TbgwoDb+Dhwp9qAu+EB19uACwNu4+PAnWoD7oYHXG8DLgy4jY8Dd6oNuBsecL0NuDDgNj4O3Kk24G54wPU24MKA2/g4cKfagLvhAdfbgAsDbuPjwJ1qA+6GB1xvAy4MuI2PA3eqDbgbHnC97bLg3t7evr+/v/+z69ZaX2vbWuuPnW1XP+B622XB2YUHXG4DzuYDLrcBZ/MBl9uAs/mAy23A2XzA5TbgbD7gchtwNh9wuQ04mw+43AaczQdcbgPO5gMutwFn8wGX24Cz+YDLbcDZfMDltsuCW2v9vdZ63Xh/nmj7dBzH6657PB4/attvGXC57crgfq69O/M/3OfN39yztv2WAZfbgGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AXRXc4/H4cRzH665ba32qbcDlNuCuCu7KAy63AQfcfMDlNuCAmw+43AYccPMBl9uAA24+4HIbcMDNB1xuAw64+YDLbcABNx9wuQ044OYDLrcBB9x8wOU24ICbD7jcBhxw8wGX24ADbj7gchtwwM0HXG4DDrj5gMttwAE3H3C5DTjg5gMutwEH3HzA5TbggJsPuNwGHHDzAZfbgANuPuByG3DAzQdcbgMOuPmAy23AATcfcLkNOODmAy63AQfcfMDlNuCAmw+43AYccPMBl9uAA24+4HIbcMDNB1xuAw64+YDLbcABNx9wuQ044OYDLrcBB9x8wOU24ICbD7jcBhxw8wGX2/7X4P4DxDPxnlw4RDoAAAAASUVORK5CYII=" style="max-width:100%;"/>
+</a>
+<a href="https://github.com/whinee/mangdl/issues">
+<img data-canonical-src="https://img.shields.io/github/issues/whinee/mangdl.svg?style=flat-square&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAACVUlEQVR4nO3doW5UQRTG8XPaEHwLBgQhCGoQJLwAiiYY3qCG10DgCc/QJ0AgMCTUIkCCqiAhkCBQpNAW0g+xS5pguLv3DPeb3f/P35OZ+XJm7+yIGwEAAAAAALAQSW813pup5zHExtQDGOi0oMZJQY3megmkYjEJpBCBmCEQMwRihkDMVCzmcUGN5tYpEDqkEOcQM3SIGQIxQyBmCMQMgZghEDMVr70cDAvRIWYIxAyBmCEQMwRihkDMEIgZLqjMcB9ihi3LDIGYIRAzYxfzLDN/loyksS4CyczTiNCIEhUvBf9FF4HMjVnULl55I/oKZMy21cXvRwSB2OkpkDFbFoE0QIeYIRAzBGKGQMyMWVTOIQ3QIWYIxAyBmOFgaIYOMUMgZgjEDIGY4WBohg4xw2uvGTrEzFoEklMPYChJ1yPizpKPv87Mj5XjAQAAAACgiW5O6n+bn9zvRsStiNiK2Vy+RsT7iDjIzMMJh7c+JN2W9ELS2T++F/JS0rJ/tWAISXuSjhf4iMuJpIdTj3slSdqV9Gvh7+rMnrk/9fhXiqQLkg6XCOOPD5IuTj2PIXq5D3kQETdGPH9tXsNeL4HsFtS4V1CjuV4C2SmocbOgRnO9BLJVUONSQY3megnkqKDGt4IazfUSyCeTGs31EsirghoHBTUQESHpiqTvI84hPyRdnXoeQ3TRIZn5OSKejCjxNDO72LK6IWlT0rMluuO5pM2px7+SJG1IeiTpaOA29bi3MLq8D5F0OSL24vw+ZDvO70PexewHfD8zv0w2SAAAAAAAsAJ+A9PfbN9hclgfAAAAAElFTkSuQmCC" src="https://img.shields.io/github/issues/whinee/mangdl.svg?style=flat-square&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAACVUlEQVR4nO3doW5UQRTG8XPaEHwLBgQhCGoQJLwAiiYY3qCG10DgCc/QJ0AgMCTUIkCCqiAhkCBQpNAW0g+xS5pguLv3DPeb3f/P35OZ+XJm7+yIGwEAAAAAALAQSW813pup5zHExtQDGOi0oMZJQY3megmkYjEJpBCBmCEQMwRihkDMVCzmcUGN5tYpEDqkEOcQM3SIGQIxQyBmCMQMgZghEDMVr70cDAvRIWYIxAyBmCEQMwRihkDMEIgZLqjMcB9ihi3LDIGYIRAzYxfzLDN/loyksS4CyczTiNCIEhUvBf9FF4HMjVnULl55I/oKZMy21cXvRwSB2OkpkDFbFoE0QIeYIRAzBGKGQMyMWVTOIQ3QIWYIxAyBmOFgaIYOMUMgZgjEDIGY4WBohg4xw2uvGTrEzFoEklMPYChJ1yPizpKPv87Mj5XjAQAAAACgiW5O6n+bn9zvRsStiNiK2Vy+RsT7iDjIzMMJh7c+JN2W9ELS2T++F/JS0rJ/tWAISXuSjhf4iMuJpIdTj3slSdqV9Gvh7+rMnrk/9fhXiqQLkg6XCOOPD5IuTj2PIXq5D3kQETdGPH9tXsNeL4HsFtS4V1CjuV4C2SmocbOgRnO9BLJVUONSQY3megnkqKDGt4IazfUSyCeTGs31EsirghoHBTUQESHpiqTvI84hPyRdnXoeQ3TRIZn5OSKejCjxNDO72LK6IWlT0rMluuO5pM2px7+SJG1IeiTpaOA29bi3MLq8D5F0OSL24vw+ZDvO70PexewHfD8zv0w2SAAAAAAAsAJ+A9PfbN9hclgfAAAAAElFTkSuQmCC" style="max-width:100%;"/>
+</a>
+<a href="https://github.com/whinee/mangdl/network/members">
+<img data-canonical-src="https://img.shields.io/github/forks/whinee/mangdl.svg?style=flat-square&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAAFKElEQVR4nO2dS4gcRRjH/xXdoKiIaESNio8YCbKKRgSJ4knEg8km0eArQUTwZIJXL8GTWYMoehC8xgfRgxvjUfAg+IoPsi5Bze76TiIo4jqCu5vMz0NNS+zMzM5OV+9X3VM/GHabXb761/zpenzdVSUlEolEIpFIJMLjyggKLJc00vrcJOnS1p9+lvSFpDFJY865uTLKT5wEsAmYYmEmgY3WemsLsAx4tgcj8owCy6z11w5gdx9mZOyy1l8r8M1UUUas61ELgOX4/qAoU/jBwEATou0ekXR1gDhXSVofIE6lCWFIyJHSwDdbIQxZGyBGxs0BY1WSEIZcHCBGxsqAsSrJ6QFilDLbt4QqZxrobVbeK4cjqE+1Mw3AawEN2WNYj3pkGoD7AxqyxbAe/ZiRMWql+xSAIeD7AGZMAyH6tH7qUK9MA7A+QIU2GWmvZ6YBeL5AZZ4z1L0lgBkZ91rV4xQAB7zQjxmA2dAZeD2gIa9a1aMj+Pb4ux7ETxNBuwt8E9CQr63r0xZ8R/8gsLeN6L3AA8CQtU5JAmYCGjJTVE/pTQXA/wp0LqqZPdCQdFagcA3n3DlFAsQzobHjWEyxkiHSpwFjfVw0QDJEeidgrP1FA6Q+xA8uJiVdXjDUtKRrnXPHiwQZ+DvEOTcv6YkAoXYUNWNJyI8LrfV0gv4mtRm7rfX3TIUMccCLizSiic8SR9UMd6UqhmTgc1s/9GDGJHCPtd5FUzVDpP8ywFuBsZz8efwDufswelRQmCoakgGsyt8VZZc58KOsBbgsd/1L2QUmQ7qTfyPzaNkFJkO6c0vuerzsApMh3bk9dx0y72VDVTt1YDgnfQ44t+xy0x3SmUdz1+855/40URKSKt4hwIXA3znp26x1BaGihuTfxjwKnGmtKwhVMwQ/Q8/zpLWuYFTJEOAuYDYneQI4w1pbMKpiCPBYGzPmgJALkuyJ3RDgIuCtNs1UE9hqrS84sRoCrMQvJWi0MeMEsN1aYynEZAiwAngEn1afb2ME+OHuZkudpWJpCHA+cDewE/gAON7BhIwPgdVLqTFPNR+y5MCvYLpS0vWSrpM0LOlGSdf0GOJHSTsl7XHOnShFZI9UzhDgPPkvfrj18wZ5E/p5HfSApJckvemcmw0msgDRGwKskXSHpNskrZN0RYFwTUkfya+ifds5N1VcYViiNAS4VdJmSRskrSoQalbSl/KveH4i6X3n3K/FFZZHNIYAZ0vaJulx+aZosRyT9JWkidZnXNJ4lGvJu2BuCHCafKr7afW2K8SspIPyC/jHJR2SNOGc+700kXWi27AXWAMcXGAo2gDeBbYDa4lkoU9l6WQI8BDwVwcT/gHeAO4kppWtdaCdIcCODkbMAE8BK6x115Y2X/rD+FxRnv1A0SUBiYVo88Xnc0gNjDYNGEg6NE0nm7HOWuNA0cWMJhGsUx84uhjysrW2gaSDGX8AF1hrixGrF+Vecc79ZlT2YNPhDun1OUUiNG3MOGStKWaWIrm4WtKR1u+XLEF5iUQikVga0hlUdYeq7wxdF6jLztB1gXQGVTxQt52hqwx13RnaiHQGVWSkM6giI51BFRnpDKrIiG3837QWYE0IQ44s/C8msSpJCEM+CxAj40DAWJUkhCH7AsTICLnL9GCCP5ricJoYRgSwsaAZTWDgJ4VBodixc89Y668d+PT7aB93xi5S+r08gBF661O+BTZY642Nsh7hDsmvoB2RT61kj3B/kvS5/MhsX+tkgkQikUgkEolEomT+BQYopfF8o1GKAAAAAElFTkSuQmCC" src="https://img.shields.io/github/forks/whinee/mangdl.svg?style=flat-square&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAAFKElEQVR4nO2dS4gcRRjH/xXdoKiIaESNio8YCbKKRgSJ4knEg8km0eArQUTwZIJXL8GTWYMoehC8xgfRgxvjUfAg+IoPsi5Bze76TiIo4jqCu5vMz0NNS+zMzM5OV+9X3VM/GHabXb761/zpenzdVSUlEolEIpFIJMLjyggKLJc00vrcJOnS1p9+lvSFpDFJY865uTLKT5wEsAmYYmEmgY3WemsLsAx4tgcj8owCy6z11w5gdx9mZOyy1l8r8M1UUUas61ELgOX4/qAoU/jBwEATou0ekXR1gDhXSVofIE6lCWFIyJHSwDdbIQxZGyBGxs0BY1WSEIZcHCBGxsqAsSrJ6QFilDLbt4QqZxrobVbeK4cjqE+1Mw3AawEN2WNYj3pkGoD7AxqyxbAe/ZiRMWql+xSAIeD7AGZMAyH6tH7qUK9MA7A+QIU2GWmvZ6YBeL5AZZ4z1L0lgBkZ91rV4xQAB7zQjxmA2dAZeD2gIa9a1aMj+Pb4ux7ETxNBuwt8E9CQr63r0xZ8R/8gsLeN6L3AA8CQtU5JAmYCGjJTVE/pTQXA/wp0LqqZPdCQdFagcA3n3DlFAsQzobHjWEyxkiHSpwFjfVw0QDJEeidgrP1FA6Q+xA8uJiVdXjDUtKRrnXPHiwQZ+DvEOTcv6YkAoXYUNWNJyI8LrfV0gv4mtRm7rfX3TIUMccCLizSiic8SR9UMd6UqhmTgc1s/9GDGJHCPtd5FUzVDpP8ywFuBsZz8efwDufswelRQmCoakgGsyt8VZZc58KOsBbgsd/1L2QUmQ7qTfyPzaNkFJkO6c0vuerzsApMh3bk9dx0y72VDVTt1YDgnfQ44t+xy0x3SmUdz1+855/40URKSKt4hwIXA3znp26x1BaGihuTfxjwKnGmtKwhVMwQ/Q8/zpLWuYFTJEOAuYDYneQI4w1pbMKpiCPBYGzPmgJALkuyJ3RDgIuCtNs1UE9hqrS84sRoCrMQvJWi0MeMEsN1aYynEZAiwAngEn1afb2ME+OHuZkudpWJpCHA+cDewE/gAON7BhIwPgdVLqTFPNR+y5MCvYLpS0vWSrpM0LOlGSdf0GOJHSTsl7XHOnShFZI9UzhDgPPkvfrj18wZ5E/p5HfSApJckvemcmw0msgDRGwKskXSHpNskrZN0RYFwTUkfya+ifds5N1VcYViiNAS4VdJmSRskrSoQalbSl/KveH4i6X3n3K/FFZZHNIYAZ0vaJulx+aZosRyT9JWkidZnXNJ4lGvJu2BuCHCafKr7afW2K8SspIPyC/jHJR2SNOGc+700kXWi27AXWAMcXGAo2gDeBbYDa4lkoU9l6WQI8BDwVwcT/gHeAO4kppWtdaCdIcCODkbMAE8BK6x115Y2X/rD+FxRnv1A0SUBiYVo88Xnc0gNjDYNGEg6NE0nm7HOWuNA0cWMJhGsUx84uhjysrW2gaSDGX8AF1hrixGrF+Vecc79ZlT2YNPhDun1OUUiNG3MOGStKWaWIrm4WtKR1u+XLEF5iUQikVga0hlUdYeq7wxdF6jLztB1gXQGVTxQt52hqwx13RnaiHQGVWSkM6giI51BFRnpDKrIiG3837QWYE0IQ44s/C8msSpJCEM+CxAj40DAWJUkhCH7AsTICLnL9GCCP5ricJoYRgSwsaAZTWDgJ4VBodixc89Y668d+PT7aB93xi5S+r08gBF661O+BTZY642Nsh7hDsmvoB2RT61kj3B/kvS5/MhsX+tkgkQikUgkEolEomT+BQYopfF8o1GKAAAAAElFTkSuQmCC" style="max-width:100%;"/>
+</a>
+<a href="https://github.com/whinee/mangdl/network/members">
+<img data-canonical-src="https://img.shields.io/github/stars/whinee/mangdl.svg?style=flat-square&amp;logo=data:image/png;base64,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" src="https://img.shields.io/github/stars/whinee/mangdl.svg?style=flat-square&amp;logo=data:image/png;base64,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" style="max-width:100%;"/>
+</a>
+<a href="https://github.com/whinee/mangdl/graphs/contributors">
+<img data-canonical-src="https://img.shields.io/github/contributors/whinee/mangdl.svg?style=flat-square&amp;logo=data:image/png;base64,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" src="https://img.shields.io/github/contributors/whinee/mangdl.svg?style=flat-square&amp;logo=data:image/png;base64,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" style="max-width:100%;"/>
+</a>
+<a href="https://discord.gg/JbAtUxGcJZ" rel="nofollow">
+<img data-canonical-src="https://img.shields.io/discord/889508240495366184.svg?style=flat-square&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAQAAADa613fAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQflCwsPNhJbdTGBAAABx0lEQVR42u1byw7DIAxbUP//l7fDVGktFPIwFDr7vDzcOElF2etFEARBEARBEP8CiZm/35lD6W0JJpInYkkoZl3ChqSAwNe7nY6gKfilFauOoEhIB5Fa/MqIjhgRAd6Y2g6y2bbJiI/G2XFkAOh8taiIncbRJWqGtb3WqUiEBnoQt3zXqBiJ7K567pLrGDUiydPkI1aiNa7ctcExg0FBZEYaNSrpKa/xjyEiawnrWlzPrsjM9biqCZt9AWnNLqyyuCit6aW1grBK4qK0JpfWKsLKxUVpkciIHvF2iOdkBXEa8+sjoZtOecDpsOksrTwJxfGmw6YzkXICjTNBh81/Tq2VlmGeMfcIiZCIksh6rQ6tSJl+/aF4bNq+wtLKE2in5LEZ0CPHJHQpeWyUb7+r9sj+asPxSyIkQiIPJSKCutBkGa36mMnm+I4NocNmdz5idQbuNLbT63kvyB9n/7XxFaU3Gbv/jIj3Et+4i2d1K2dS468CtiwDCUnwizDWPvwNETeSbZHPcUHf2SN0MPG2+3YFdsekGXY4ovaCKLrImO5wX5fVhUFULx5j0z6Hu7oG/G+F6yfX798K8/YpQRAEQRAEQRAEMTM+AjWseCjwIcoAAAAASUVORK5CYII=" src="https://img.shields.io/discord/889508240495366184.svg?style=flat-square&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAQAAADa613fAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQflCwsPNhJbdTGBAAABx0lEQVR42u1byw7DIAxbUP//l7fDVGktFPIwFDr7vDzcOElF2etFEARBEARBEP8CiZm/35lD6W0JJpInYkkoZl3ChqSAwNe7nY6gKfilFauOoEhIB5Fa/MqIjhgRAd6Y2g6y2bbJiI/G2XFkAOh8taiIncbRJWqGtb3WqUiEBnoQt3zXqBiJ7K567pLrGDUiydPkI1aiNa7ctcExg0FBZEYaNSrpKa/xjyEiawnrWlzPrsjM9biqCZt9AWnNLqyyuCit6aW1grBK4qK0JpfWKsLKxUVpkciIHvF2iOdkBXEa8+sjoZtOecDpsOksrTwJxfGmw6YzkXICjTNBh81/Tq2VlmGeMfcIiZCIksh6rQ6tSJl+/aF4bNq+wtLKE2in5LEZ0CPHJHQpeWyUb7+r9sj+asPxSyIkQiIPJSKCutBkGa36mMnm+I4NocNmdz5idQbuNLbT63kvyB9n/7XxFaU3Gbv/jIj3Et+4i2d1K2dS468CtiwDCUnwizDWPvwNETeSbZHPcUHf2SN0MPG2+3YFdsekGXY4ovaCKLrImO5wX5fVhUFULx5j0z6Hu7oG/G+F6yfX798K8/YpQRAEQRAEQRAEMTM+AjWseCjwIcoAAAAASUVORK5CYII=" style="max-width:100%;"/>
+</a>
+</p>
+<hr/>
+<h4 align="center" id="the-most-inefficient-manga-downloader-for-pc-and-soon-also-a-reader">
+<a aria-hidden="true" class="anchor" href="#the-most-inefficient-manga-downloader-for-pc-and-soon-also-a-reader" id="the-most-inefficient-manga-downloader-for-pc-and-soon-also-a-reader" name="user-content-the-most-inefficient-manga-downloader-for-pc-and-soon-also-a-reader"><span aria-hidden="true" class="octicon octicon-link"></span></a>
+The most inefficient manga downloader for PC (and soon, also a reader)
+</h4>
+<hr/>
+<h2 id="important">
+<a aria-hidden="true" class="anchor" href="#important" id="important" name="user-content-important"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Important</strong>
+</h2>
+<p>This project is a work in progress.</p>
+<p><a href="https://catmanga.org" rel="nofollow">catmanga.org</a> is down, and has been removed from the lists of providers.</p>
+<p>To be updated, whether it be the latest commits or announcements like the one above, be sure to watch this repository and join the <a href="https://discord.gg/JbAtUxGcJZ" rel="nofollow">Discord Support Server</a> for mangDL.</p>
+<p>A package will be released soon as a beta.</p>
+<p>For the terms of usage and legals, visit <a href="LICENSE.html">LICENSE.html</a> and <a href="TERMS%20OF%20USAGE%20%26%20DISCLAIMER.html">TERMS OF USAGE &amp; DISCLAIMER.html</a>.</p>
+<h2 id="features">
+<a aria-hidden="true" class="anchor" href="#features" id="features" name="user-content-features"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Features</strong>
+</h2>
+<ul>
+<li>Ad free</li>
+<li>Batch downloading</li>
+<li>0% tracking and analytics</li>
+<li>Can be used as a library</li>
+</ul>
+<h3 id="supported-oses">
+<a aria-hidden="true" class="anchor" href="#supported-oses" id="supported-oses" name="user-content-supported-oses"><span aria-hidden="true" class="octicon octicon-link"></span></a>Supported OSes</h3>
+<ul>
+<li>Widnows</li>
+<li>MacOS</li>
+<li>Linux</li>
+<li>Android</li>
+</ul>
+<details>
+<summary><sub>NOTES</sub></summary>
+<sub>
+<i>
+            At the moment of writing, there is a fatal error that does not allow this project to run at Termux. Right now, it is being fixed.
+            To be updated in the latest commits, be sure to watch this repository.
+        </i>
+</sub>
+</details>
+<h2 id="sites">
+<a aria-hidden="true" class="anchor" href="#sites" id="sites" name="user-content-sites"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Sites</strong>
+</h2>
+<ul>
+<li><a href="https://mangadex.org" rel="nofollow">mangadex.org</a></li>
+<li><a href="https://manganato.com" rel="nofollow">manganato.com</a></li>
+</ul>
+<h3 id="coming-soon">
+<a aria-hidden="true" class="anchor" href="#coming-soon" id="coming-soon" name="user-content-coming-soon"><span aria-hidden="true" class="octicon octicon-link"></span></a>Coming soon™</h3>
+<ul>
+<li><a href="https://lhtranslation.net" rel="nofollow">lhtranslation.net</a></li>
+</ul>
+<h2 id="table-of-contents">
+<a aria-hidden="true" class="anchor" href="#table-of-contents" id="table-of-contents" name="user-content-table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Table of Contents</strong>
+</h2>
+<ul>
+<li><a href="#important"><strong>Important</strong></a></li>
+<li><a href="#features"><strong>Features</strong></a></li>
+<li><a href="#sites"><strong>Sites</strong></a></li>
+<li><a href="#table-of-contents"><strong>Table of Contents</strong></a></li>
+<li><a href="#usage"><strong>Usage</strong></a></li>
+<li>
+<a href="#getting-started"><strong>Getting Started</strong></a>
+<ul>
+<li><a href="#prerequisites"><strong>Prerequisites</strong></a></li>
+<li><a href="#setup"><strong>Setup</strong></a></li>
+</ul>
+</li>
+<li><a href="#todo"><strong>TODO</strong></a></li>
+<li><a href="#contributions"><strong>Contributions</strong></a></li>
+<li><a href="#known-issues-and-limitations"><strong>Known Issues and Limitations</strong></a></li>
+<li><a href="#future-of-this-project"><strong>Future of this project</strong></a></li>
+<li><a href="#license"><strong>License</strong></a></li>
+<li><a href="#credits"><strong>Credits</strong></a></li>
+</ul>
+<h2 id="usage">
+<a aria-hidden="true" class="anchor" href="#usage" id="usage" name="user-content-usage"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Usage</strong>
+</h2>
+<p>Before using this project, it is recommended to visit <a href="LICENSE.html">LICENSE.html</a> and <a href="TERMS%20OF%20USAGE%20%26%20DISCLAIMER.html">TERMS OF USAGE &amp; DISCLAIMER.html</a> for the terms of usage and legals.</p>
+<div class="highlight highlight-source-shell"><pre>mangdl -h</pre></div>
+<p>Downloading:</p>
+<div class="highlight highlight-source-shell"><pre>mangdl dl <span class="pl-k">&lt;</span>title<span class="pl-k">&gt;</span> [OPTIONS]</pre></div>
+<p>For using the project programatically, visit the following site for the docs: <a href="https://whinee.github.io/mangDL/mangdl" rel="nofollow">whinee.github.io/mangDL/mangdl</a></p>
+<h2 id="getting-started">
+<a aria-hidden="true" class="anchor" href="#getting-started" id="getting-started" name="user-content-getting-started"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Getting Started</strong>
+</h2>
+<p>These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.</p>
+<h3 id="prerequisites">
+<a aria-hidden="true" class="anchor" href="#prerequisites" id="prerequisites" name="user-content-prerequisites"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Prerequisites</strong>
+</h3>
+<p>The following are the required programs and/or packages to run this project:</p>
+<ul>
+<li>
+<p>For all operating systems:</p>
+<ul>
+<li>
+<p>Python 3.6 and higher</p>
+<details>
+<summary>To check that you have Python 3.6 and higher installed, in your preferred terminal, run the following command:</summary>
+<div class="highlight highlight-source-shell"><pre>python3 --version</pre></div>
+</details>
+</li>
+<li>
+<p>pip (Package Installer for Python)</p>
+<details>
+<summary>To check that you have pip installed, in your preferred terminal, run the following command:</summary>
+<div class="highlight highlight-source-shell"><pre>pip3 --version</pre></div>
+</details>
+</li>
+<li>
+<p>git</p>
+<details>
+<summary>To check that you have git installed, in your preferred terminal, run the following command:</summary>
+<div class="highlight highlight-source-shell"><pre>git --version</pre></div>
+</details>
+</li>
+</ul>
+<p><img alt="uni" src="assets/images/prereq_uni.png" style="max-width:100%;"/></p>
+</li>
+<li>
+<p>For windows:</p>
+<ul>
+<li>
+<p><a href="https://chocolatey.org" rel="nofollow">Chocolatey</a></p>
+<details>
+<summary>To check that you have Chocolatey installed, in your preferred terminal, run the following command:</summary>
+<div class="highlight highlight-source-shell"><pre>choco --version</pre></div>
+</details>
+</li>
+<li>
+<p><a href="https://7-zip.org" rel="nofollow">7zip</a></p>
+<details>
+<summary>To check that you have 7zip installed, in your preferred terminal, run the following command:</summary>
+<div class="highlight highlight-source-shell"><pre>7z --version</pre></div>
+</details>
+</li>
+</ul>
+<details>
+<summary>You should get a similar output like the following image:</summary>
+<img alt="1" src="assets/images/prereq_1.png" style="max-width:100%;"/>
+</details>
+</li>
+<li>
+<p>For <a href="https://www.apple.com/mac/" rel="nofollow">macOS</a>:</p>
+<ul>
+<li>
+<p><a href="https://brew.sh" rel="nofollow">Homebrew</a></p>
+<details>
+<summary>To check that you have Homebrew installed, in your preferred terminal, run the following command:</summary>
+<div class="highlight highlight-source-shell"><pre>brew --version</pre></div>
+</details>
+</li>
+<li>
+<p><a href="https://github.com/jinfeihan57/p7zip">p7zip</a></p>
+<details>
+<summary>To check that you have p7zip installed, in your preferred terminal, run the following command:</summary>
+<div class="highlight highlight-source-shell"><pre>7z --version</pre></div>
+</details>
+</li>
+</ul>
+<details>
+<summary>You should get a similar output like the following image:</summary>
+<img alt="2" src="assets/images/prereq_2.png" style="max-width:100%;"/>
+</details>
+</li>
+<li>
+<p>For <a href="https://www.linux.org/" rel="nofollow">Linux</a></p>
+<ul>
+<li>
+<p><a href="https://github.com/jinfeihan57/p7zip">p7zip</a></p>
+<details>
+<summary>To check that you have p7zip installed, in your preferred terminal, run the following command:</summary>
+<div class="highlight highlight-source-shell"><pre>7z --version</pre></div>
+</details>
+</li>
+</ul>
+<details>
+<summary>You should get a similar output like the following image:</summary>
+<img alt="3" src="assets/images/prereq_3.png" style="max-width:100%;"/>
+</details>
+</li>
+</ul>
+<p>If any or all of the above is not installed, follow <a href="INSTALLATION.html">this link</a>:</p>
+<p>After checking or installing Python, pip, and git in your machine, proceed to the <a href="#setup">setup</a> section.</p>
+<h3 id="setup">
+<a aria-hidden="true" class="anchor" href="#setup" id="setup" name="user-content-setup"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Setup</strong>
+</h3>
+<ul>
+<li>
+<p>Open your preferred console or terminal</p>
+</li>
+<li>
+<p>Create a virtual environment using the following command:</p>
+<div class="highlight highlight-source-shell"><pre>python3 -m venv venv</pre></div>
+</li>
+<li>
+<p>Enter the virtual environment</p>
+<ul>
+<li>
+<p>For <a href="https://www.microsoft.com/en-us/windows" rel="nofollow">Windows 7 and up</a>:</p>
+<ul>
+<li>
+<p>For <code>cmd</code>, run the following command:</p>
+<div class="highlight highlight-source-shell"><pre>venv<span class="pl-cce">\S</span>cripts<span class="pl-cce">\a</span>ctivate.bat</pre></div>
+</li>
+<li>
+<p>For <code>powershell</code>, run the following command:</p>
+<div class="highlight highlight-source-shell"><pre>venv<span class="pl-cce">\S</span>cripts<span class="pl-cce">\a</span>ctivate.ps1</pre></div>
+</li>
+<li>
+<p>For <code>powershell core</code>, run the following command:</p>
+<div class="highlight highlight-source-shell"><pre>venv/bin/Activate.ps1</pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p>For <a href="https://www.apple.com/mac/" rel="nofollow">Mac</a>/<a href="https://www.linux.org/" rel="nofollow">Linux</a></p>
+<ul>
+<li>
+<p>For <code>bash/zsh</code>, run the following command:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">source</span> venv/bin/activate</pre></div>
+</li>
+<li>
+<p>For <code>fish</code>, run the following command:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">source</span> venv/bin/activate.fish</pre></div>
+</li>
+<li>
+<p>For <code>csh/tcsh</code>, run the following command:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">source</span> venv/bin/activate.csh</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Install the project and its python dependencies by running the following commands:</p>
+<div class="highlight highlight-source-shell"><pre>python3 -m pip install git+https://www.github.com/whinee/mangdl
+python3 -m pip install --upgrade pip
+python3 -m pip cache purge</pre></div>
+</li>
+<li>
+<p>And you're done! You can now use the project. Check the <a href="#section">usage</a> for examples on how to use this project.</p>
+</li>
+</ul>
+<h1 id="todo">
+<a aria-hidden="true" class="anchor" href="#todo" id="todo" name="user-content-todo"><span aria-hidden="true" class="octicon octicon-link"></span></a>TODO</h1>
+<h3 id="main-to-do">
+<a aria-hidden="true" class="anchor" href="#main-to-do" id="main-to-do" name="user-content-main-to-do"><span aria-hidden="true" class="octicon octicon-link"></span></a>Main to do</h3>
+<ul>
+<li>
+<p><input type="checkbox" disabled=""> Documentation</p>
+<ul>
+<li>
+<p><input type="checkbox" disabled="" checked=""> Bare-bones sites</p>
+</li>
+<li>
+<p><input type="checkbox" disabled=""> Migrate every .html file to <a href="https://whinee.github.io/mangDL" rel="nofollow">https://whinee.github.io/mangDL</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><input type="checkbox" disabled=""> Library</p>
+<ul>
+<li>
+<p><input type="checkbox" disabled=""> Manga Update notifier</p>
+</li>
+<li>
+<p><input type="checkbox" disabled=""> Backupable library with an option to store an offsite backup in <a href="https://supabase.io" rel="nofollow">supabase.io</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><input type="checkbox" disabled=""> GUI</p>
+<ul>
+<li><input type="checkbox" disabled=""> Reader</li>
+</ul>
+</li>
+<li>
+<p><input type="checkbox" disabled=""> MAL / Anilist sync</p>
+</li>
+<li>
+<p><input type="checkbox" disabled=""> Fully opt-in 99% configureable (mostly opinionated) analytics for new and some sampled features</p>
+</li>
+</ul>
+<h3 id="side-quests">
+<a aria-hidden="true" class="anchor" href="#side-quests" id="side-quests" name="user-content-side-quests"><span aria-hidden="true" class="octicon octicon-link"></span></a>Side Quests</h3>
+<ul>
+<li>
+<p><input type="checkbox" disabled=""> Installation instructions for Android users</p>
+</li>
+<li>
+<p><input type="checkbox" disabled=""> Package update notifier</p>
+</li>
+<li>
+<p><input type="checkbox" disabled=""> Saving command options to config file</p>
+</li>
+<li>
+<p><input type="checkbox" disabled=""> Submission of new color theme for the CLI and possibly for the future GUI</p>
+</li>
+<li>
+<p><input type="checkbox" disabled=""> Returning/Downloading translated languages using locale of the machine and an option to override it</p>
+</li>
+</ul>
+<h2 id="contributions">
+<a aria-hidden="true" class="anchor" href="#contributions" id="contributions" name="user-content-contributions"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Contributions</strong>
+</h2>
+<p>You can contribute by creating a new issue, or by creating pull requests.</p>
+<p>At the time of writing, there are no templates for both creating a new issue and pull requests.</p>
+<p>The developer notes however that the said template will be created if a trend of users using this project is evident.</p>
+<p>For creating a new issue, please make sure that the said issue is not on the list of closed and open issues.</p>
+<p>After checking that that is the case, create a new issue.</p>
+<p>The title of the issue must summarize its contents.</p>
+<p>The body must contain the following:</p>
+<ul>
+<li>a clear description of the bug</li>
+<li>Python version used for running and/or testing the project</li>
+<li>OS name and version</li>
+</ul>
+<h2 id="known-issues-and-limitations">
+<a aria-hidden="true" class="anchor" href="#known-issues-and-limitations" id="known-issues-and-limitations" name="user-content-known-issues-and-limitations"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Known Issues and Limitations</strong>
+</h2>
+<p>At the time of writing, this project can not be run in Termux due to a fatal error.</p>
+<p>Also, something is broken and I don't know what is, 'cause I forgot!</p>
+<h2 id="future-of-this-project">
+<a aria-hidden="true" class="anchor" href="#future-of-this-project" id="future-of-this-project" name="user-content-future-of-this-project"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Future of this project</strong>
+</h2>
+<p>The TODO will be done, except for that, nothing else.</p>
+<h2 id="license">
+<a aria-hidden="true" class="anchor" href="#license" id="license" name="user-content-license"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>License</strong>
+</h2>
+<h3 id="mit">
+<a aria-hidden="true" class="anchor" href="#mit" id="mit" name="user-content-mit"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://choosealicense.com/licenses/mit/" rel="nofollow">MIT</a>
+</h3>
+<p>Copyright for portions of project <a href="https://github.com/whinee/mangdl">mangDL</a> are held by [Github Account <a href="https://github.com/justfoolingaround">justfoolingaround</a> Owner, 2021] as part of project <a href="https://github.com/justfoolingaround/animDL">animDL</a>.</p>
+<p>All other copyright for project <a href="https://github.com/whinee/mangdl">mangDL</a> are held by [Github Account <a href="https://github.com/whinee">whinee</a> Owner, 2021].</p>
+<p>Check the <a href="LICENSE.html">LICENSE</a> for more details.</p>
+<h2 id="credits">
+<a aria-hidden="true" class="anchor" href="#credits" id="credits" name="user-content-credits"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Credits</strong>
+</h2>
+<h3 id="thank-you">
+<a aria-hidden="true" class="anchor" href="#thank-you" id="thank-you" name="user-content-thank-you"><span aria-hidden="true" class="octicon octicon-link"></span></a>Thank you:</h3>
+<ul>
+<li>To <a href="https://github.com/ArjixWasTaken">Arjix</a>, who helped me in implementing majority of the features and de-minifying my code, making it more readable and more efficient at the same time</li>
+<li>To <a href="https://github/com/justfoolingaround" rel="nofollow">KR</a>, who let me use the KR-naming scheme like "AnimDL" do</li>
+<li>To whi~nyaan, my alter ego, for just existing (and purring, ofc)</li>
+<li>And to everyone who supported me from the very beginning of this humble project to its release!</li>
+</ul>
+<h3 id="mit-logo">
+<a aria-hidden="true" class="anchor" href="#mit-logo" id="mit-logo" name="user-content-mit-logo"><span aria-hidden="true" class="octicon octicon-link"></span></a>MIT Logo</h3>
+<p><a href="https://commons.wikimedia.org/wiki/File:MIT_logo.svg" rel="nofollow">Massachusetts Institute of Technology</a> (vectorized by <a href="https://en.wikipedia.org/wiki/User:Mysid" rel="nofollow">Mysid</a>, modified by <a href="https://github.com/whinee">whinee</a>), Public domain, via Wikimedia Commons</p>
+<h3 id="icons">
+<a aria-hidden="true" class="anchor" href="#icons" id="icons" name="user-content-icons"><span aria-hidden="true" class="octicon octicon-link"></span></a>Icons</h3>
+<p><a href="https://icons8.com/icon/102502/exclamation-mark" rel="nofollow">Exclamation Mark</a>, <a href="https://icons8.com/icon/33294/code-fork" rel="nofollow">Code Fork</a>, <a href="https://icons8.com/icon/85185/star" rel="nofollow">Star</a>, <a href="https://icons8.com/icon/34095/group" rel="nofollow">Group</a>, <a href="https://icons8.com/icon/87276/code" rel="nofollow">Code</a>, and <a href="https://icons8.com/icon/30888/discord" rel="nofollow">Discord</a> icons by <a href="https://icons8.com" rel="nofollow">Icons8</a></p>
+<sub>
+<i>
+<b>NOTE:</b> If a reference or source material is not attributed properly or not at all, please kindly message me at Discord: <a href="https://discord.com/users/867696753434951732" rel="nofollow">whi_ne#5135</a> (or create a pull request, but at the moment there are no template for pull request so creating one I suppose would be hard) so I can properly give credit to their respective authors.
+    </i>
+</sub>
+</article>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+<nav id="sidebar">
+<h1>mangDL</h1>
+<form>
+<input id="lunr-search" name="q" placeholder="Search..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.css" integrity="sha512-j1u8eUJ4f23xPPxwOrLUPQaCD2dwzNqqmDDcWS4deWsMv2ohLqmXXuP3hU7g8TyzbMSakP/mMqoNBYWj8AEIFg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.js" integrity="sha512-plGUER9JkeEWPPqQBE4sdLqBoQug5Ap+BCGMc7bJ8BXkm+VVj6QzkpBz5Yv2yPkkq+cqg9IpkBaGCas6uDbW8g==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {
+width: auto;
+background: #0f0f0f;
+}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+#search-status{
+font-family: Liberation Mono;
+}
+footer{
+font-family: Liberation Mono;
+}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = 'doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<h2>Index</h2>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
 </body>
-
 </html>

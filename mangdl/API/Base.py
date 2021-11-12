@@ -275,7 +275,7 @@ class Downloader:
         if ddir:= directory:
             self.ddir = ddir
         elif sys.platform == "win32":
-            self.ddir = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
+            self.ddir = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop', 'Manga')
         else:
             self.ddir = os.path.join(os.path.expanduser('~'), "Manga")
         self.format = kwargs["format"].lower()

@@ -83,6 +83,7 @@
     h1 {
         font-size: 2.5em;
         line-height: 1.1em;
+        font-family: Liberation Mono;
     }
     h2 {
         font-size: 1.75em;
@@ -142,7 +143,7 @@
     }
 
     pre {
-        background: transparent;
+        background: #1e2122;
         padding: 1ex;
     }
 
