@@ -4,13 +4,11 @@ from typing import Any, Dict, List
 
 import httpx
 
+from ...utils import globals
+from ...utils.globals import log
 from ...utils.settings import stg
 from ...utils.utils import ddir, de, dnrp, parse_list
-from ..Base import Vls
-
-from ...utils.globals import log
-from ...utils import globals
-from ..Base import Ch, Downloader, Manga, Search, req
+from ..Base import Ch, Downloader, Manga, Search, Vls, req
 
 if not globals.log:
     from ...utils.log import logger
@@ -184,6 +182,7 @@ def dl_search(s: Search) -> Dict[str, str]:
     Returns:
         Dict[str, str]: [description]
     """
+
     params = []
     sr = {}
     ad = stg(f"mangadex/search", f"{dnrp(__file__, 3)}/utils/config.yaml")

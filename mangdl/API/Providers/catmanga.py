@@ -1,14 +1,14 @@
+import ast
 import difflib
+import json
 from typing import Any, Callable, Dict, List
+
 import httpx
 
-import ast
-
 from ...utils.globals import log
-from ..Base import Ch, Downloader, Manga, soup, req
 from ...utils.utils import ddir
+from ..Base import Ch, Downloader, Manga, req, soup
 
-import json
 
 def manga(url: str) -> Manga:
     """

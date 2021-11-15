@@ -2,6 +2,7 @@ import ast
 import re
 from datetime import datetime
 from typing import Any, Callable, Dict
+
 from ...utils.globals import log
 from ..Base import Ch, Downloader, Manga, Search, soup
 

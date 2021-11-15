@@ -24,7 +24,7 @@ cmd:
           type:
             Choice:
               args:
-                - - catmanga
+                - - flamescans
                   - mangadex
                   - manganato
               kwargs:

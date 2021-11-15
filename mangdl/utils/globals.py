@@ -1,2 +1,3 @@
-log = None
-style = "whine"
+from . import log
+
+log = log.logger(1)

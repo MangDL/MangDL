@@ -1,11 +1,13 @@
 setuptools
 wheel
+
+bs4
 click
+httpx
 lxml
 patool
 pyyaml
 tabulate
-tarfile
 toml
 tqdm
 yachalk

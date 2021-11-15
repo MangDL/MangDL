@@ -26,7 +26,7 @@ def readcfg(file: str) -> Any:
         return d[file.split(".")[-1]](f)
 
 
-def stg(stg: str, file: str = path.join(dn(ap(__file__)), "settings.json")) -> Any:
+def stg(stg: str, file: str = path.join(dn(ap(__file__)), "stg.json")) -> Any:
     """Retrieve dictionary value of the config file with the given file name
     using recursive indexing with a string.
     ex.:
@@ -47,7 +47,7 @@ def stg(stg: str, file: str = path.join(dn(ap(__file__)), "settings.json")) -> A
     return op
 
 
-def wr_stg(stg: str, value: Any, file: str = path.join(dn(ap(__file__)), "settings.json")) -> None:
+def wr_stg(stg: str, value: Any, file: str = path.join(dn(ap(__file__)), "stg.json")) -> None:
     """Rewrite dictionary value of the config file with the given file name
     using recursive indexing with a string.
     ex.:

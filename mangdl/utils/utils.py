@@ -47,7 +47,7 @@ def de(a: Any, d: Any) -> Any:
     else:
         return d
 
-def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -> dict[Any, Any]:
+def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -> Dict[Any, Any]:
     """Defaults dictionary. Overwrite the items in the default dict with the
     items in the d dict.
 
@@ -64,7 +64,7 @@ def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -> dict[Any, Any
             op[a] = v
     return op
 
-def ddir(d: dict[Any: Any], dir: str) -> Any:
+def ddir(d: Dict[Any, Any], dir: str) -> Any:
     """Retrieve dictionary value using recursive indexing with a string.
     ex.:
         `ddir({"data": {"attr": {"ch": 1}}}, "data/attr/ch")`

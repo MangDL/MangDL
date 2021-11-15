@@ -211,7 +211,6 @@
         padding: 5px 10px;
         display: inline-block;
         min-width: 40%;
-        margin: 0 0 1em 0;
         }
             .name:hover {
                 background: #0b0b0b;
