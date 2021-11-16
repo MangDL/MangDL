@@ -40,6 +40,10 @@ The most inefficient manga downloader for PC (and soon, also a reader)
 
 ---
 
+Github: [github.com/whinee/mangDL](https://github.com/whinee/mangDL)
+
+Website: [whinee.github.io/mangDL](https://whinee.github.io/mangDL)
+
 ## **Important**
 
 This project is a work in progress. A package will be released soon as a beta.
