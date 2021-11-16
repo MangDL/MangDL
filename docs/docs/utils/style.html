@@ -25,15 +25,14 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/utils/style.py#L1-L11" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/utils/style.py#L1-L10" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">from yachalk import chalk
 
-from .globals import style
 from .settings import stg
 from .utils import dnrp
 
-cstyle = stg(style, f&#34;{dnrp(__file__)}/colours.yaml&#34;)
+cstyle = stg(stg(&#34;color_theme&#34;), f&#34;{dnrp(__file__)}/colours.yaml&#34;)
 t1 = chalk.hex(cstyle[&#34;t1&#34;])
 ldb = chalk.hex(cstyle[&#34;fg1&#34;]).bg_hex(cstyle[&#34;bg1&#34;])
 for i in [*[f&#34;t{i}&#34; for i in range(2, 8)], &#34;ac1&#34;, &#39;critical&#39;, &#39;error&#39;, &#39;warning&#39;, &#39;info&#39;, &#39;debug&#39;]:

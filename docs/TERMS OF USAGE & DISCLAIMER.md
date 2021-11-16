@@ -37,7 +37,7 @@ The **Project** is a program that serves contents like a normal browser do throu
 
 The **Project** is created in good faith that this will only serve an educational purpose for the **Developer** and the **Users** and will only be used for that said purpose.
 
-By no means harassing the **Developer** , is legal nor ethically and morally correct:
+By no means harassing the **Developer** including, but not limited to the following, is legal nor ethically and morally correct:
 
 - Exploiting the undisclosed personal information of the **Developer** against them, possibly accessed through illegal means, including, but not limited to the following:
 

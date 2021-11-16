@@ -42,13 +42,9 @@ The most inefficient manga downloader for PC (and soon, also a reader)
 
 ## **Important**
 
-This project is a work in progress.
+This project is a work in progress. A package will be released soon as a beta.
 
-[catmanga.org](https://catmanga.org) is down, and has been removed from the lists of providers.
-
-To be updated, whether it be the latest commits or announcements like the one above, be sure to watch this repository and join the [Discord Support Server](https://discord.gg/JbAtUxGcJZ) for mangDL.
-
-A package will be released soon as a beta.
+To be updated, be sure to watch this repository and join the [Discord Support Server](https://discord.gg/JbAtUxGcJZ) for mangDL.
 
 For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF USAGE & DISCLAIMER.md](TERMS%20OF%20USAGE%20%26%20DISCLAIMER.md).
 
@@ -61,7 +57,7 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
 
 ### Supported OSes
 
-- Widnows
+- Windows
 - MacOS
 - Linux
 - Android
@@ -80,10 +76,11 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
 
 - [mangadex.org](https://mangadex.org)
 - [manganato.com](https://manganato.com)
+- [flamescans.org](https://flamescans.org)
 
 ### Coming soon™
 
-- [lhtranslation.net](https://lhtranslation.net)
+- [mangarock.to](https://mangarock.to)
 
 <!-- TOC section. Update when adding sections and subsections fitted in TOC. -->
 ## **Table of Contents**
@@ -118,7 +115,7 @@ Downloading:
 mangdl dl <title> [OPTIONS]
 ```
 
-For using the project programatically, visit the following site for the docs: [whinee.github.io/mangDL/mangdl](https://whinee.github.io/mangDL/mangdl)
+For programmatic use, visit the documentation: [whinee.github.io/mangDL/docs](https://whinee.github.io/mangDL/docs)
 
 ## **Getting Started**
 

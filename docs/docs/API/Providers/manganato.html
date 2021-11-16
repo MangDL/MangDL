@@ -25,12 +25,13 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L1-L116" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L1-L117" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">import ast
 import re
 from datetime import datetime
 from typing import Any, Callable, Dict
+
 from ...utils.globals import log
 from ..Base import Ch, Downloader, Manga, Search, soup
 
@@ -160,7 +161,7 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L58-L72" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L59-L73" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def chapter(url: str) -&gt; Ch:
     log.debug(f&#34;Converting {url} to Ch dataclass.&#34;, &#34;chapter&#34;)
@@ -187,7 +188,7 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L106-L116" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L107-L117" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cli_dl(title: str, **kwargs: Dict[str, Any]):
     sr = cli_search(title)
@@ -210,7 +211,7 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L92-L94" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L93-L95" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cli_search(title: str, **kwargs: Dict[str, Any]):
     log.debug(&#39;No processing to do with the arguments, will be immediately passed to the function &#34;search&#34;.&#39;, &#34;cli search&#34;)
@@ -225,7 +226,7 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L96-L104" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L97-L105" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def dl(url: str, **kwargs: Dict[str, Any]):
     ms = soup(url)
@@ -246,7 +247,7 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L9-L56" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L10-L57" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def manga(url: str) -&gt; Manga:
     log.debug(f&#34;Converting {url} to Manga dataclass.&#34;, &#34;manga&#34;)
@@ -306,7 +307,7 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L74-L90" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/manganato.py#L75-L91" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def search(s: Search):
     log.info(&#34;Ignoring all keword arguments at the moment. Will add advanced searching later.&#34;, &#34;search&#34;)

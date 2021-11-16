@@ -25,7 +25,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L1-L342" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L1-L341" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">import ast
 import time
@@ -33,13 +33,11 @@ from typing import Any, Dict, List
 
 import httpx
 
+from ...utils import globals
+from ...utils.globals import log
 from ...utils.settings import stg
 from ...utils.utils import ddir, de, dnrp, parse_list
-from ..Base import Vls
-
-from ...utils.globals import log
-from ...utils import globals
-from ..Base import Ch, Downloader, Manga, Search, req
+from ..Base import Ch, Downloader, Manga, Search, Vls, req
 
 if not globals.log:
     from ...utils.log import logger
@@ -213,6 +211,7 @@ def dl_search(s: Search) -&gt; Dict[str, str]:
     Returns:
         Dict[str, str]: [description]
     &#34;&#34;&#34;
+
     params = []
     sr = {}
     ad = stg(f&#34;mangadex/search&#34;, f&#34;{dnrp(__file__, 3)}/utils/config.yaml&#34;)
@@ -393,7 +392,7 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L149-L176" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L147-L174" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def chapter(url: str) -&gt; Ch:
     &#34;&#34;&#34;Return a Ch object from the given url.
@@ -438,7 +437,7 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L318-L342" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L317-L341" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cli_dl(title: str, **kwargs: Dict[str, Any]):
     &#34;&#34;&#34;Used for downloading when using cli.
@@ -486,7 +485,7 @@ then pass that to <code><a title="mangdl.API.Providers.mangadex.dl_search" href=
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L221-L294" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L220-L293" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cli_search(title: str, **kwargs: Dict[str, Any]) -&gt; Dict[str, str]:
     &#34;&#34;&#34;Format click arguments and options to their respective types,
@@ -577,7 +576,7 @@ then pass that to <code><a title="mangdl.API.Providers.mangadex.dl_search" href=
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L296-L316" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L295-L315" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def dl(url: str, **kwargs: Dict[str, Any]):
     &#34;&#34;&#34;Used for downloading when using the project as a module.
@@ -620,7 +619,7 @@ then pass that to <code><a title="mangdl.API.Providers.mangadex.dl_search" href=
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L178-L208" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L176-L207" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def dl_search(s: Search) -&gt; Dict[str, str]:
     &#34;&#34;&#34;Used for downloading when imported.
@@ -631,6 +630,7 @@ then pass that to <code><a title="mangdl.API.Providers.mangadex.dl_search" href=
     Returns:
         Dict[str, str]: [description]
     &#34;&#34;&#34;
+
     params = []
     sr = {}
     ad = stg(f&#34;mangadex/search&#34;, f&#34;{dnrp(__file__, 3)}/utils/config.yaml&#34;)
@@ -670,7 +670,7 @@ then pass that to <code><a title="mangdl.API.Providers.mangadex.dl_search" href=
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L74-L146" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L72-L144" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def manga(url: str) -&gt; Manga:
     &#34;&#34;&#34;Returns a Manga object from the given url.
@@ -771,7 +771,7 @@ then pass that to <code><a title="mangdl.API.Providers.mangadex.dl_search" href=
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L43-L71" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L41-L69" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def paginate(url: str, limit: int = 100, params: Dict[Any, Any] = {}) -&gt; List[Dict[str, Any]]:
     &#34;&#34;&#34;Paginate results from an API endpoint with limited results per calls.
@@ -823,7 +823,7 @@ response object.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L19-L30" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L17-L28" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ra(resp: httpx.Response) -&gt; int:
     &#34;&#34;&#34;Return the current time subracted to retry after header from the given
@@ -857,7 +857,7 @@ response object.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L210-L219" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L209-L218" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def search(s: Search) -&gt; List[Manga]:
     &#34;&#34;&#34;Can be used for searching manga when using this project as a module.
@@ -889,7 +889,7 @@ response object.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L32-L41" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/mangadex.py#L30-L39" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def value(d: Dict[Any, Any]) -&gt; Any:
     &#34;&#34;&#34;Returns the first value of the first key from a dictionary

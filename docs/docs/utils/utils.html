@@ -76,7 +76,7 @@ def de(a: Any, d: Any) -&gt; Any:
     else:
         return d
 
-def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -&gt; dict[Any, Any]:
+def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -&gt; Dict[Any, Any]:
     &#34;&#34;&#34;Defaults dictionary. Overwrite the items in the default dict with the
     items in the d dict.
 
@@ -93,7 +93,7 @@ def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -&gt; dict[Any, 
             op[a] = v
     return op
 
-def ddir(d: dict[Any: Any], dir: str) -&gt; Any:
+def ddir(d: Dict[Any, Any], dir: str) -&gt; Any:
     &#34;&#34;&#34;Retrieve dictionary value using recursive indexing with a string.
     ex.:
         `ddir({&#34;data&#34;: {&#34;attr&#34;: {&#34;ch&#34;: 1}}}, &#34;data/attr/ch&#34;)`
@@ -285,7 +285,7 @@ def parse_list(opt: Union[str, None]):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="mangdl.utils.utils.cao"><code class="name flex">
-<span>def <span class="ident">cao</span></span>(<span>group: <function group at 0x7f42434c0040>, cmd: str) ‑> List[Callable[[Callable[[Any], Any]], Callable[[Any], Any]]]</span>
+<span>def <span class="ident">cao</span></span>(<span>group: <function group at 0x7f58e1d71d80>, cmd: str) ‑> List[Callable[[Callable[[Any], Any]], Callable[[Any], Any]]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retruns wrappers for a click command evaluated from the given arguments.</p>
@@ -403,7 +403,7 @@ def parse_list(opt: Union[str, None]):
 </details>
 </dd>
 <dt id="mangdl.utils.utils.command"><code class="name flex">
-<span>def <span class="ident">command</span></span>(<span>group: <function group at 0x7f42434c0040>) ‑> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]</span>
+<span>def <span class="ident">command</span></span>(<span>group: <function group at 0x7f58e1d71d80>) ‑> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Wrapper for click commands.</p>
@@ -437,7 +437,7 @@ def parse_list(opt: Union[str, None]):
 </details>
 </dd>
 <dt id="mangdl.utils.utils.dd"><code class="name flex">
-<span>def <span class="ident">dd</span></span>(<span>default: Dict[Any, Any], d: Optional[Dict[Any, Any]]) ‑> dict</span>
+<span>def <span class="ident">dd</span></span>(<span>default: Dict[Any, Any], d: Optional[Dict[Any, Any]]) ‑> Dict[Any, Any]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Defaults dictionary. Overwrite the items in the default dict with the
@@ -456,7 +456,7 @@ items in the d dict.</p>
 <span>Expand source code</span>
 <a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/utils/utils.py#L50-L65" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -&gt; dict[Any, Any]:
+<pre><code class="python">def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -&gt; Dict[Any, Any]:
     &#34;&#34;&#34;Defaults dictionary. Overwrite the items in the default dict with the
     items in the d dict.
 
@@ -475,7 +475,7 @@ items in the d dict.</p>
 </details>
 </dd>
 <dt id="mangdl.utils.utils.ddir"><code class="name flex">
-<span>def <span class="ident">ddir</span></span>(<span>d: dict, dir: str) ‑> Any</span>
+<span>def <span class="ident">ddir</span></span>(<span>d: Dict[Any, Any], dir: str) ‑> Any</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve dictionary value using recursive indexing with a string.
@@ -496,7 +496,7 @@ will return <code>1</code></p>
 <span>Expand source code</span>
 <a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/utils/utils.py#L67-L84" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def ddir(d: dict[Any: Any], dir: str) -&gt; Any:
+<pre><code class="python">def ddir(d: Dict[Any, Any], dir: str) -&gt; Any:
     &#34;&#34;&#34;Retrieve dictionary value using recursive indexing with a string.
     ex.:
         `ddir({&#34;data&#34;: {&#34;attr&#34;: {&#34;ch&#34;: 1}}}, &#34;data/attr/ch&#34;)`

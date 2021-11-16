@@ -55,7 +55,7 @@ def readcfg(file: str) -&gt; Any:
         return d[file.split(&#34;.&#34;)[-1]](f)
 
 
-def stg(stg: str, file: str = path.join(dn(ap(__file__)), &#34;settings.json&#34;)) -&gt; Any:
+def stg(stg: str, file: str = path.join(dn(ap(__file__)), &#34;stg.json&#34;)) -&gt; Any:
     &#34;&#34;&#34;Retrieve dictionary value of the config file with the given file name
     using recursive indexing with a string.
     ex.:
@@ -76,7 +76,7 @@ def stg(stg: str, file: str = path.join(dn(ap(__file__)), &#34;settings.json&#34
     return op
 
 
-def wr_stg(stg: str, value: Any, file: str = path.join(dn(ap(__file__)), &#34;settings.json&#34;)) -&gt; None:
+def wr_stg(stg: str, value: Any, file: str = path.join(dn(ap(__file__)), &#34;stg.json&#34;)) -&gt; None:
     &#34;&#34;&#34;Rewrite dictionary value of the config file with the given file name
     using recursive indexing with a string.
     ex.:
@@ -167,7 +167,7 @@ def wr_stg(stg: str, value: Any, file: str = path.join(dn(ap(__file__)), &#34;se
 </details>
 </dd>
 <dt id="mangdl.utils.settings.stg"><code class="name flex">
-<span>def <span class="ident">stg</span></span>(<span>stg: str, file: str = '/home/whine/TOOLS/PROGRAMMING/PYTHON/mangDL/project/mangdl/utils/settings.json') ‑> Any</span>
+<span>def <span class="ident">stg</span></span>(<span>stg: str, file: str = '/home/whine/TOOLS/PROGRAMMING/PYTHON/mangDL/project/mangdl/utils/stg.json') ‑> Any</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Retrieve dictionary value of the config file with the given file name
@@ -192,7 +192,7 @@ Given that settings.json contains: <code>{"data": {"attr": {"ch": 1}}}</code>
 <span>Expand source code</span>
 <a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/utils/settings.py#L29-L47" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def stg(stg: str, file: str = path.join(dn(ap(__file__)), &#34;settings.json&#34;)) -&gt; Any:
+<pre><code class="python">def stg(stg: str, file: str = path.join(dn(ap(__file__)), &#34;stg.json&#34;)) -&gt; Any:
     &#34;&#34;&#34;Retrieve dictionary value of the config file with the given file name
     using recursive indexing with a string.
     ex.:
@@ -214,7 +214,7 @@ Given that settings.json contains: <code>{"data": {"attr": {"ch": 1}}}</code>
 </details>
 </dd>
 <dt id="mangdl.utils.settings.wr_stg"><code class="name flex">
-<span>def <span class="ident">wr_stg</span></span>(<span>stg: str, value: Any, file: str = '/home/whine/TOOLS/PROGRAMMING/PYTHON/mangDL/project/mangdl/utils/settings.json') ‑> None</span>
+<span>def <span class="ident">wr_stg</span></span>(<span>stg: str, value: Any, file: str = '/home/whine/TOOLS/PROGRAMMING/PYTHON/mangDL/project/mangdl/utils/stg.json') ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Rewrite dictionary value of the config file with the given file name
@@ -242,7 +242,7 @@ will rewrite settings.json to be: <code>{"data": {"attr": {"ch": 2}}}</code></p>
 <span>Expand source code</span>
 <a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/utils/settings.py#L50-L92" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def wr_stg(stg: str, value: Any, file: str = path.join(dn(ap(__file__)), &#34;settings.json&#34;)) -&gt; None:
+<pre><code class="python">def wr_stg(stg: str, value: Any, file: str = path.join(dn(ap(__file__)), &#34;stg.json&#34;)) -&gt; None:
     &#34;&#34;&#34;Rewrite dictionary value of the config file with the given file name
     using recursive indexing with a string.
     ex.:

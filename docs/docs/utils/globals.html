@@ -25,10 +25,11 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/utils/globals.py#L1-L2" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/utils/globals.py#L1-L3" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">log = None
-style = &#34;whine&#34;</code></pre>
+<pre><code class="python">from . import log
+
+log = log.logger(1)</code></pre>
 </details>
 </section>
 <section>

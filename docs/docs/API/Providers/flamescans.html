@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>mangdl.API.Providers.catmanga API documentation</title>
+<title>mangdl.API.Providers.flamescans API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -19,29 +19,24 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>mangdl.API.Providers.catmanga</code></h1>
+<h1 class="title">Module <code>mangdl.API.Providers.flamescans</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/catmanga.py#L1-L208" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/flamescans.py#L1-L139" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">import ast
-import difflib
-import json
-from typing import Any, Callable, Dict, List
-
-import httpx
+<pre><code class="python">import urllib
+from time import strftime, strptime
+from typing import Any, Dict, List
 
 from ...utils.globals import log
-from ...utils.utils import ddir
-from ..Base import Ch, Downloader, Manga, req, soup
+from ..Base import Ch, Downloader, Manga, Search, soup
 
 
 def manga(url: str) -&gt; Manga:
-    &#34;&#34;&#34;
-    Returns a Manga object from the given url.
+    &#34;&#34;&#34;Returns a Manga object from the given url.
 
     Args:
         url (str): url of the manga
@@ -50,36 +45,35 @@ def manga(url: str) -&gt; Manga:
         Manga
     &#34;&#34;&#34;
 
-    meta = req.get(f&#39;https://catmanga.org/api/series/{url.split(&#34;/&#34;)[-1]}&#39;).json()
+    ms = soup(url)
+    meta = {}
+    for m in ms.select(&#34;.tsinfo.bixbox .imptdt&#34;):
+        i = m.select_one(&#34;i&#34;)
+        meta[m.next_element.strip()] = i.text if i else m.select_one(&#34;a&#34;).text
 
     def chap_dict():
-        n = 1
         op = {}
-        for c in meta[&#34;chapters&#34;]:
-            if ch:=c[&#34;number&#34;]:
-                k = ch
-            else:
-                k = -n
-                n += 1
-            op[k] = Ch(
-                url              = &#34;/&#34;.join([url, str(ch)]),
-                ch               = k,
-                vol              = c.get(&#34;volume&#34;),
-                title            = c[&#34;title&#34;],
-                scanlator_groups = c[&#34;groups&#34;],
+        for c in ms.select(&#34;div.eplister ul li&#34;):
+            op[c[&#34;data-num&#34;]] = Ch(
+                url         = c.select_one(&#34;a&#34;)[&#34;href&#34;],
+                ch          = c[&#34;data-num&#34;],
+                vol         = None,
+                title       = c.select_one(&#34;a div div .chapternum&#34;).text,
+                user        = meta[&#34;Posted By&#34;],
+                uploaded_at = strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;, strptime(c.select_one(&#34;a div div .chapterdate&#34;).text, r&#34;%B %d, %Y&#34;)),
             )
         return op
 
     return Manga(
         url             = url,
-        title           = meta[&#34;title&#34;],
-        author          = meta[&#34;authors&#34;],
-        covers          = [f&#39;https://images.catmanga.org{i[&#34;source&#34;]}&#39; for i in meta[&#34;all_covers&#34;]],
-        alt_titles      = meta[&#34;alt_titles&#34;],
-        status          = meta[&#34;status&#34;],
-        demographics    = meta[&#34;genres&#34;][0],
-        genres          = meta[&#34;genres&#34;][1:],
-        description     = meta[&#34;description&#34;],
+        covers          = [ms.select_one(&#34;.thumb .attachment-.size-.wp-post-image&#34;)[&#34;src&#34;]],
+        title           = ms.select_one(&#34;h1.entry-title&#34;).text,
+        alt_titles      = ms.select_one(&#34;span.alternative&#34;).text.split(&#34; | &#34;),
+        author          = meta[&#34;Author&#34;].split(&#34;, &#34;),
+        status          = {k: v for v, k in enumerate([&#34;Ongoing&#34;, &#34;Completed&#34;, &#34;Hiatus&#34;, &#34;Cancelled&#34;])}.get(meta[&#34;Status&#34;], -1),
+        updated_at      = strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;, strptime(meta[&#34;Updated On&#34;], r&#34;%B %d, %Y&#34;)),
+        created_at      = strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;, strptime(meta[&#34;Posted On&#34;], r&#34;%B %d, %Y&#34;)),
+        description     = &#34;\n&#34;.join(i.text for i in ms.select(&#34;.entry-content.entry-content-single p&#34;)),
         chapters        = chap_dict(),
     )
 
@@ -93,80 +87,16 @@ def chapter(url: str) -&gt; Ch:
     Returns:
         Ch
     &#34;&#34;&#34;
-    _meta = ddir(json.loads(soup(url).select_one(&#34;#__NEXT_DATA__&#34;).text), &#34;props/pageProps&#34;)
-    def meta(dir: str):
-        return ddir(_meta, dir)
-    ch = ast.literal_eval(url.split(&#34;/&#34;)[-1])
-    for x in meta(&#34;series/chapters&#34;):
-        if x[&#34;number&#34;] == ch:
-            chm = x
-            break
+    ms = soup(url)
+    ch = ms.select_one(&#34;h1.entry-title&#34;).text.split()[-1]
     return Ch(
         url              = url,
         ch               = ch,
-        vol              = chm.get(&#34;volume&#34;),
-        title            = chm[&#34;title&#34;],
-        scanlator_groups = chm[&#34;groups&#34;],
-        user             = &#34;Black Cat Scanlations&#34;,
-        imgs             = meta(&#34;pages&#34;),
+        vol              = None,
+        title            = f&#34;Chapter {ch}&#34;,
+        scanlator_groups = &#34;Flame Scans&#34;,
+        imgs             = ms.select(&#34;#readerarea p img&#34;)[&#34;src&#34;],
     )
-
-def squery(query: str, possibilities: List[str], cutoff: int=0.6, *, processor: Callable[[Any], Any]=lambda r: r):
-    &#34;&#34;&#34;Custom search query.
-
-    Args:
-        query (str): String to search for in the .
-        possibilities (List[str]): [description]
-        cutoff (int, optional): [description]. Defaults to 0.6.
-        processor (Callable[[Any], Any], optional): [description]. Defaults to lambdar:r.
-
-    Yields:
-        [type]: [description]
-    &#34;&#34;&#34;
-
-
-    sequence_matcher = difflib.SequenceMatcher()
-    sequence_matcher.set_seq2(query)
-
-    for search_value in possibilities:
-        sequence_matcher.set_seq1(processor(search_value))
-        if (query.lower() in processor(search_value).lower()):
-            yield (None, search_value)
-            continue
-        if (sequence_matcher.real_quick_ratio() &gt;= cutoff and sequence_matcher.quick_ratio(
-        ) &gt;= cutoff and sequence_matcher.ratio() &gt;= cutoff):
-            yield (sequence_matcher.ratio(), search_value)
-
-def search(query: str):
-    &#34;&#34;&#34;Can be used for searching manga when using this project as a module.
-
-    Args:
-        s (Search): Search dataclass, search parameters for searching.
-
-    Returns:
-        List[Manga]: Search results.
-    &#34;&#34;&#34;
-    all_series = httpx.get(&#34;https://catmanga.org/api/series/allSeries&#34;).json()
-    sr = []
-
-    for series in all_series:
-        def meta(m: str):
-            return ddir(series, m)
-        if list(squery(query, [meta(&#34;title&#34;), *meta(&#34;alt_titles&#34;)], 0.39)):
-            sr.append(
-                Manga(
-                    url = f&#39;https://catmanga.org/series/{meta(&#34;series_id&#34;)}&#39;,
-                    title = meta(&#34;title&#34;),
-                    author = meta(&#34;authors&#34;),
-                    covers=[meta(&#34;cover_art/source&#34;)],
-                    alt_titles=meta(&#34;alt_titles&#34;),
-                    demographics=meta(&#34;genres&#34;)[0],
-                    genres=meta(&#34;genres&#34;)[1:],
-                    description=meta(&#34;description&#34;),
-                )
-            )
-
-    return sr
 
 def dl_search(title: str, **kwargs: Dict[str, Any]):
     &#34;&#34;&#34;Used for downloading when imported.
@@ -178,14 +108,32 @@ def dl_search(title: str, **kwargs: Dict[str, Any]):
         Dict[str, str]: [description]
     &#34;&#34;&#34;
 
-    all_series = httpx.get(&#34;https://catmanga.org/api/series/allSeries&#34;).json()
-
     sr = {}
-
-    for series in all_series:
-        if list(squery(title, [series[&#34;title&#34;], *series[&#34;alt_titles&#34;]], 0.39)):
-            sr[series[&#34;title&#34;]] = f&#39;https://catmanga.org/series/{series[&#34;series_id&#34;]}&#39;
+    ms = soup(f&#34;https://flamescans.org/?s={urllib.parse.quote_plus(title)}&#34;)
+    pages = ms.select(&#34;a.page-numbers&#34;)
+    if pages:
+        log.debug(&#34;Multiple pages found. Starting to paginate.&#34;, &#34;paginator&#34;)
+        for p in range(int(pages[-2].text)):
+            log.debug(f&#34;Paginating page {p+1}.&#34;, &#34;paginator&#34;)
+            for r in soup(f&#34;https://flamescans.org/page/{p+1}/?s={urllib.parse.quote_plus(title)}&#34;).select(&#34;.listupd .bs .bsx a&#34;):
+                if not r.select_one(&#34;.limit .novelabel&#34;):
+                    sr[r[&#34;title&#34;]] = r[&#34;href&#34;]
+    else:
+        log.debug(&#34;Only one page found.&#34;, &#34;search&#34;)
+        for r in ms.select(&#34;.listupd .bs .bsx a&#34;):
+            sr[r[&#34;title&#34;]] = r[&#34;href&#34;]
     return sr
+
+def search(s: Search) -&gt; List[Manga]:
+    &#34;&#34;&#34;Can be used for searching manga when using this project as a module.
+
+    Args:
+        s (Search): Search dataclass, search parameters for searching.
+
+    Returns:
+        List[Manga]: Search results.
+    &#34;&#34;&#34;
+    return [manga(i) for i in dl_search(s).values()]
 
 def cli_search(title: str, **kwargs: Dict[str, Any]):
     &#34;&#34;&#34;Format click arguments and options to their respective types,
@@ -201,22 +149,6 @@ def cli_search(title: str, **kwargs: Dict[str, Any]):
     log.info(&#34;Ignoring all keword arguments.&#34;, &#34;cli_search&#34;)
     return dl_search(title, **kwargs)
 
-def dl(url: str, **kwargs: Dict[str, Any]):
-    &#34;&#34;&#34;Used for downloading when using the project as a module.
-
-    Args:
-        url (str): URL of the manga to download.
-    &#34;&#34;&#34;
-
-    meta = ddir(json.loads(soup(url).select_one(&#34;#__NEXT_DATA__&#34;).text), &#34;props/pageProps/series&#34;)
-    def ch_fn(url: str):
-        return ddir(json.loads(soup(url).select_one(&#34;#__NEXT_DATA__&#34;).text), &#34;props/pageProps/pages&#34;)
-    chdls = []
-    for c in meta[&#34;chapter&#34;]:
-        num = c[&#34;number&#34;]
-        chdls.append({num: f&#34;{url}/{num}&#34;})
-    Downloader(ch_fn, **kwargs).dl_chdls(meta[&#34;title&#34;], chdls)
-
 def cli_dl(title: str, **kwargs: Dict[str, Any]):
     &#34;&#34;&#34;Used for downloading when using cli.
 
@@ -226,13 +158,12 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 
     sr = cli_search(title)
     def ch_fn(url: str):
-        return ddir(json.loads(soup(url).select_one(&#34;#__NEXT_DATA__&#34;).text), &#34;props/pageProps/pages&#34;)
+        return [i[&#34;src&#34;] for i in soup(url).select(&#34;#readerarea p img&#34;)]
     def chs_fn(choice: str):
         op = []
         url = sr[choice]
-        for c in ddir(json.loads(soup(url).select_one(&#34;#__NEXT_DATA__&#34;).text), &#34;props/pageProps/series/chapters&#34;):
-            num = c[&#34;number&#34;]
-            op.append({num: f&#34;{url}/{num}&#34;})
+        for c in soup(url).select(&#34;div.eplister ul li&#34;):
+            op.append({c[&#34;data-num&#34;]: c.select_one(&#34;a&#34;)[&#34;href&#34;]})
         return op
     Downloader(ch_fn, **kwargs).cli(sr, chs_fn)</code></pre>
 </details>
@@ -244,7 +175,7 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="mangdl.API.Providers.catmanga.chapter"><code class="name flex">
+<dt id="mangdl.API.Providers.flamescans.chapter"><code class="name flex">
 <span>def <span class="ident">chapter</span></span>(<span>url: str) ‑> <a title="mangdl.API.Base.Ch" href="../Base.html#mangdl.API.Base.Ch">Ch</a></span>
 </code></dt>
 <dd>
@@ -259,7 +190,7 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/catmanga.py#L57-L83" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/flamescans.py#L51-L70" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def chapter(url: str) -&gt; Ch:
     &#34;&#34;&#34;
@@ -271,26 +202,19 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
     Returns:
         Ch
     &#34;&#34;&#34;
-    _meta = ddir(json.loads(soup(url).select_one(&#34;#__NEXT_DATA__&#34;).text), &#34;props/pageProps&#34;)
-    def meta(dir: str):
-        return ddir(_meta, dir)
-    ch = ast.literal_eval(url.split(&#34;/&#34;)[-1])
-    for x in meta(&#34;series/chapters&#34;):
-        if x[&#34;number&#34;] == ch:
-            chm = x
-            break
+    ms = soup(url)
+    ch = ms.select_one(&#34;h1.entry-title&#34;).text.split()[-1]
     return Ch(
         url              = url,
         ch               = ch,
-        vol              = chm.get(&#34;volume&#34;),
-        title            = chm[&#34;title&#34;],
-        scanlator_groups = chm[&#34;groups&#34;],
-        user             = &#34;Black Cat Scanlations&#34;,
-        imgs             = meta(&#34;pages&#34;),
+        vol              = None,
+        title            = f&#34;Chapter {ch}&#34;,
+        scanlator_groups = &#34;Flame Scans&#34;,
+        imgs             = ms.select(&#34;#readerarea p img&#34;)[&#34;src&#34;],
     )</code></pre>
 </details>
 </dd>
-<dt id="mangdl.API.Providers.catmanga.cli_dl"><code class="name flex">
+<dt id="mangdl.API.Providers.flamescans.cli_dl"><code class="name flex">
 <span>def <span class="ident">cli_dl</span></span>(<span>title: str, **kwargs: Dict[str, Any])</span>
 </code></dt>
 <dd>
@@ -303,7 +227,7 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/catmanga.py#L191-L208" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/flamescans.py#L123-L139" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cli_dl(title: str, **kwargs: Dict[str, Any]):
     &#34;&#34;&#34;Used for downloading when using cli.
@@ -314,23 +238,22 @@ def cli_dl(title: str, **kwargs: Dict[str, Any]):
 
     sr = cli_search(title)
     def ch_fn(url: str):
-        return ddir(json.loads(soup(url).select_one(&#34;#__NEXT_DATA__&#34;).text), &#34;props/pageProps/pages&#34;)
+        return [i[&#34;src&#34;] for i in soup(url).select(&#34;#readerarea p img&#34;)]
     def chs_fn(choice: str):
         op = []
         url = sr[choice]
-        for c in ddir(json.loads(soup(url).select_one(&#34;#__NEXT_DATA__&#34;).text), &#34;props/pageProps/series/chapters&#34;):
-            num = c[&#34;number&#34;]
-            op.append({num: f&#34;{url}/{num}&#34;})
+        for c in soup(url).select(&#34;div.eplister ul li&#34;):
+            op.append({c[&#34;data-num&#34;]: c.select_one(&#34;a&#34;)[&#34;href&#34;]})
         return op
     Downloader(ch_fn, **kwargs).cli(sr, chs_fn)</code></pre>
 </details>
 </dd>
-<dt id="mangdl.API.Providers.catmanga.cli_search"><code class="name flex">
+<dt id="mangdl.API.Providers.flamescans.cli_search"><code class="name flex">
 <span>def <span class="ident">cli_search</span></span>(<span>title: str, **kwargs: Dict[str, Any])</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Format click arguments and options to their respective types,
-then pass that to <code><a title="mangdl.API.Providers.catmanga.dl_search" href="#mangdl.API.Providers.catmanga.dl_search">dl_search()</a></code> for it to return the search results.</p>
+then pass that to <code><a title="mangdl.API.Providers.flamescans.dl_search" href="#mangdl.API.Providers.flamescans.dl_search">dl_search()</a></code> for it to return the search results.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
@@ -344,7 +267,7 @@ then pass that to <code><a title="mangdl.API.Providers.catmanga.dl_search" href=
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/catmanga.py#L161-L173" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/flamescans.py#L109-L121" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cli_search(title: str, **kwargs: Dict[str, Any]):
     &#34;&#34;&#34;Format click arguments and options to their respective types,
@@ -361,39 +284,7 @@ then pass that to <code><a title="mangdl.API.Providers.catmanga.dl_search" href=
     return dl_search(title, **kwargs)</code></pre>
 </details>
 </dd>
-<dt id="mangdl.API.Providers.catmanga.dl"><code class="name flex">
-<span>def <span class="ident">dl</span></span>(<span>url: str, **kwargs: Dict[str, Any])</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Used for downloading when using the project as a module.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
-<dd>URL of the manga to download.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/catmanga.py#L175-L189" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def dl(url: str, **kwargs: Dict[str, Any]):
-    &#34;&#34;&#34;Used for downloading when using the project as a module.
-
-    Args:
-        url (str): URL of the manga to download.
-    &#34;&#34;&#34;
-
-    meta = ddir(json.loads(soup(url).select_one(&#34;#__NEXT_DATA__&#34;).text), &#34;props/pageProps/series&#34;)
-    def ch_fn(url: str):
-        return ddir(json.loads(soup(url).select_one(&#34;#__NEXT_DATA__&#34;).text), &#34;props/pageProps/pages&#34;)
-    chdls = []
-    for c in meta[&#34;chapter&#34;]:
-        num = c[&#34;number&#34;]
-        chdls.append({num: f&#34;{url}/{num}&#34;})
-    Downloader(ch_fn, **kwargs).dl_chdls(meta[&#34;title&#34;], chdls)</code></pre>
-</details>
-</dd>
-<dt id="mangdl.API.Providers.catmanga.dl_search"><code class="name flex">
+<dt id="mangdl.API.Providers.flamescans.dl_search"><code class="name flex">
 <span>def <span class="ident">dl_search</span></span>(<span>title: str, **kwargs: Dict[str, Any])</span>
 </code></dt>
 <dd>
@@ -411,7 +302,7 @@ then pass that to <code><a title="mangdl.API.Providers.catmanga.dl_search" href=
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/catmanga.py#L142-L159" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/flamescans.py#L72-L96" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def dl_search(title: str, **kwargs: Dict[str, Any]):
     &#34;&#34;&#34;Used for downloading when imported.
@@ -423,17 +314,24 @@ then pass that to <code><a title="mangdl.API.Providers.catmanga.dl_search" href=
         Dict[str, str]: [description]
     &#34;&#34;&#34;
 
-    all_series = httpx.get(&#34;https://catmanga.org/api/series/allSeries&#34;).json()
-
     sr = {}
-
-    for series in all_series:
-        if list(squery(title, [series[&#34;title&#34;], *series[&#34;alt_titles&#34;]], 0.39)):
-            sr[series[&#34;title&#34;]] = f&#39;https://catmanga.org/series/{series[&#34;series_id&#34;]}&#39;
+    ms = soup(f&#34;https://flamescans.org/?s={urllib.parse.quote_plus(title)}&#34;)
+    pages = ms.select(&#34;a.page-numbers&#34;)
+    if pages:
+        log.debug(&#34;Multiple pages found. Starting to paginate.&#34;, &#34;paginator&#34;)
+        for p in range(int(pages[-2].text)):
+            log.debug(f&#34;Paginating page {p+1}.&#34;, &#34;paginator&#34;)
+            for r in soup(f&#34;https://flamescans.org/page/{p+1}/?s={urllib.parse.quote_plus(title)}&#34;).select(&#34;.listupd .bs .bsx a&#34;):
+                if not r.select_one(&#34;.limit .novelabel&#34;):
+                    sr[r[&#34;title&#34;]] = r[&#34;href&#34;]
+    else:
+        log.debug(&#34;Only one page found.&#34;, &#34;search&#34;)
+        for r in ms.select(&#34;.listupd .bs .bsx a&#34;):
+            sr[r[&#34;title&#34;]] = r[&#34;href&#34;]
     return sr</code></pre>
 </details>
 </dd>
-<dt id="mangdl.API.Providers.catmanga.manga"><code class="name flex">
+<dt id="mangdl.API.Providers.flamescans.manga"><code class="name flex">
 <span>def <span class="ident">manga</span></span>(<span>url: str) ‑> <a title="mangdl.API.Base.Manga" href="../Base.html#mangdl.API.Base.Manga">Manga</a></span>
 </code></dt>
 <dd>
@@ -448,11 +346,10 @@ then pass that to <code><a title="mangdl.API.Providers.catmanga.dl_search" href=
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/catmanga.py#L13-L55" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/flamescans.py#L9-L49" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def manga(url: str) -&gt; Manga:
-    &#34;&#34;&#34;
-    Returns a Manga object from the given url.
+    &#34;&#34;&#34;Returns a Manga object from the given url.
 
     Args:
         url (str): url of the manga
@@ -461,42 +358,41 @@ then pass that to <code><a title="mangdl.API.Providers.catmanga.dl_search" href=
         Manga
     &#34;&#34;&#34;
 
-    meta = req.get(f&#39;https://catmanga.org/api/series/{url.split(&#34;/&#34;)[-1]}&#39;).json()
+    ms = soup(url)
+    meta = {}
+    for m in ms.select(&#34;.tsinfo.bixbox .imptdt&#34;):
+        i = m.select_one(&#34;i&#34;)
+        meta[m.next_element.strip()] = i.text if i else m.select_one(&#34;a&#34;).text
 
     def chap_dict():
-        n = 1
         op = {}
-        for c in meta[&#34;chapters&#34;]:
-            if ch:=c[&#34;number&#34;]:
-                k = ch
-            else:
-                k = -n
-                n += 1
-            op[k] = Ch(
-                url              = &#34;/&#34;.join([url, str(ch)]),
-                ch               = k,
-                vol              = c.get(&#34;volume&#34;),
-                title            = c[&#34;title&#34;],
-                scanlator_groups = c[&#34;groups&#34;],
+        for c in ms.select(&#34;div.eplister ul li&#34;):
+            op[c[&#34;data-num&#34;]] = Ch(
+                url         = c.select_one(&#34;a&#34;)[&#34;href&#34;],
+                ch          = c[&#34;data-num&#34;],
+                vol         = None,
+                title       = c.select_one(&#34;a div div .chapternum&#34;).text,
+                user        = meta[&#34;Posted By&#34;],
+                uploaded_at = strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;, strptime(c.select_one(&#34;a div div .chapterdate&#34;).text, r&#34;%B %d, %Y&#34;)),
             )
         return op
 
     return Manga(
         url             = url,
-        title           = meta[&#34;title&#34;],
-        author          = meta[&#34;authors&#34;],
-        covers          = [f&#39;https://images.catmanga.org{i[&#34;source&#34;]}&#39; for i in meta[&#34;all_covers&#34;]],
-        alt_titles      = meta[&#34;alt_titles&#34;],
-        status          = meta[&#34;status&#34;],
-        demographics    = meta[&#34;genres&#34;][0],
-        genres          = meta[&#34;genres&#34;][1:],
-        description     = meta[&#34;description&#34;],
+        covers          = [ms.select_one(&#34;.thumb .attachment-.size-.wp-post-image&#34;)[&#34;src&#34;]],
+        title           = ms.select_one(&#34;h1.entry-title&#34;).text,
+        alt_titles      = ms.select_one(&#34;span.alternative&#34;).text.split(&#34; | &#34;),
+        author          = meta[&#34;Author&#34;].split(&#34;, &#34;),
+        status          = {k: v for v, k in enumerate([&#34;Ongoing&#34;, &#34;Completed&#34;, &#34;Hiatus&#34;, &#34;Cancelled&#34;])}.get(meta[&#34;Status&#34;], -1),
+        updated_at      = strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;, strptime(meta[&#34;Updated On&#34;], r&#34;%B %d, %Y&#34;)),
+        created_at      = strftime(&#34;%Y-%m-%dT%H:%M:%S&#34;, strptime(meta[&#34;Posted On&#34;], r&#34;%B %d, %Y&#34;)),
+        description     = &#34;\n&#34;.join(i.text for i in ms.select(&#34;.entry-content.entry-content-single p&#34;)),
         chapters        = chap_dict(),
     )</code></pre>
 </details>
 </dd>
-<dt id="mangdl.API.Providers.catmanga.search"><code class="name flex">
-<span>def <span class="ident">search</span></span>(<span>query: str)</span>
+<dt id="mangdl.API.Providers.flamescans.search"><code class="name flex">
+<span>def <span class="ident">search</span></span>(<span>s: <a title="mangdl.API.Base.Search" href="../Base.html#mangdl.API.Base.Search">Search</a>) ‑> List[<a title="mangdl.API.Base.Manga" href="../Base.html#mangdl.API.Base.Manga">Manga</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Can be used for searching manga when using this project as a module.</p>
@@ -513,9 +409,9 @@ then pass that to <code><a title="mangdl.API.Providers.catmanga.dl_search" href=
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/catmanga.py#L111-L140" class="git-link">Browse git</a>
+<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/flamescans.py#L98-L107" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def search(query: str):
+<pre><code class="python">def search(s: Search) -&gt; List[Manga]:
     &#34;&#34;&#34;Can be used for searching manga when using this project as a module.
 
     Args:
@@ -524,80 +420,7 @@ then pass that to <code><a title="mangdl.API.Providers.catmanga.dl_search" href=
     Returns:
         List[Manga]: Search results.
     &#34;&#34;&#34;
-    all_series = httpx.get(&#34;https://catmanga.org/api/series/allSeries&#34;).json()
-    sr = []
-
-    for series in all_series:
-        def meta(m: str):
-            return ddir(series, m)
-        if list(squery(query, [meta(&#34;title&#34;), *meta(&#34;alt_titles&#34;)], 0.39)):
-            sr.append(
-                Manga(
-                    url = f&#39;https://catmanga.org/series/{meta(&#34;series_id&#34;)}&#39;,
-                    title = meta(&#34;title&#34;),
-                    author = meta(&#34;authors&#34;),
-                    covers=[meta(&#34;cover_art/source&#34;)],
-                    alt_titles=meta(&#34;alt_titles&#34;),
-                    demographics=meta(&#34;genres&#34;)[0],
-                    genres=meta(&#34;genres&#34;)[1:],
-                    description=meta(&#34;description&#34;),
-                )
-            )
-
-    return sr</code></pre>
-</details>
-</dd>
-<dt id="mangdl.API.Providers.catmanga.squery"><code class="name flex">
-<span>def <span class="ident">squery</span></span>(<span>query: str, possibilities: List[str], cutoff: int = 0.6, *, processor: Callable[[Any], Any] = &lt;function &lt;lambda&gt;&gt;)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Custom search query.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>query</code></strong> :&ensp;<code>str</code></dt>
-<dd>String to search for in the .</dd>
-<dt><strong><code>possibilities</code></strong> :&ensp;<code>List[str]</code></dt>
-<dd>[description]</dd>
-<dt><strong><code>cutoff</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>[description]. Defaults to 0.6.</dd>
-<dt><strong><code>processor</code></strong> :&ensp;<code>Callable[[Any], Any]</code>, optional</dt>
-<dd>[description]. Defaults to lambdar:r.</dd>
-</dl>
-<h2 id="yields">Yields</h2>
-<dl>
-<dt><code>[type]</code></dt>
-<dd>[description]</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/whinee/mangDL/blob/None/project/mangdl/API/Providers/catmanga.py#L85-L109" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def squery(query: str, possibilities: List[str], cutoff: int=0.6, *, processor: Callable[[Any], Any]=lambda r: r):
-    &#34;&#34;&#34;Custom search query.
-
-    Args:
-        query (str): String to search for in the .
-        possibilities (List[str]): [description]
-        cutoff (int, optional): [description]. Defaults to 0.6.
-        processor (Callable[[Any], Any], optional): [description]. Defaults to lambdar:r.
-
-    Yields:
-        [type]: [description]
-    &#34;&#34;&#34;
-
-
-    sequence_matcher = difflib.SequenceMatcher()
-    sequence_matcher.set_seq2(query)
-
-    for search_value in possibilities:
-        sequence_matcher.set_seq1(processor(search_value))
-        if (query.lower() in processor(search_value).lower()):
-            yield (None, search_value)
-            continue
-        if (sequence_matcher.real_quick_ratio() &gt;= cutoff and sequence_matcher.quick_ratio(
-        ) &gt;= cutoff and sequence_matcher.ratio() &gt;= cutoff):
-            yield (sequence_matcher.ratio(), search_value)</code></pre>
+    return [manga(i) for i in dl_search(s).values()]</code></pre>
 </details>
 </dd>
 </dl>
@@ -674,14 +497,12 @@ setTimeout(() => input.focus(), 100);
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
-<li><code><a title="mangdl.API.Providers.catmanga.chapter" href="#mangdl.API.Providers.catmanga.chapter">chapter</a></code></li>
-<li><code><a title="mangdl.API.Providers.catmanga.cli_dl" href="#mangdl.API.Providers.catmanga.cli_dl">cli_dl</a></code></li>
-<li><code><a title="mangdl.API.Providers.catmanga.cli_search" href="#mangdl.API.Providers.catmanga.cli_search">cli_search</a></code></li>
-<li><code><a title="mangdl.API.Providers.catmanga.dl" href="#mangdl.API.Providers.catmanga.dl">dl</a></code></li>
-<li><code><a title="mangdl.API.Providers.catmanga.dl_search" href="#mangdl.API.Providers.catmanga.dl_search">dl_search</a></code></li>
-<li><code><a title="mangdl.API.Providers.catmanga.manga" href="#mangdl.API.Providers.catmanga.manga">manga</a></code></li>
-<li><code><a title="mangdl.API.Providers.catmanga.search" href="#mangdl.API.Providers.catmanga.search">search</a></code></li>
-<li><code><a title="mangdl.API.Providers.catmanga.squery" href="#mangdl.API.Providers.catmanga.squery">squery</a></code></li>
+<li><code><a title="mangdl.API.Providers.flamescans.chapter" href="#mangdl.API.Providers.flamescans.chapter">chapter</a></code></li>
+<li><code><a title="mangdl.API.Providers.flamescans.cli_dl" href="#mangdl.API.Providers.flamescans.cli_dl">cli_dl</a></code></li>
+<li><code><a title="mangdl.API.Providers.flamescans.cli_search" href="#mangdl.API.Providers.flamescans.cli_search">cli_search</a></code></li>
+<li><code><a title="mangdl.API.Providers.flamescans.dl_search" href="#mangdl.API.Providers.flamescans.dl_search">dl_search</a></code></li>
+<li><code><a title="mangdl.API.Providers.flamescans.manga" href="#mangdl.API.Providers.flamescans.manga">manga</a></code></li>
+<li><code><a title="mangdl.API.Providers.flamescans.search" href="#mangdl.API.Providers.flamescans.search">search</a></code></li>
 </ul>
 </li>
 </ul>
