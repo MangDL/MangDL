@@ -3,8 +3,6 @@
     mangDL
 </h1>
 
-
-
 <!-- Description. Preferrably 1 sentence long. -->
 <h3 align="center" style="font-weight: bold">
     WIP: Manga Downloader
