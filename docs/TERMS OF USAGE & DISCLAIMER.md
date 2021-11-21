@@ -8,7 +8,7 @@ As used in this Disclaimer, the following terms shall have the following meaning
 
 - **Developer** hereby means the person who has developed the **Project** going by the username of "[whinee](https://www.github.com/whinee)" in "[Github](https://github.com)", only meant to be used in singular form
 
-- **Project** hereby means the Open Source Project called "[MangDL](https://www.github.com/whinee/MangDL)" developed by the **Developer**, only meant to be used in singular form; and
+- **Project** hereby means the Open Source Project called "[MangDL](https://www.github.com/MangDL/MangDL)" developed by the **Developer**, only meant to be used in singular form; and
 
 - **User** hereby means the person who uses this **Project**, regardless of race, gender, age, ethnicity, sexual orientation, or disability, and no matter what their intention is
 
@@ -57,4 +57,4 @@ By no means harassing the **Developer** including, but not limited to the follow
 
 The **Developer** will act legally against those who have done anything illegal against the said **Developer**, including, but not limited to the following above.
 
-For any concerns regarding the legality of the project, begin by creating a new issue or through contacting me in Discord: **<a target="_blank" href="https://discord.com/users/867696753434951732">whinee#5135</a>**.
+For any concerns regarding the legality of the project, begin by creating a new issue or through contacting me in Discord: **<a target="_blank" href="https://discord.com/users/867696753434951732">whi_ne#5135</a>**.
