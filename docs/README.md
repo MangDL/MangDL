@@ -119,7 +119,7 @@ Downloading:
 mangdl dl <title> [OPTIONS]
 ```
 
-For programmatic use, visit the documentation: [whinee.github.io/mangDL/docs](https://whinee.github.io/mangDL/docs)
+For programmatic use, visit the documentation: [mangdl.github.io/docs](https://mangdl.github.io/docs/index.html)
 
 ## **Getting Started**
 
@@ -286,7 +286,7 @@ After checking or installing Python, pip, and git in your machine, proceed to th
 - Install the project and its python dependencies by running the following commands:
 
     ```bash
-    python3 -m pip install git+https://www.github.com/whinee/MangDL
+    python3 -m pip install git+https://www.github.com/MangDL/MangDL
     python3 -m pip install --upgrade pip
     python3 -m pip cache purge
     ```
