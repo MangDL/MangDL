@@ -1,5 +1,7 @@
 <!-- Repository Name. Preferrably 1-5 words long. -->
-<img src="./assets/images/icons/logo-white.png" id="logo" width="300rem" height="auto" style="display: block; margin: auto;">
+<p align="center">
+    <img src="./assets/images/icons/logo-white.png" id="logo" width="300rem" height="auto" style="display: block; margin: auto;">
+</p>
 
 <h1 align="center" style="font-weight: bold">
     <span id="min-block-shrink">▀▄▀▄▀▄</span>
@@ -95,18 +97,23 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
 
 - [**Important**](#important)
 - [**Features**](#features)
+  - [Supported OSes](#supported-oses)
 - [**Sites**](#sites)
+  - [Coming soon™](#coming-soon)
 - [**Table of Contents**](#table-of-contents)
 - [**Usage**](#usage)
 - [**Getting Started**](#getting-started)
-    - [**Prerequisites**](#prerequisites)
-    - [**Setup**](#setup)
-- [**TODO**](#todo)
+  - [**Prerequisites**](#prerequisites)
+  - [**Setup**](#setup)
 - [**Contributions**](#contributions)
 - [**Known Issues and Limitations**](#known-issues-and-limitations)
 - [**Future of this project**](#future-of-this-project)
 - [**License**](#license)
+  - [<a target="_blank" href="https://choosealicense.com/licenses/mit/">MIT</a>](#mit)
 - [**Credits**](#credits)
+  - [Thank you:](#thank-you)
+  - [MIT Logo](#mit-logo)
+  - [Icons](#icons)
 
 <!-- Mention examples of application of this repository. -->
 ## **Usage**
