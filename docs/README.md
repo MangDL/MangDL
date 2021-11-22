@@ -1,6 +1,10 @@
 <!-- Repository Name. Preferrably 1-5 words long. -->
+<img src="./assets/images/icons/logo-white.png" id="logo" width="300rem" height="auto" style="display: block; margin: auto;">
+
 <h1 align="center" style="font-weight: bold">
-    WIP: MangDL
+    <span id="min-block-shrink">▀▄▀▄▀▄</span>
+    <span id="min-block">MangDL</span>
+    <span id="min-block-shrink">▀▄▀▄▀▄</span>
 </h1>
 
 
@@ -301,7 +305,7 @@ After checking or installing Python, pip, and git in your machine, proceed to th
 
     - [x] Bare-bones sites
 
-    - [ ] Migrate every .md file to https://MangDL.github.io
+    - [ ] Migrate every .md file to https://mangdl.github.io
 
 - [ ] Library
 
