@@ -95,19 +95,6 @@ class Search:
 
 @dataclass
 class Ch:
-    """Use the template below:
-    Ch(
-        url              =
-        ch               =
-        vol              =
-        title            =
-        views            =
-        uploaded_at      =
-        scanlator_groups =
-        user             =
-        imgs             =
-    )
-    """
     url              : str
     ch               : Union[int, float, None]
     vol              : Union[int, float, None]
@@ -121,25 +108,6 @@ class Ch:
 
 @dataclass
 class Manga:
-    """Use the template below:
-    Manga(
-        url             = ,
-        title           = ,
-        author          = ,
-        covers          = ,
-        alt_titles      = ,
-        status          = ,
-        demographics    = ,
-        content_rating  = ,
-        genres          = ,
-        updated_at      = ,
-        created_at      = ,
-        views           = ,
-        description     = ,
-        links           = ,
-        chapters        = ,
-    )
-    """
     url             : str
     title           : str
     author          : List[str]
@@ -157,16 +125,18 @@ class Manga:
     chapters        : Dict[Union[int, float], Ch]   = field(default_factory=dict)
 
 
-def tblp(ls: List[str]):
+def tblp(ls: List[str], ct: str="title", prompt: str='Enter the index of the manga to be downloaded, defaults to 0'):
     """Table prompt.
-    Receive a list of manga title, format it in a table form and print,
+    Receive a list of items, format it in a table form and print,
     then prompt the user to choose from the list using an index.
 
     Args:
-        ls (List[str]): List of manga title.
+        ls (List[str]): List of items.
+        ct (str, optional): [description]. Defaults to "title".
+        prompt (str, optional): [description]. Defaults to 'Enter the index of the manga to be downloaded, defaults to 0'.
 
     Returns:
-        click.prompt: The user prompt to choose the manga.
+        click.prompt: The input of the user.
     """
     print(
         tabulate(
@@ -174,14 +144,14 @@ def tblp(ls: List[str]):
                 [chalk.hex("FFD166").bold(i), chalk.hex("4E8098").bold(v)]
                 for i, v in enumerate(ls)
             ],
-            [chalk.hex("e63946").bold("index"), chalk.hex("e76f51").bold("title")],
+            [chalk.hex("e63946").bold("index"), chalk.hex("e76f51").bold(ct)],
             tablefmt="pretty", colalign=("right", "left")
         )
     )
 
     return click.prompt(
         chalk.hex("3279a1").bold(
-            'Enter the index of the manga to be downloaded, defaults to 0'
+            f'{prompt}, defaults to 0'
         ), '0',
         type=click.Choice(
             [str(i) for i in range(len(ls))]

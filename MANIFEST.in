@@ -1,1 +1,1 @@
-recursive-include mangdl *.yaml *.json
+recursive-include mangdl *.yaml *.json version
