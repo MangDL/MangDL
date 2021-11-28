@@ -1,6 +1,5 @@
 import os
 import shutil
-import tempfile
 from os.path import abspath as ap
 from os.path import dirname as dn
 from typing import Any
@@ -9,12 +8,11 @@ from zipfile import ZipFile
 import click
 import httpx
 from tabulate import tabulate
-from tqdm import tqdm
 from yachalk import chalk
 
 from .__init__ import CORE_VER_M, PROV_VER_M, IncompatibleProvider, providers
 from .API.Base import req
-from .utils import globals, style
+from .utils import globals
 from .utils.log import logger
 from .utils.settings import wr_stg
 from .utils.utils import command
@@ -104,7 +102,7 @@ def dl(title: str, **kwargs: dict[str, Any]):
                     shutil.rmtree(os.path.join(dn(ap(__file__)), "API", "Providers"))
                     for i in zip.infolist():
                         path = os.path.normpath(i.filename).split(os.sep)
-                        fn = os.path.join("Providers", *path[1:]) + (os.sep if i.filename.endswith(os.sep) else '')
+                        fn = os.path.join("Providers", *path[1:]) + (os.sep if i.filename.endswith('/') else '')
                         i.filename = fn
                         zip.extract(i, path=os.path.join(dn(ap(__file__)), "API"))
                 os.remove(zfn)

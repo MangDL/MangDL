@@ -24,14 +24,16 @@ _PV = path.join(dn(ap(__file__)), "API", "Providers", "version")
 if not os.path.exists(_PV):
     zfn = os.path.join(dn(ap(__file__)), "Providers.zip")
     with open(zfn, "wb") as f:
-        print(CORE_VER)
         f.write(httpx.get(f'https://codeload.github.com/MangDL/Providers/legacy.zip/refs/tags/{CORE_VER.strip()}').content)
     with ZipFile(zfn, 'r') as zip:
         for i in zip.infolist():
             path = os.path.normpath(i.filename).split(os.sep)
-            fn = os.path.join("Providers", *path[1:]) + (os.sep if i.filename.endswith(os.sep) else '')
-            i.filename = fn
-            zip.extract(i, path=os.path.join(dn(ap(__file__)), "API"))
+            fn = os.path.join("Providers", *path[1:]) + (os.sep if i.filename.endswith('/') else '')
+            if i.filename.endswith('/'):
+                os.mkdir(fn)
+            else:
+                i.filename = fn
+                zip.extract(i, path=os.path.join(dn(ap(__file__)), "API"))
     os.remove(zfn)
 with open(_PV, "r") as pv:
     PROV_VER = pv.read()

@@ -1,11 +1,9 @@
-import fcntl
 import inspect
-import struct
-import termios
 import textwrap
 from datetime import datetime
 from functools import partial
 from threading import Lock
+import shutil
 
 from yachalk import chalk
 
@@ -19,7 +17,8 @@ levels = {
     "debug": "11b180",
 }
 
-_, TERM_WIDTH, *_ = struct.unpack('HHHH', fcntl.ioctl(1, termios.TIOCGWINSZ, struct.pack('HHHH', 0, 0, 0, 0)))
+TERM_WIDTH = shutil.get_terminal_size((80, 20)).columns
+
 
 Lock = Lock()
 class logger:
