@@ -20,6 +20,7 @@ cmd:
         args:
           - provider
         kwargs:
+          default: mangadex
           metavar: ''
           type:
             Choice:
@@ -74,6 +75,7 @@ cmd:
         args:
           - contentrating
         kwargs:
+          default: ['safe', 'suggestive', 'erotica']
           metavar: ''
         help:
           - list[str]
@@ -107,6 +109,7 @@ cmd:
         args:
           - order
         kwargs:
+          default: latestUploadedChapter:desc
           metavar: ''
         help:
           - str
@@ -163,6 +166,7 @@ cmd:
         args:
           - includemode
         kwargs:
+          default: and
           metavar: ''
         help:
           - str
@@ -185,9 +189,10 @@ cmd:
         args:
           - excludemode
         kwargs:
+          default: or
           metavar: ''
         help:
-          - list[str]
+          - str
           - |-
             Only applicable for the provider "mangadex" and when there are arguments passed to "excludetags" option.
             Excluded tags mode. (and | or). Defaults to "or".
@@ -227,6 +232,7 @@ cmd:
         args:
           - overwrite
         kwargs:
+          default: true
           is_flag: true
           metavar: ''
         help:
@@ -262,12 +268,13 @@ cmd:
         args:
           - delfolder
         kwargs:
+          defaults: true
           is_flag: true
           metavar: ''
         help:
           - N/A (flag)
           - |-
-            Only applicable if there is an argument passed to "format".
+            Only applicable if there is an argument passed to "format". Defaults as True.
             Determines if the folder will be deleted after a chapter had been archived to the proper format.
       rt:
         args:
@@ -284,23 +291,13 @@ cmd:
         args:
           - retryprompt
         kwargs:
+          default: false
           is_flag: true
           metavar: ''
         help:
           - N/A (flag)
           - |-
-            Determines if the program prompts the user to retry the failed download.
-      t:
-        args:
-          - threads
-        kwargs:
-          default: 5
-          metavar: ''
-          type: int
-        help:
-          - int
-          - |-
-            Determines how many threads to use for downloading a chapter. Defaults to 5, Recommended to use 30-50.
+            Determines if the program prompts the user to retry the failed download. Defaults to False.
       ct:
         args:
           - colortheme

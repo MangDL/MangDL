@@ -1,12 +1,12 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="mangdl",
-	author="whitespace-negative",
-	author_email="whinyaan@gmai.com",
+    name="MangDL",
+	author="whinee",
+	author_email="whinyaan@gmail.com",
     version="0.0.1",
-    description="Store files in Discord.",
-    url="https://github.com/whitespace-negative/manga-dl",
+    description="The most inefficent Manga downloader for PC",
+    url="https://github.com/MangDL/MangDL",
 	license="MIT",
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -26,7 +26,7 @@ setup(
         "tabulate",
         "toml",
         "tqdm",
-        "yachalk"
+        "yachalk",
 	],
 	entry_points = {
         'console_scripts': ['mangdl=mangdl.cli:cli'],

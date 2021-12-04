@@ -15,7 +15,7 @@
 
 Part of the following is a summary of [this](https://community.chocolatey.org/courses/installation/installing?method=installing-chocolatey) guide, modified to fit accordingly.
 
-- Press <kbd>Win</kbd>. An interface shoud plop up as shown below:
+- Press <kbd>Win</kbd>. An interface shoud pop up as shown below:
 
     ![1](assets/images/prerequisites/python/windows/1.png)
 

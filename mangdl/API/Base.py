@@ -6,7 +6,6 @@ import sys
 import time
 from dataclasses import dataclass, field
 from functools import lru_cache, partial
-from multiprocessing.pool import ThreadPool
 from typing import Any, Callable, Dict, List, Union
 
 import click
@@ -14,11 +13,13 @@ import httpx
 import patoolib
 from bs4 import BeautifulSoup
 from tabulate import tabulate
-from tqdm import tqdm
+from tqdm.asyncio import tqdm_asyncio
 from yachalk import chalk
+import asyncio
 
 from ..utils import style
 from ..utils.globals import log
+from ..utils.exceptions import DownloadFailed
 
 session = httpx.Client()
 
@@ -95,19 +96,6 @@ class Search:
 
 @dataclass
 class Ch:
-    """Use the template below:
-    Ch(
-        url              =
-        ch               =
-        vol              =
-        title            =
-        views            =
-        uploaded_at      =
-        scanlator_groups =
-        user             =
-        imgs             =
-    )
-    """
     url              : str
     ch               : Union[int, float, None]
     vol              : Union[int, float, None]
@@ -121,25 +109,6 @@ class Ch:
 
 @dataclass
 class Manga:
-    """Use the template below:
-    Manga(
-        url             = ,
-        title           = ,
-        author          = ,
-        covers          = ,
-        alt_titles      = ,
-        status          = ,
-        demographics    = ,
-        content_rating  = ,
-        genres          = ,
-        updated_at      = ,
-        created_at      = ,
-        views           = ,
-        description     = ,
-        links           = ,
-        chapters        = ,
-    )
-    """
     url             : str
     title           : str
     author          : List[str]
@@ -157,16 +126,18 @@ class Manga:
     chapters        : Dict[Union[int, float], Ch]   = field(default_factory=dict)
 
 
-def tblp(ls: List[str]):
+def tblp(ls: List[str], ct: str="title", prompt: str='Enter the index of the manga to be downloaded, defaults to 0'):
     """Table prompt.
-    Receive a list of manga title, format it in a table form and print,
+    Receive a list of items, format it in a table form and print,
     then prompt the user to choose from the list using an index.
 
     Args:
-        ls (List[str]): List of manga title.
+        ls (List[str]): List of items.
+        ct (str, optional): [description]. Defaults to "title".
+        prompt (str, optional): [description]. Defaults to 'Enter the index of the manga to be downloaded, defaults to 0'.
 
     Returns:
-        click.prompt: The user prompt to choose the manga.
+        click.prompt: The input of the user.
     """
     print(
         tabulate(
@@ -174,14 +145,14 @@ def tblp(ls: List[str]):
                 [chalk.hex("FFD166").bold(i), chalk.hex("4E8098").bold(v)]
                 for i, v in enumerate(ls)
             ],
-            [chalk.hex("e63946").bold("index"), chalk.hex("e76f51").bold("title")],
+            [chalk.hex("e63946").bold("index"), chalk.hex("e76f51").bold(ct)],
             tablefmt="pretty", colalign=("right", "left")
         )
     )
 
     return click.prompt(
         chalk.hex("3279a1").bold(
-            'Enter the index of the manga to be downloaded, defaults to 0'
+            f'{prompt}, defaults to 0'
         ), '0',
         type=click.Choice(
             [str(i) for i in range(len(ls))]
@@ -266,20 +237,26 @@ class Downloader:
         ch_fn: Callable[[Any], List[str]],
         ra: Callable[[httpx.Response], int]=None,
         headers: Dict[str, Any] = {},
+        range: str='',
         directory: str=None,
+        overwrite: bool=True,
+        format: str='cbz',
+        delfolder: bool=True,
+        retry: int=3,
+        retryprompt: bool=False,
         **kwargs: Dict[str, Any]
     ):
-        ak = {'range', 'overwrite', 'delfolder', 'retry', 'retryprompt', 'threads'}
-        self.__dict__.update((k, v) for k, v in kwargs.items() if k in ak)
-        self.__dict__.update(locals())
+        local = locals()
+        for i in ["ch_fn", "ra", "headers", "overwrite", "delfolder", "retry", "retryprompt"]:
+            setattr(self, i, local[i])
         if ddir:= directory:
             self.ddir = ddir
         elif sys.platform == "win32":
             self.ddir = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop', 'Manga')
         else:
             self.ddir = os.path.join(os.path.expanduser('~'), "Manga")
-        self.format = kwargs["format"].lower()
-        self.check = cr(self.range)
+        self.format = format.lower()
+        self.check = cr(range)
 
     def _dlf(self, file: list[str], n: int=0):
         """The core individual image downloader.
@@ -289,25 +266,23 @@ class Downloader:
             n (int, optional): Times the download for this certain file is retried. Defaults to 0.
         """
         if (n+1) == self.retry:
-            if self.retryprompt:
-                log.warning(f"Download failed for {ordinal(self.retry)} time, will prompt the user.", "downloader")
-                if click.prompt(f"Download failed for {ordinal(self.retry)} time, do you want to continue the download? (y | n). Defaults to y", "y", type=click.Choice(["y", "n"]), show_choices=False, show_default=False) == "y":
-                    log.info(f"Download will be retried again", "downloader")
-                    self._dlf(file, 0)
-                else:
-                    log.info(f"Download is not retried, will skip.", "downloader")
-            else:
-                log.error(f"Download failed for {ordinal(self.retry)} time, will halt the download.", "downloader")
+            log.error(f"Download failed for {ordinal(self.retry)} time, will halt the download.", "downloader")
+            return False
         else:
             if n:
                 log.warning(f"Download failed for the {ordinal(n)} time, will retry.", "downloader")
             with open(file[0] + ".tmp", "wb") as f:
                 try:
                     with httpx.stream("GET", file[1], headers=self.headers) as r:
-                        for chunk in r.iter_bytes(chunk_size=8192):
-                            f.write(chunk)
+                        if r.status_code == 200:
+                            for chunk in r.iter_bytes(chunk_size=8192):
+                                f.write(chunk)
+                        elif r.status_code == 429:
+                            time.sleep(self.ch_fn(r))
+                            self._dlf(file, n)
                 except (httpx.ReadTimeout, httpx.ConnectTimeout):
                     self._dlf(file, n+1)
+            return True
 
     def dlf(self, file: List[str]):
         """Individual image downloader.
@@ -321,10 +296,13 @@ class Downloader:
             pass
         if os.path.isfile(f"{file[0]}.tmp"):
             os.remove(f"{file[0]}.tmp")
-        self._dlf(file)
-        os.replace(f"{file[0]}.tmp", file[0])
+        f = self._dlf(file)
+        if f:
+            os.replace(f"{file[0]}.tmp", file[0])
+        else:
+            raise DownloadFailed(f"Download of {file[1]} failed.")
 
-    def dlch(self, k: Union[int, float], v: List[str]):
+    async def dlch(self, k: Union[int, float], v: List[str], n: int=0):
         """Individual chapter downloader.
 
         Args:
@@ -341,12 +319,15 @@ class Downloader:
                 else:
                     log.debug(f"Skipping {jdir} as it exists and overwrite flag is not raised.", "downloader")
                     dl = False
-            elif os.path.isfile(f"{jdir}.{self.format}"):
+            if os.path.isfile(f"{jdir}.{self.format}"):
                 if self.overwrite:
                     os.remove(f"{jdir}.{self.format}")
                 else:
                     log.debug(f"Skipping {jdir}.{self.format} as it exists and overwrite flag is not raised.", "downloader")
                     dl = False
+        if (n+1) == self.retry:
+            log.error(f"Download failed for {ordinal(self.retry)} time, will halt the download.", "downloader")
+            dl = False
         if dl:
             chapter_name = str(k)
             jdir = os.path.join(self.ddir, self.title, sanitize_filename(chapter_name))
@@ -363,17 +344,23 @@ class Downloader:
                     ).replace("\\", "/")
                     files.append((filename, page))
                 fmt = style.t1(style.ac1(chapter_name) + " [{remaining_s:05.2f} secs, {rate_fmt:0>12}] " + style.ldb("{bar}") +" [{n:03d}/{total:03d}, {percentage:03.0f}%]")
-                with ThreadPool(self.threads) as pool:
-                    list(tqdm(pool.imap(self.dlf, files), total=len(files), leave=True, unit=" img", disable=False, dynamic_ncols=True, smoothing=1, bar_format=fmt))
+                try:
+                    await tqdm_asyncio.gather(*[self.dlf(file) for file in files], total=len(files), leave=True, unit=" img", disable=False, dynamic_ncols=True, smoothing=1, bar_format=fmt)
+                except DownloadFailed as e:
+                    if self.retryprompt:
+                        await self.dlch(k, v, n+1)
+                    else:
+                        raise e
+
                 if format != "folder":
                     patoolib.create_archive(f"{jdir}.{self.format}", [i[0] for i in files], verbosity=-1)
                     if self.delfolder:
                         shutil.rmtree(jdir)
 
-    def dl(self, title: str, chs: Dict[Union[int, float], list[str]]):
+    async def dl(self, title: str, chs: Dict[Union[int, float], list[str]]):
         self.title = title
         for k, v in chs.items():
-            self.dlch(k, v)
+            await self.dlch(k, v)
 
     def dl_chdls(
         self,
@@ -393,7 +380,7 @@ class Downloader:
                 k = -n
                 n += 1
             chs[k] = arg
-        self.dl(title, chs)
+        asyncio.get_event_loop().run_until_complete(self.dl(title, chs))
 
     def cli(
         self,

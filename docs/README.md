@@ -50,11 +50,17 @@ The most inefficient manga downloader for PC (and soon, also a reader)
 
 ---
 
+> **❝** *...but I don't think you'll write code valuable enough for them (Content creators and/or owners) to do that (file a DMCA strike against MangDL).* **❞**
+>
+> \- <a href='https://github.com/justfoolingaround'>KR</a>
+
 Github: [github.com/MangDL/MangDL](https://github.com/MangDL/MangDL)
 
 Website: [mangdl.rf.gd](http://mangdl.rf.gd)
 
 ## **Important**
+
+### **MangDL is under a heavy rewrite and a lot fatal bugs and errors are still present in this project. I do not recommend to use this version of MangDL right now.**
 
 This project is a work in progress. A package will be released soon as a beta.
 
