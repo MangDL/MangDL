@@ -1,0 +1,35 @@
+#!/usr/bin/env python3.10
+import click
+from subprocess import Popen
+import shlex
+from datetime import datetime
+
+def run(s: str):
+    Popen(shlex.split(s))
+
+
+@click.command()
+@click.argument('message')
+@click.option('--meta', is_flag=True)
+def cmd(message: str, meta: bool):
+    with open("version", "r") as f:
+        version = f.read().strip().split(".")
+        patch = version[2]
+        p, prb = patch.split("-")
+        pr, b = prb.split("+")
+        print(p, pr, b)
+    if meta:
+        version[2] = f'{p}-{int(pr) + 1}'
+    else:
+        version[2] = f'{int((patch.split("-")[0])) + 1}-0'
+    version[2] = f'{version[2]}+{datetime.now().strftime(r"%Y%m%d%H%M%S%f")}'
+    version = ".".join(version)
+    with open("version", "w") as f:
+        f.write(version)
+    run("git add .")
+    run(f"git commit -am '{message}, bump to `{version}`'")
+    run("git push")
+
+
+cmd()
+
