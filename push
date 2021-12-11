@@ -6,23 +6,39 @@ import shlex
 def run(s: str):
     call(shlex.split(s))
 
-vls = ["major", "minor", "patch"]
+vls = ["major", "minor", "patch", "alpha", "beta"]
 
 @click.command()
 @click.argument('message')
 def cmd(message: str, v: str):
     with open("version", "r") as f:
         version = f.read().strip().split(".")
-    i = vls.index(v or "patch")
-    version[i] = str(int(version[i]) + 1)
-    while i+1 <= 2:
-        i += 1
-        version[i] = "0"
+    v = v or "alpha"
+    i = vls.index(v)
+    if i <= 2:
+        version[i] = str(int(version[i].split("-")[0]) + 1)
+        if len(version) == 4:
+            del version[3]
+        while i+1 <= 2:
+            i += 1
+            version[i] = "0"
+    else:
+        patch = version[2]
+        if len(version) == 4:
+            pre = version[2].split("-")
+            if len(pre) == 2 and pre[1] == v:
+                version[3] = str(int(version[3]) + 1)
+            else:
+                version[2] = f'{pre[0]}-{v}'
+                version[3] = '0'
+        else:
+            version[2] = f'{patch}-{v}'
+            version.append('0')
     version = ".".join(version)
     with open("version", "w") as f:
         f.write(version)
     run("git add .")
-    run(f"git commit -am '{message}, bump to `{version}`'")
+    run(f"git commit -am '{message}{f', bump to `{version}`' if i <= 2 else ''}'")
     run("git push")
 
 for i in vls:
