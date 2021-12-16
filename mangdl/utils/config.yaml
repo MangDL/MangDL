@@ -20,12 +20,12 @@ cmd:
         args:
           - provider
         kwargs:
-          default: mangadex
           metavar: ''
           type:
             Choice:
               args:
                 - - flamescans
+                  - hachirumi
                   - mangadex
                   - manganato
               kwargs:
@@ -75,7 +75,6 @@ cmd:
         args:
           - contentrating
         kwargs:
-          default: ['safe', 'suggestive', 'erotica']
           metavar: ''
         help:
           - list[str]
@@ -109,7 +108,6 @@ cmd:
         args:
           - order
         kwargs:
-          default: latestUploadedChapter:desc
           metavar: ''
         help:
           - str
@@ -166,7 +164,6 @@ cmd:
         args:
           - includemode
         kwargs:
-          default: and
           metavar: ''
         help:
           - str
@@ -189,10 +186,9 @@ cmd:
         args:
           - excludemode
         kwargs:
-          default: or
           metavar: ''
         help:
-          - str
+          - list[str]
           - |-
             Only applicable for the provider "mangadex" and when there are arguments passed to "excludetags" option.
             Excluded tags mode. (and | or). Defaults to "or".
@@ -232,7 +228,6 @@ cmd:
         args:
           - overwrite
         kwargs:
-          default: true
           is_flag: true
           metavar: ''
         help:
@@ -268,13 +263,12 @@ cmd:
         args:
           - delfolder
         kwargs:
-          defaults: true
           is_flag: true
           metavar: ''
         help:
           - N/A (flag)
           - |-
-            Only applicable if there is an argument passed to "format". Defaults as True.
+            Only applicable if there is an argument passed to "format".
             Determines if the folder will be deleted after a chapter had been archived to the proper format.
       rt:
         args:
@@ -291,13 +285,23 @@ cmd:
         args:
           - retryprompt
         kwargs:
-          default: false
           is_flag: true
           metavar: ''
         help:
           - N/A (flag)
           - |-
-            Determines if the program prompts the user to retry the failed download. Defaults to False.
+            Determines if the program prompts the user to retry the failed download.
+      t:
+        args:
+          - threads
+        kwargs:
+          default: 5
+          metavar: ''
+          type: int
+        help:
+          - int
+          - |-
+            Determines how many threads to use for downloading a chapter. Defaults to 5, Recommended to use 30-50.
       ct:
         args:
           - colortheme
@@ -311,7 +315,7 @@ cmd:
             Set the color theme. Defaults to whine.
       v:
         args:
-          - verbosity
+          - verboselevel
         kwargs:
           count: true
           default: 4
@@ -319,68 +323,9 @@ cmd:
         help:
           - N/A (count flag)
           - |-
-            Set the verbosity level of the logger. 0-6 with 0 being silent and 6 printing everything that is logged.
-            Defaults to 2.
-          - -vvv means verbosity level of 3
-      sc:
-        args:
-          - saveconfig
-        kwargs:
-          metavar: ''
-        help:
-          - str
-          - |-
-            Saves the arguments and options except for <title>, sc, lc, and olc with the given name.
-      lc:
-        args:
-          - loadconfig
-        kwargs:
-          metavar: ''
-        help:
-          - str
-          - |-
-            Loads the arguments and options except for <title>, sc, lc, and olc with the given name.
-      olc:
-        args:
-          - overridelc
-        kwargs:
-          is_flag: true
-          metavar: ''
-        help:
-          - N/A (flag)
-          - |-
-            Only applicable when there is an argument passed to "loadconfig".
-            Determines if the options and arguments will override the one in the loaded config.
-  config:
-    args:
-    kwargs:
-    help:
-      - configs
-      - |-
-        tweak configurations
-    arguments:
-      command:
-        args:
-        kwargs:
-        help:
-          - str
-          - |-
-            Name of the command.
-            (ls | view | edit | remove)
-    options:
-      v:
-        args:
-          - verbosity
-        kwargs:
-          count: true
-          default: 2
-          metavar: ''
-        help:
-          - N/A (count flag)
-          - |-
-            Set the verbosity level of the logger. 0-6 with 0 being silent and 6 printing everything that is logged.
-            Defaults to 2.
-          - -vvv means verbosity level of 3
+            Set the varbose level of the logger. 0-7 with 0 being silent and 7 printing everything that is logged.
+            Defaults to 4.
+          - -vvv means verbose level of 3
   credits:
     args:
     kwargs:

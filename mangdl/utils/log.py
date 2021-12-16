@@ -1,9 +1,9 @@
 import inspect
+import shutil
 import textwrap
 from datetime import datetime
 from functools import partial
 from threading import Lock
-import shutil
 
 from yachalk import chalk
 
@@ -15,6 +15,7 @@ levels = {
     "warning": "FCDC4D",
     "info": "3279a1",
     "debug": "11b180",
+    "spam": "b5b5b5"
 }
 
 TERM_WIDTH = shutil.get_terminal_size((80, 20)).columns

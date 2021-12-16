@@ -1,0 +1,125 @@
+name: Build
+
+on: push
+
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Version
+      id: version
+      run: |-
+        echo -n "::set-output name=version::$(cat ./version)"
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.version.outputs.version }}
+        release_name: MangDL release v${{ steps.version.outputs.version }}
+        draft: false
+        prerelease: false
+  linux:
+    name: Linux
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Python3.10
+      uses: actions/setup-python@v1
+      with:
+        python-version: "3.10"
+    - name: Install Prerequisites
+      run: |-
+        sudo apt install appstream
+    - name: Build
+      run: |-
+        wget -O python.AppImage https://github.com/niess/python-appimage/releases/download/python3.10/python3.10.0-cp310-cp310-manylinux2010_x86_64.AppImage
+        chmod +x python.AppImage
+        ./python.AppImage --appimage-extract > /dev/null 2>&1
+        rm -rf python.AppImage
+        mv squashfs-root mangdl-linux-x86_64
+        chmod +x ./mangdl-linux-x86_64/usr/bin/pip3
+        ./mangdl-linux-x86_64/usr/bin/pip3 install --upgrade pip
+        ./mangdl-linux-x86_64/usr/bin/pip3 install . --no-warn-script-location
+        rm -rf ./mangdl-linux-x86_64/python3.10.0.desktop
+        echo "#!/usr/bin/env xdg-open
+        [Desktop Entry]
+        Type=Application
+        Name=mangdl
+        Exec=mangdl
+        Comment=The most inefficient Manga downloader for PC
+        Categories=AudioVideo;
+        Icon=logo
+        Terminal=true" > ./mangdl-linux-x86_64/mangdl.desktop
+        echo '#! /bin/sh
+        "exec" "$(dirname $(readlink -f ${0}))/usr/bin/python3.10" "$0" "$@"
+        # -*- coding: utf-8 -*-
+        import re
+        import sys
+        from mangdl.cli import cli
+        if __name__ == "__main__":
+            sys.argv[0] = re.sub("r(-script\.pyw|\.exe)?$", "", sys.argv[0])
+            sys.exit(cli())' > ./mangdl-linux-x86_64/mangdl
+        rm -rf ./mangdl-linux-x86_64/AppRun
+        rm -rf ./mangdl-linux-x86_64/python.png
+        cp ./docs/assets/images/icons/logo.png ./mangdl-linux-x86_64/
+        chmod +x ./mangdl-linux-x86_64/mangdl.desktop
+        rm -rf build/
+        tar -czf mangdl-linux-x86_64.tar.gz mangdl-linux-x86_64
+    - name: Upload
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{needs.release.outputs.upload_url}}
+        asset_path: ./mangdl-linux-x86_64.tar.gz
+        asset_name: mangdl-linux-x86_64.tar.gz
+        asset_content_type: application/octet
+  win:
+    name: Windows
+    needs: release
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        include:
+          - name: winx64
+            embedable: https://www.python.org/ftp/python/3.10.0/python-3.10.0-embed-amd64.zip
+          - name: winx86
+            embedable: https://www.python.org/ftp/python/3.10.0/python-3.10.0-embed-win32.zip
+
+    steps:
+    - name: Build mangdl-${{ matrix.name }}.zip
+      run: |-
+        git clone https://github.com/MangDL/MangDL.git mangdl
+        cd mangdl
+        curl -sSL ${{ matrix.embedable }} -o python.zip
+        curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+        tar -xf python.zip
+        del python310._pth
+        curl -sSL https://raw.githubusercontent.com/whinee/MangDL-test/master/assets/python310._pth -o python310._pth
+        curl -sSL https://raw.githubusercontent.com/whinee/MangDL-test/master/assets/mangdl.bat -o mangdl.bat
+        .\python get-pip.py
+        .\python -m pip install .
+        del python.zip
+        del get-pip.py
+        cd ..
+        tar -a -c -f mangdl.zip mangdl
+    - name: Upload
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.release.outputs.upload_url }}
+        asset_path: ./mangdl.zip
+        asset_name: mangdl-${{ matrix.name }}.zip
+        asset_content_type: application/zip

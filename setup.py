@@ -27,6 +27,7 @@ setup(
         "toml",
         "tqdm",
         "yachalk",
+        "yarl",
 	],
 	entry_points = {
         'console_scripts': ['mangdl=mangdl.cli:cli'],

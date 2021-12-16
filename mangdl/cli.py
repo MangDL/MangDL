@@ -1,22 +1,15 @@
-import os
-import shutil
-from os.path import abspath as ap
-from os.path import dirname as dn
-from typing import Any
-from zipfile import ZipFile
+import builtins
+import inspect
+from typing import Any, Callable, List
 
 import click
-import httpx
 from tabulate import tabulate
 from yachalk import chalk
 
-from .__init__ import CORE_VER_M, PROV_VER_M, IncompatibleProvider, providers
-from .API.Base import req
-from .utils import globals
-from .utils.log import logger
-from .utils.settings import wr_stg
-from .utils.utils import command
-import importlib
+from .API.Base import Downloader
+from .providers import Provider
+from .utils.settings import stg
+from .utils.utils import dd, de, dnrp
 
 print(chalk.hex("D2748D").bold(r"""
  _____   ___     _____    _____     __   _________   ______    __
@@ -28,6 +21,111 @@ print(chalk.hex("D2748D").bold(r"""
     \/_/     \/_/ \/_/  \/_/ \/_/  ＼/____/ \/________/ \/____/   \/_____/
 
 The most inefficient, non user-friendly and colorful manga downloader (and soon, also a reader)""") + chalk.hex("3279a1")('\nWIP ofc, whaddya expect?\n'))
+
+def cao(group: click.group, cmd: str) -> List[Callable[[Callable[[Any], Any]], Callable[[Any], Any]]]:
+    """Retruns wrappers for a click command evaluated from the given arguments.
+
+    Args:
+        group (click.group): Command group of the command to be under.
+        cmd (str): Name of the command.
+
+    Returns:
+        List[Callable[[Callable[[Any], Any]], Callable[[Any], Any]]]: The wrappers.
+    """
+    cmd = stg(f"cmd/{cmd}", f"{dnrp(__file__)}/utils/config.yaml")
+    arguments = cmd["arguments"]
+
+    def c(f: Callable[[Any], Any]) -> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]:
+        """The command wrapper.
+        Args:
+            f (Callable[[Any], Any]): The command function to be decorated.
+        Returns:
+            Callable[[Callable[[Any], Any]], Callable[[Any], Any]]
+        """
+        help = []
+        if arguments:
+            for k, v in arguments.items():
+                arguments[k]["help"] = [*v["help"], *[None for _ in range(3 - len(v["help"]))]]
+            for k, v in arguments.items():
+                t, h, e = v["help"]
+                e = '\nEx.: {e}' if e else ""
+                help.append([f"<{k}>", t, f'{h}{e}'])
+        s, h = cmd["help"]
+        return group.command(*de(cmd["args"], []), **dd({"context_settings": {'help_option_names': ['-h', '--help']}, "short_help": s, "help": f"\b\n{h}\n{tabulate(help, tablefmt='plain')}"}, cmd["kwargs"]))(f)
+
+    def a(f: Callable[[Any], Any]) -> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]:
+        """The arguments wrapper.
+        Args:
+            f (Callable[[Any], Any]): The command function to be decorated.
+        Returns:
+            Callable[[Callable[[Any], Any]], Callable[[Any], Any]]
+        """
+        args = {}
+        kwargs = {}
+        if arguments:
+            for k, v in arguments.items():
+                kw = {"metavar": f"<{k}>"}
+                args[k] = [k, *de(v["args"], [])]
+                kwargs[k] = dd(kw, v["kwargs"])
+            for i in list(args.keys()):
+                f = click.argument(*args[i], **kwargs[i])(f)
+        return f
+
+    def o(f: Callable[[Any], Any]) -> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]:
+        """The options wrapper.
+        Args:
+            f (Callable[[Any], Any]): The command function to be decorated.
+        Returns:
+            Callable[[Callable[[Any], Any]], Callable[[Any], Any]]
+        """
+        if opts:= cmd["options"]:
+            n = 0
+            args = {}
+            kwargs = {}
+            for k, v in opts.items():
+                l = len(v["help"][0] or "")
+                n = l if l > n else n
+                opts[k]["help"] = [*v["help"], *[None for _ in range(3 - len(v["help"]))]]
+            for k, v in opts.items():
+                a = de(v["args"], [])
+                kw = de(v["kwargs"], {})
+                a[0] = f"--{a[0]}"
+                a.insert(0, f"-{k}")
+                kt = kw.get("type", None)
+                t, h, e = v["help"]
+                t = t or ""
+                h = "\n".join(f'{" " * ((n + 3)-(0 if i else len(j)))}{j}' for i, j in enumerate(h.split("\n"))) if h else ""
+                e = "\n" + "\n".join(f'{" " * (n + (11 if i else 5))}{"Ex.: " if not i else ""}{j}' for i, j in enumerate(e.split("\n"))) if e else ""
+                kw["help"] = f'\b\n{t}{" "*((n + 3) - len(t))}{h}{e}'
+                if type(kt) is dict:
+                    ktk, ktv = list(kt.items())[0]
+                    kta, ktkw = [i[1] for i in ktv.items()]
+                    kw["type"] = getattr(click, ktk)(*kta, **ktkw if ktkw else {})
+                elif kt:
+                    kw["type"] = getattr(builtins, kt)
+                args[k] = a
+                kwargs[k] = kw
+            for i in list(args.keys()):
+                f = click.option(*args[i], **kwargs[i])(f)
+        return f
+
+    return c, a, o
+
+def command(group: click.group) -> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]:
+    """Wrapper for click commands.
+
+    Args:
+        group (click.group): Command group of the command to be under.
+
+    Returns:
+        Callable[[Callable[[Any], Any]], Callable[[Any], Any]]
+    """
+    def inner(f: Callable[[Any], Any]):
+        m = inspect.getouterframes(inspect.currentframe())[1][4][0]
+        for m in cao(group, m[4:m.index("(")]):
+            f = m(f)
+        return f
+    return inner
 
 @click.group(context_settings={'help_option_names': ['-h', '--help']})
 def cli():
@@ -42,74 +140,7 @@ def dl(title: str, **kwargs: dict[str, Any]):
     Args:
         title (str): The title of the manga to be search for and download.
     """
-    print(kwargs)
-    globals.log = logger(kwargs["verbosity"])
-    globals.style = kwargs["colortheme"]
-    sc = kwargs["saveconfig"]
-    if sc:
-        ls = [
-            "saveconfig",
-            "loadconfig",
-            "overridelc"
-        ]
-        for i in ls:
-            kwargs.pop(i)
-        wr_stg(f'config/dl/{sc}', kwargs)
-    else:
-        prov = kwargs.pop("provider")
-        try:
-            providers(prov if prov else "mangadex").cli_dl(title, **kwargs)
-        except IncompatibleProvider as e:
-            prompt = click.confirm(f'The providers have {"higher" if PROV_VER_M > CORE_VER_M else "lower"} version than MangDL do. Do you want to {"down" if PROV_VER_M > CORE_VER_M else "up"}grade the providers to {CORE_VER_M}.x.x?')
-            if prompt:
-                op = []
-                x = True
-                i = 1
-                while x:
-                    resp = req.get("https://api.github.com/repos/MangDL/Providers/releases", params={"per_page": 100, "page": i}, headers={"authorization": "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"}).json()
-                    x = resp != []
-                    if not x:
-                        break
-                    for d in resp:
-                        tag = d["name"]
-                        if int(tag.split(".")[0]) == CORE_VER_M:
-                            op.append(tag)
-                    i += 1
-                print(
-                    tabulate(
-                        [
-                            [chalk.hex("D687A4").bold(k), chalk.hex("DE8E93").bold(v)] for k, v in enumerate(op)
-                        ],
-                        [chalk.hex("84B2BA").bold("index"), chalk.hex("8AA3DE").bold("version")],
-                        tablefmt="pretty", colalign=("right", "left")
-                    )
-                )
-
-                choice = click.prompt(
-                    chalk.hex("3279a1").bold(
-                        'Enter the index of the manga to be downloaded, defaults to 0'
-                    ), '0',
-                    type=click.Choice(
-                        [str(i) for i in range(len(op))]
-                    ),
-                    show_choices=False,
-                    show_default=False
-                )
-                choice = int(choice)
-                zfn = os.path.join(dn(ap(__file__)), "Providers.zip")
-                with open(zfn, "wb") as f:
-                    f.write(httpx.get(f'https://codeload.github.com/MangDL/Providers/legacy.zip/refs/tags/{op[choice]}').content)
-                with ZipFile(zfn, 'r') as zip:
-                    shutil.rmtree(os.path.join(dn(ap(__file__)), "API", "Providers"))
-                    for i in zip.infolist():
-                        path = os.path.normpath(i.filename).split(os.sep)
-                        fn = os.path.join("Providers", *path[1:]) + (os.sep if i.filename.endswith('/') else '')
-                        i.filename = fn
-                        zip.extract(i, path=os.path.join(dn(ap(__file__)), "API"))
-                os.remove(zfn)
-                importlib.import_module(f".{prov if prov else 'mangadex'}", "mangdl.API.Providers").cli_dl(title, **kwargs)
-            else:
-                raise e
+    Provider(kwargs.pop("provider", "mangadex")).cli_dl(title, **kwargs)
 
 @command(cli)
 def credits():

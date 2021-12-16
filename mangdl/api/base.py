@@ -5,37 +5,50 @@ import shutil
 import sys
 import time
 from dataclasses import dataclass, field
-from functools import lru_cache, partial
-from typing import Any, Callable, Dict, List, Union
+from functools import partial
+from multiprocessing.pool import ThreadPool
+from typing import Any, Callable, Dict, List, Union, Type
+
+from yarl import URL
 
 import click
 import httpx
 import patoolib
 from bs4 import BeautifulSoup
 from tabulate import tabulate
-from tqdm.asyncio import tqdm_asyncio
+from tqdm import tqdm
 from yachalk import chalk
-import asyncio
 
 from ..utils import style
-from ..utils.globals import log
 from ..utils.exceptions import DownloadFailed
+from ..utils.globals import log
 
-session = httpx.Client()
+METHODS = ["get", "options", "head", "post", "put", "patch", "delete"]
 
-def _req(url: str, ra: Callable[[httpx.Response], int]=None, method: str = "get", session: httpx.Client = session, *args: List[Any], **kwargs: Dict[str, Any]) -> httpx.Response:
+SESSION = httpx.Client()
+
+def _req(
+        url: str,
+        ra: Callable[[httpx.Response], int]=None,
+        method: str = "get",
+        session: httpx.Client = SESSION,
+        *args: List[Any],
+        **kwargs: Dict[str, Any]
+    ) -> httpx.Response:
     """Custom request function with retry after capabilities for 429s.
 
     Args:
         url (str): URL to send the request to.
-        ra (Callable[[httpx.Response], int], optional): Retry after function, receives the Response object and returns the seconds before retrying. Defaults to None.
+        ra (Callable[[httpx.Response], int], optional): Retry after function,
+            receives the Response object and returns the seconds before
+            retrying. Defaults to None.
         method (str, optional): The request method. Defaults to "get".
-        session (httpx.Client, optional): Session client. Defaults to session.
+        session (httpx.Client, optional): Session client. Defaults to SESSION.
 
     Returns:
         httpx.Response: Response object.
     """
-    resp = getattr(session, method)(url, *args, **kwargs)
+    resp = getattr(session, method)(url, follow_redirects=True, *args, **kwargs)
     if resp.status_code == 429:
         if ra:
             time.sleep(ra(resp))
@@ -45,20 +58,33 @@ def _req(url: str, ra: Callable[[httpx.Response], int]=None, method: str = "get"
 class req:
     pass
 
-for i in ["get", "options", "head", "post", "put", "patch", "delete"]:
-    setattr(req, i, partial(_req, method=i))
+class ddos_guard:
+    pass
 
-@lru_cache()
-def soup(url: str) -> BeautifulSoup:
+ddos_resp = httpx.post("https://check.ddos-guard.net/check.js")
+ddos_cookies = {k: v for k, v in ddos_resp.cookies.items()}
+ddos_session = httpx.Client(cookies=ddos_cookies)
+
+req_dict = {
+    req: {},
+    ddos_guard: {"session": ddos_session},
+}
+
+for r, kw in req_dict.items():
+    for i in METHODS:
+        setattr(r, i, partial(_req, method=i, **kw))
+
+def soup(url: str, req: Type[req]=req, **kwargs: Dict[str, Any]) -> BeautifulSoup:
     """Returns a soup from the given url.
 
     Args:
         url (str): URL to get the soup from.
+        req (Type[req], optional): Object to call the methods from. Defaults to req.
 
     Returns:
         BeautifulSoup: the soup
     """
-    return BeautifulSoup(req.get(url).text, "lxml")
+    return BeautifulSoup(req.get(url, **kwargs).text, "lxml")
 
 @dataclass
 class Vls:
@@ -112,6 +138,7 @@ class Manga:
     url             : str
     title           : str
     author          : List[str]
+    artist          : List[str]                     = field(default_factory=list)
     covers          : List[str]                     = field(default_factory=list)
     alt_titles      : List[str]                     = field(default_factory=list)
     status          : int                           = -1
@@ -126,7 +153,7 @@ class Manga:
     chapters        : Dict[Union[int, float], Ch]   = field(default_factory=dict)
 
 
-def tblp(ls: List[str], ct: str="title", prompt: str='Enter the index of the manga to be downloaded, defaults to 0'):
+def tblp(ls: List[str], ct: str="title", prompt: str='Enter the index of the manga to be downloaded'):
     """Table prompt.
     Receive a list of items, format it in a table form and print,
     then prompt the user to choose from the list using an index.
@@ -134,7 +161,7 @@ def tblp(ls: List[str], ct: str="title", prompt: str='Enter the index of the man
     Args:
         ls (List[str]): List of items.
         ct (str, optional): [description]. Defaults to "title".
-        prompt (str, optional): [description]. Defaults to 'Enter the index of the manga to be downloaded, defaults to 0'.
+        prompt (str, optional): [description]. Defaults to 'Enter the index of the manga to be downloaded'.
 
     Returns:
         click.prompt: The input of the user.
@@ -225,6 +252,7 @@ def cr(rs: str) -> Callable[[int], bool]:
         Callable[[int], bool]: The function that checks if the given int is within the range or not.
     """
 
+
     if rs:
         return lambda x: any(condition(x) for condition in _cr(rs))
     else:
@@ -244,10 +272,11 @@ class Downloader:
         delfolder: bool=True,
         retry: int=3,
         retryprompt: bool=False,
+        threads: int=30,
         **kwargs: Dict[str, Any]
     ):
         local = locals()
-        for i in ["ch_fn", "ra", "headers", "overwrite", "delfolder", "retry", "retryprompt"]:
+        for i in ["ch_fn", "ra", "headers", "overwrite", "delfolder", "retry", "retryprompt", "threads"]:
             setattr(self, i, local[i])
         if ddir:= directory:
             self.ddir = ddir
@@ -266,21 +295,25 @@ class Downloader:
             n (int, optional): Times the download for this certain file is retried. Defaults to 0.
         """
         if (n+1) == self.retry:
-            log.error(f"Download failed for {ordinal(self.retry)} time, will halt the download.", "downloader")
+            log.error(f"Download failed for the {ordinal(self.retry)} time, halting the download.", "downloader")
             return False
         else:
             if n:
-                log.warning(f"Download failed for the {ordinal(n)} time, will retry.", "downloader")
+                log.warning(f"Download failed, retrying for the {ordinal(n)} time.", "downloader")
             with open(file[0] + ".tmp", "wb") as f:
                 try:
                     with httpx.stream("GET", file[1], headers=self.headers) as r:
                         if r.status_code == 200:
+                            log.spam(f"{file[1]} 200.", "downloader")
                             for chunk in r.iter_bytes(chunk_size=8192):
                                 f.write(chunk)
                         elif r.status_code == 429:
-                            time.sleep(self.ch_fn(r))
+                            retry = self.ra(r)
+                            log.spam(f"{file[1]} 429. Retrying in {retry} seconds.", "downloader")
+                            time.sleep(retry)
                             self._dlf(file, n)
                 except (httpx.ReadTimeout, httpx.ConnectTimeout):
+                    log.debug(f"{file[1]} failed, retrying for the {ordinal(n+1)} time.", "downloader")
                     self._dlf(file, n+1)
             return True
 
@@ -300,9 +333,10 @@ class Downloader:
         if f:
             os.replace(f"{file[0]}.tmp", file[0])
         else:
+            log.error(f"DDownload of {file[1]} failed.", "downloader")
             raise DownloadFailed(f"Download of {file[1]} failed.")
 
-    async def dlch(self, k: Union[int, float], v: List[str], n: int=0):
+    def dlch(self, k: Union[int, float], v: List[str], n: int=0):
         """Individual chapter downloader.
 
         Args:
@@ -345,10 +379,11 @@ class Downloader:
                     files.append((filename, page))
                 fmt = style.t1(style.ac1(chapter_name) + " [{remaining_s:05.2f} secs, {rate_fmt:0>12}] " + style.ldb("{bar}") +" [{n:03d}/{total:03d}, {percentage:03.0f}%]")
                 try:
-                    await tqdm_asyncio.gather(*[self.dlf(file) for file in files], total=len(files), leave=True, unit=" img", disable=False, dynamic_ncols=True, smoothing=1, bar_format=fmt)
+                    with ThreadPool(self.threads) as pool:
+                        list(tqdm(pool.imap(self.dlf, files), total=len(files), leave=True, unit=" img", disable=False, dynamic_ncols=True, smoothing=1, bar_format=fmt))
                 except DownloadFailed as e:
                     if self.retryprompt:
-                        await self.dlch(k, v, n+1)
+                        self.dlch(k, v, n+1)
                     else:
                         raise e
 
@@ -357,15 +392,15 @@ class Downloader:
                     if self.delfolder:
                         shutil.rmtree(jdir)
 
-    async def dl(self, title: str, chs: Dict[Union[int, float], list[str]]):
+    def dl(self, title: str, chs: Dict[Union[int, float], list[str]]):
         self.title = title
         for k, v in chs.items():
-            await self.dlch(k, v)
+            self.dlch(k, v)
 
     def dl_chdls(
         self,
+        chdls: List[Dict[Union[float, int, None], str]],
         title: str,
-        chdls: List[Dict[Union[float, int, None], Any]],
     ):
         n = 1
         chs = {}
@@ -380,17 +415,25 @@ class Downloader:
                 k = -n
                 n += 1
             chs[k] = arg
-        asyncio.get_event_loop().run_until_complete(self.dl(title, chs))
+        self.dl(title, chs)
 
     def cli(
         self,
-        sr: Dict[str, str],
-        chs_fn: Callable[[str], List[Dict[Union[float, int, None], Any]]],
+        cli_search: Callable[[str], Dict[str, str]],
+        chdls: Callable[[str], List[Dict[Union[float, int, None], str]]],
+        title: str,
     ):
+        sr = cli_search(title)
         if sr:
             ls = list(sr.keys())
             title = ls[int(tblp(ls))]
-            self.dl_chdls(title, chs_fn(title))
+            self.dl_chdls(chdls(sr[title]), title)
         else:
-            log.debug("No manga found.", "fastdl")
+            log.debug("No manga found.", "download")
             print(style.warning(f"No manga with similar title with the requested title or anything similar found. Use other search terms or remove some filters."))
+
+def urel(url: str):
+    url = URL(url)
+    if url.is_absolute():
+        url = url.relative()
+    return url

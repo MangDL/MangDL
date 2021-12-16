@@ -1,6 +1,8 @@
 # User
 docs/_*.md
 docs/__*.md
+push
+sample.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
