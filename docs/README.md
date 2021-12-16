@@ -60,8 +60,6 @@ Website: [mangdl.rf.gd](http://mangdl.rf.gd)
 
 ## **Important**
 
-### **MangDL is under a heavy rewrite and a lot fatal bugs and errors are still present in this project. I do not recommend to use this version of MangDL right now.**
-
 This project is a work in progress. A package will be released soon as a beta.
 
 To be updated, be sure to watch this repository and join the [Discord Support Server](JbAtUxGcJZ) for MangDL.
@@ -94,9 +92,11 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
 
 ## **Sites**
 
+- [danke.moe](https://danke.moe)
+- [flamescans.org](https://flamescans.org)
+- [hachirumi.com](https://hachirumi.com)
 - [mangadex.org](https://mangadex.org)
 - [manganato.com](https://manganato.com)
-- [flamescans.org](https://flamescans.org)
 
 ### Coming soon™
 
