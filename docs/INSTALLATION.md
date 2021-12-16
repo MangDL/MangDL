@@ -1,4 +1,6 @@
-# INSTALLATION
+<h1 align="center" style="font-weight: bold">
+    INSTALLATION
+</h1>
 
 ## **Table of Contents**
 
