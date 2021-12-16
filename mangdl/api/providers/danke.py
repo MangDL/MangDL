@@ -6,7 +6,7 @@ from ...utils.utils import ddir, dt, dt_ts, squery
 from ..base import Ch, Downloader, Manga, Search, req, soup, ddos_guard, urel
 
 def api_series(url: str):
-    url = f"https://hachirumi.com/api/series/{urel(url).parts[3]}/"
+    url = f"https://danke.moe/api/series/{urel(url).parts[3]}/"
     return req.get(url, headers={"User-Agent": "MangDL testing"}).json()
 
 def chapter(url: str) -> Ch:
@@ -15,10 +15,10 @@ def chapter(url: str) -> Ch:
     slug = url.parts[3]
     ch = int(url.parts[4])
     meta = ddir(resp, f"chapters/{ch}")
-    ms = soup(f'https://hachirumi.com/read/manga/{slug}', ddos_guard)
-    bui = f'https://hachirumi.com/media/manga/{slug}/chapters/{meta["folder"]}/1/'
+    ms = soup(f'https://danke.moe/read/manga/{slug}', ddos_guard)
+    bui = f'https://danke.moe/media/manga/{slug}/chapters/{meta["folder"]}/1/'
     return Ch(
-        url              = str(URL.build(scheme="https", host="hachirumi.com", path=urel(url).path)),
+        url              = url,
         ch               = ch,
         vol              = meta["volume"],
         title            = meta["title"],
@@ -32,31 +32,34 @@ def chapter(url: str) -> Ch:
 def manga(url: str, chs: bool=False) -> Manga:
     meta = api_series(url)
     slug = urel(url).parts[3]
-    ms = soup(f'https://hachirumi.com/read/manga/{slug}', ddos_guard)
+    ms = soup(f'https://danke.moe/read/manga/{slug}', ddos_guard)
 
     chap_dict = {}
     if chs:
         for i in meta["chapters"]:
-            chap_dict[i] = chapter(f'https://hachirumi.com/read/manga/{slug}/{i}')
+            chap_dict[i] = chapter(f'https://danke.moe/read/manga/{slug}/{i}')
     mls = [i.text for i in ms.select('.col-lg-8 table.table-borderless th')]
-    def mh(meta: str):
+    def rmh(meta: str):
         idx = mls.index(meta) + 1
         cs = f'.col-lg-8 table.table-borderless tr:nth-child({idx}) td'
-        return ms.select_one(cs).text
+        return ms.select_one(cs)
+    def mh(meta: str):
+        return rmh(meta).text
 
     return Manga(
-        url             = str(URL.build(scheme="https", host="hachirumi.com", path=urel(url).path)),
+        url             = str(URL.build(scheme="https", host="danke.moe", path=urel(url).path)),
         covers          = [meta["cover"]],
         title           = meta["title"],
         author          = [meta["author"]],
         created_at      = dt(mh("Last Updated").split(" - ")[1], "%Y-%m-%d"),
         views           = int(mh("Views")),
-        description     = "Creator-approved translations by Hachirumi.",
+        description     = ms.select_one("div.col-md-7 > article > p").text,
+        links           = {"md": rmh("Link").select_one("a")["href"]},
         chapters        = chap_dict,
     )
 
 def dl_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
-    ms = soup("https://hachirumi.com/series", ddos_guard)
+    ms = soup("https://danke.moe/series", ddos_guard)
     all_series = {i.text: i["href"] for i in ms.select("h7.card-title a")}
     sr = {}
     for series, series_url in all_series.items():
@@ -74,14 +77,14 @@ def ch_fn(url: str) -> List[str]:
     url = urel(url)
     resp = api_series(url)
     meta = ddir(resp, f"chapters/{url.parts[4]}")
-    bui = f'https://hachirumi.com/media/manga/{url.parts[3]}/chapters/{meta["folder"]}/1/'
+    bui = f'https://danke.moe/media/manga/{url.parts[3]}/chapters/{meta["folder"]}/1/'
     return [bui + i for i in ddir(meta, "groups/1")]
 
 def chdls(url: str) -> List[Dict[Union[float, int, None], str]]:
     meta = api_series(url)
     op = []
     for c in meta["chapters"]:
-        op.append({c: f"https://hachirumi.com/read/manga/{urel(url).parts[3]}/{c}/"})
+        op.append({c: f"https://danke.moe/read/manga/{urel(url).parts[3]}/{c}/"})
     return op
 
 def dl(url: str, **kwargs: Dict[str, Any]):
