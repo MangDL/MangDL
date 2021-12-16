@@ -5,7 +5,7 @@ import shutil
 import sys
 import time
 from dataclasses import dataclass, field
-from functools import partial
+from functools import lru_cache, partial
 from multiprocessing.pool import ThreadPool
 from typing import Any, Callable, Dict, List, Union, Type
 
@@ -27,6 +27,7 @@ METHODS = ["get", "options", "head", "post", "put", "patch", "delete"]
 
 SESSION = httpx.Client()
 
+@lru_cache
 def _req(
         url: str,
         ra: Callable[[httpx.Response], int]=None,

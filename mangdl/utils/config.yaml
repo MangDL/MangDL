@@ -24,7 +24,9 @@ cmd:
           type:
             Choice:
               args:
-                - - flamescans
+                - - acescans
+                  - danke
+                  - flamescans
                   - hachirumi
                   - mangadex
                   - manganato

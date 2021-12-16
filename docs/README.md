@@ -100,7 +100,14 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
 
 ### Coming soon™
 
+- [acescans.xyz](https://acescans.xyz)
+- [assortedscans.com](https://assortedscans.com)
+- [bunko.ml](https://bunko.ml)
+- [mangapill.com/](https://mangapill.com/)
+- [mangareader.to](https://mangareader.to)
 - [mangarock.to](https://mangarock.to)
+- [setsuscans.com/](https://setsuscans.com/)
+- [web-ace.jp/youngaceup/](https://web-ace.jp/youngaceup)
 
 <!-- TOC section. Update when adding sections and subsections fitted in TOC. -->
 ## **Table of Contents**

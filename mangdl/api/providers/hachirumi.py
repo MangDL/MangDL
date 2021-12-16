@@ -7,7 +7,7 @@ from ..base import Ch, Downloader, Manga, Search, req, soup, ddos_guard, urel
 
 def api_series(url: str):
     url = f"https://hachirumi.com/api/series/{urel(url).parts[3]}/"
-    return req.get(url, headers={"User-Agent": "MangDL testing"}).json()
+    return req.get(url).json()
 
 def chapter(url: str) -> Ch:
     resp = api_series(url)
