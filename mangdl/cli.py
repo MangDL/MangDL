@@ -6,7 +6,6 @@ import click
 from tabulate import tabulate
 from yachalk import chalk
 
-from .API.Base import Downloader
 from .providers import Provider
 from .utils.settings import stg
 from .utils.utils import dd, de, dnrp

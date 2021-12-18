@@ -18,17 +18,20 @@ def chapter(url: str) -> Ch:
         imgs             = [i["src"] for i in ms.select("#readerarea p img")],
     )
 
-def manga(url: str, chs: bool=False) -> Manga:
+def manga(url: str, chs: int=0) -> Manga:
     ms = soup(url)
     meta = {}
     for m in ms.select(".tsinfo.bixbox .imptdt"):
         i = m.select_one("i")
         meta[m.next_element.strip()] = i.text if i else m.select_one("a").text
 
-    chap_dict = {}
+    chap_dict={}
     if chs:
         for c in ms.select("div.eplister ul li"):
-            chap_dict[c["data-num"]] = chapter(c.select_one("a")["href"])
+            cch = c.select_one("a")["href"]
+            if chs == 2:
+                cch = chapter(cch)
+            chap_dict[c["data-num"]] = cch
 
     return Manga(
         url             = url,

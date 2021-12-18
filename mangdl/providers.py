@@ -9,7 +9,7 @@ from .utils.log import logger
 class Provider:
     def __init__(self, prov: str):
         self.prov = import_module(f".{prov}", "mangdl.api.providers")
-    def chapter(self, url: str) -> Callable[[str], Ch]:
+    def chapter(self, url: str) -> Ch:
         """
         Return a Ch object from the given url.
 
@@ -17,21 +17,23 @@ class Provider:
             url (str): URL of the chapter
 
         Returns:
-            Callable[[str], Ch]
+            Ch
         """
         local = locals()
         [local.pop(i) for i in ["self",]]
         return self.prov.chapter(**local)
-    def manga(self, url: str, chs: bool=False) -> Callable[[str], Manga]:
+    def manga(self, url: str, chs: int=0) -> Manga:
         """Returns a Manga object from the given url.
 
         Args:
             url (str): URL of the manga
-            chs (bool): Determines whether the function return the chapters and
-                its metadata (which significantly slower). Defaults to False.
+            chs (int): Determines whether the function return the chapters and
+                its metadata (which significantly slower)(2), just the urls(1),
+                or none at all(0). When given an integer other than 1-3
+                (inclusive), will fallback to 1. Defaults to 0.
 
         Returns:
-            Callable[[str], Manga]
+            Manga
         """
         local = locals()
         [local.pop(i) for i in ["self",]]

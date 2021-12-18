@@ -1,6 +1,9 @@
 name: Build
 
-on: push
+on:
+  push:
+    paths:
+      - version
 
 jobs:
   release:
@@ -15,6 +18,7 @@ jobs:
       id: version
       run: |-
         echo -n "::set-output name=version::$(cat ./version)"
+        python -c 'with open("version","r") as f: v=f.read();op=1 if ("alpha" in v) or ("beta" in v) else 0;op="true" if op else "false";print(f"::set-output name=version::{op}")'
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -30,8 +34,6 @@ jobs:
     needs: release
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
     - name: Python3.10
       uses: actions/setup-python@v1
       with:
@@ -41,14 +43,16 @@ jobs:
         sudo apt install appstream
     - name: Build
       run: |-
-        wget -O python.AppImage https://github.com/niess/python-appimage/releases/download/python3.10/python3.10.0-cp310-cp310-manylinux2010_x86_64.AppImage
+        wget -O python.AppImage https://github.com/niess/python-appimage/releases/download/python3.10/python3.10.1-cp310-cp310-manylinux2014_x86_64.AppImage
         chmod +x python.AppImage
+        wget -O tool.AppImage https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
+        chmod +x ./tool.AppImage
         ./python.AppImage --appimage-extract > /dev/null 2>&1
         rm -rf python.AppImage
         mv squashfs-root mangdl-linux-x86_64
         chmod +x ./mangdl-linux-x86_64/usr/bin/pip3
         ./mangdl-linux-x86_64/usr/bin/pip3 install --upgrade pip
-        ./mangdl-linux-x86_64/usr/bin/pip3 install . --no-warn-script-location
+        ./mangdl-linux-x86_64/usr/bin/pip3 install git+https://github.com/MangDL/MangDL --no-warn-script-location
         rm -rf ./mangdl-linux-x86_64/python3.10.0.desktop
         echo "#!/usr/bin/env xdg-open
         [Desktop Entry]
@@ -67,14 +71,27 @@ jobs:
         from mangdl.cli import cli
         if __name__ == "__main__":
             sys.argv[0] = re.sub("r(-script\.pyw|\.exe)?$", "", sys.argv[0])
-            sys.exit(cli())' > ./mangdl-linux-x86_64/mangdl
-        rm -rf ./mangdl-linux-x86_64/AppRun
+            sys.exit(cli())' > ./mangdl-linux-x86_64/AppRun
         rm -rf ./mangdl-linux-x86_64/python.png
-        cp ./docs/assets/images/icons/logo.png ./mangdl-linux-x86_64/
+        rm -rf ./mangdl-linux-x86_64/python3.10.1.desktop
+        wget -O ./mangdl-linux-x86_64/logo.png https://github.com/MangDL/mangdl.rf.gd/raw/master/docs/assets/images/icons/logo-white.png
         chmod +x ./mangdl-linux-x86_64/mangdl.desktop
         rm -rf build/
         tar -czf mangdl-linux-x86_64.tar.gz mangdl-linux-x86_64
-    - name: Upload
+        ./tool.AppImage mangdl-linux-x86_64
+        rm -rf tool.AppImage
+        rm -rf mangdl-linux-x86_64
+    - name: Upload AppImage
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{needs.release.outputs.upload_url}}
+        asset_path: ./mangdl-x86_64.AppImage
+        asset_name: mangdl-linux-x86_64.AppImage
+        asset_content_type: application/octet
+    - name: Upload Archive
       id: upload-release-asset
       uses: actions/upload-release-asset@v1
       env:
@@ -105,8 +122,8 @@ jobs:
         curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py
         tar -xf python.zip
         del python310._pth
-        curl -sSL https://raw.githubusercontent.com/whinee/MangDL-test/master/assets/python310._pth -o python310._pth
-        curl -sSL https://raw.githubusercontent.com/whinee/MangDL-test/master/assets/mangdl.bat -o mangdl.bat
+        curl -sSL https://raw.githubusercontent.com/MangDL/MangDL/master/assets/python310._pth -o python310._pth
+        curl -sSL https://raw.githubusercontent.com/MangDL/MangDL/master/assets/mangdl.bat -o mangdl.bat
         .\python get-pip.py
         .\python -m pip install .
         del python.zip

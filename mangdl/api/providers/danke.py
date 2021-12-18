@@ -29,7 +29,7 @@ def chapter(url: str) -> Ch:
         imgs             = [bui + i for i in ddir(meta, "groups/1")],
     )
 
-def manga(url: str, chs: bool=False) -> Manga:
+def manga(url: str, chs: int=0) -> Manga:
     meta = api_series(url)
     slug = urel(url).parts[3]
     ms = soup(f'https://danke.moe/read/manga/{slug}', ddos_guard)
@@ -37,7 +37,10 @@ def manga(url: str, chs: bool=False) -> Manga:
     chap_dict = {}
     if chs:
         for i in meta["chapters"]:
-            chap_dict[i] = chapter(f'https://danke.moe/read/manga/{slug}/{i}')
+            cch = f'https://danke.moe/read/manga/{slug}/{i}'
+            if chs == 2:
+                cch = chapter(cch)
+            chap_dict[i] = cch
     mls = [i.text for i in ms.select('.col-lg-8 table.table-borderless th')]
     def rmh(meta: str):
         idx = mls.index(meta) + 1

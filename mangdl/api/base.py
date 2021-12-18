@@ -388,7 +388,7 @@ class Downloader:
                     else:
                         raise e
 
-                if format != "folder":
+                if self.format != "folder":
                     patoolib.create_archive(f"{jdir}.{self.format}", [i[0] for i in files], verbosity=-1)
                     if self.delfolder:
                         shutil.rmtree(jdir)

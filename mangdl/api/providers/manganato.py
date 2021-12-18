@@ -23,7 +23,7 @@ def chapter(url: str) -> Ch:
         imgs            = [i["src"] for i in soup(url).select(".container-chapter-reader img")]
     )
 
-def manga(url: str, chs: bool=False) -> Manga:
+def manga(url: str, chs: int=0) -> Manga:
     log.debug(f"Converting {url} to Manga dataclass.", "manga")
     ms = soup(url)
     ti = [i["class"][0] for i in ms.select(".table-label i")]
@@ -48,7 +48,10 @@ def manga(url: str, chs: bool=False) -> Manga:
             else:
                 k = -n
                 n += 1
-            chap_dict[k] = chapter(a["href"])
+            cch = a["href"]
+            if chs == 2:
+                cch = chapter(cch)
+            chap_dict[k] = cch
     return Manga(
         url             = url,
         title           = ms.select_one(".story-info-right h1").text,

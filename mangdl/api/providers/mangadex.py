@@ -79,7 +79,7 @@ def chapter(url: str) -> Ch:
         imgs        = [f"{bu}/data/{attr('hash')}/{i}" for i in attr("data")],
     )
 
-def manga(url: str, chs: bool=False) -> Manga:
+def manga(url: str, chs: int=0) -> Manga:
     id = url_id(url)
     resp_obj = req.get(f"https://api.mangadex.org/manga/{id}?includes[]=author&includes[]=artist&includes[]=cover_art", ra).json()
     relps = ddir(resp_obj, "data/relationships")
@@ -103,7 +103,10 @@ def manga(url: str, chs: bool=False) -> Manga:
                 else:
                     k = -n
                     n += 1
-                chap_dict[k] = chapter(f"https://mangadex.org/chapter/{ddir(r, 'id')}")
+                cch = f"https://mangadex.org/chapter/{ddir(r, 'id')}"
+                if chs == 2:
+                    cch = chapter(cch)
+                chap_dict[k] = cch
 
     return Manga(
         url             = url,

@@ -254,6 +254,7 @@ cmd:
                   - rar
                   - tar
                   - zip
+                  - folder
               kwargs:
                 case_sensitive: False
         help:
