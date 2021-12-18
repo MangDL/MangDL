@@ -82,7 +82,7 @@ jobs:
         rm -rf tool.AppImage
         rm -rf mangdl-linux-x86_64
     - name: Upload AppImage
-      id: upload-release-asset
+      id: upload-appimage
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -92,7 +92,7 @@ jobs:
         asset_name: mangdl-linux-x86_64.AppImage
         asset_content_type: application/octet
     - name: Upload Archive
-      id: upload-release-asset
+      id: upload-archive
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
