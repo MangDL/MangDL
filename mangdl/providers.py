@@ -28,9 +28,9 @@ class Provider:
         Args:
             url (str): URL of the manga
             chs (int): Determines whether the function return the chapters and
-                its metadata (which significantly slower)(2), just the urls(1),
-                or none at all(0). When given an integer other than 1-3
-                (inclusive), will fallback to 1. Defaults to 0.
+                its metadata (which is significantly slower)(2), just the
+                urls(1), or none at all(0). When given an integer other than
+                0-2 (inclusive), will fallback to 1. Defaults to 0.
 
         Returns:
             Manga
