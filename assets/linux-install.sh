@@ -1,4 +1,4 @@
-wget -O mangdl.AppImage https://github.com/MangDL/MangDL/releases/download/0.0.0-alpha.3/mangdl-linux-x86_64.AppImage
+wget -O mangdl.AppImage https://github.com/MangDL/MangDL/releases/download/0.0.0-alpha.4/mangdl-linux-x86_64.AppImage
 chmod +x ./mangdl.AppImage
 ./mangdl.AppImage --appimage-extract
 rm -rf ./mangdl.AppImage
