@@ -2,6 +2,25 @@
     CHANGELOG
 </h1>
 
+## **MangDL v.0.0.0-beta.0**
+
+### **ADDED**
+
+- Scripts for setting up portable packages in Windows.
+
+### **FIXED**
+- Windows packages should now work
+
+## **MangDL v.0.0.0-alpha.4**
+
+### **ADDED**
+
+- Installation and download scripts for linux and windows packages. Instructions coming soon!
+
+### **FIXED**
+
+- Windows packages should now work
+
 ## **MangDL v.0.0.0-alpha.3**
 
 FIRST PACKAGE PRERELEASE.
@@ -25,14 +44,16 @@ print(prov.manga('https://acescans.xyz/manga/hakoniwa-oukoku-no-souzoushu-sama/'
 PROVIDERS SPREE.
 
 ### **ADDED**
+
 - <a target="_blank" href="https://acescans.xyz">acescans.xyz</a> provider
 
 ### **FIXED**
+
 - Flamescans' chapter function throwing an error from untested code
 
 ## **MangDL v.0.0.0-alpha.1**
 
-**ADDED**
+### **ADDED**
 
 -  <a target="_blank" href="https://danke.moe">danke.moe</a> provider
 
