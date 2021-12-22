@@ -8,9 +8,6 @@
 
 - Scripts for setting up portable packages in Windows.
 
-### **FIXED**
-- Windows packages should now work
-
 ## **MangDL v.0.0.0-alpha.4**
 
 ### **ADDED**
