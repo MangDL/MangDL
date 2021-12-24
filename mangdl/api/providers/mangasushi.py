@@ -14,7 +14,7 @@ def chapter(url: str) -> Ch:
         ch               = ch,
         vol              = None,
         title            = f"Chapter {ch}",
-        scanlator_groups = "Setsu Scans",
+        scanlator_groups = "Mangasushi",
         imgs             = [sanitize_text(i["data-src"]) for i in ms.select(".page-break img")],
     )
 
@@ -33,12 +33,11 @@ def manga(url: str, chs: int=0) -> Manga:
     def mst(s: str, pp: Callable[[str], List[Any]]=lambda x: x):
         return pp(sanitize_text(meta.get(s))) if meta.get(s) else []
 
-    data = {"action": "manga_get_chapters", "manga": ms.select_one("#manga-chapters-holder")["data-id"]}
-    rch = soup("https://setsuscans.com/wp-admin/admin-ajax.php", method="post", data=data)
-    dates = rch.select(".wp-manga-chapter    i")
+    rch = soup(f"https://mangasushi.net/manga/{urel(url).parts[2]}/ajax/chapters/", method="post")
+    dates = [sanitize_text(i.text) for i in rch.select(".chapter-release-date")]
     chap_dict={}
     if chs:
-        for c in rch.select(".wp-manga-chapter    a"):
+        for c in rch.select("li.wp-manga-chapter    a"):
             cch = c["href"]
             if chs == 2:
                 cch = chapter(cch)
@@ -52,26 +51,26 @@ def manga(url: str, chs: int=0) -> Manga:
         artist          = mst("Artist(s)", lambda x: x.split(",")),
         status          = {k: v for v, k in enumerate(["OnGoing", "Completed", "On Hold"])}.get(meta["Status"], -1),
         genres          = mst("Genre(s)", lambda x: x.split(",")),
-        updated_at      = dt(dates[0].text, r"%B %d, %Y") if dates else "1970-01-01T00:00:00",
-        created_at      = dt(dates[-1].text, r"%B %d, %Y") if dates else "1970-01-01T00:00:00",
+        updated_at      = dt(dates[0], r"%B %d, %Y") if dates else "1970-01-01T00:00:00",
+        created_at      = dt(dates[-1], r"%B %d, %Y") if dates else "1970-01-01T00:00:00",
         description     = sanitize_text(ms.select_one(".summary__content").text),
         chapters        = chap_dict,
     )
 
 def dl_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
     sr = {}
-    def pr(url: str):
-        ss = soup(url)
-        for r in ss.select("div.post-title a"):
+    def pr(num: int):
+        url = f"https://mangasushi.net/page/{num}?s={urllib.parse.quote_plus(title)}&post_type=wp-manga"
+        ts = soup(url).select("div.post-title a")
+        for r in ts:
             if not r.select_one(".limit .novelabel"):
                 sr[r.text] = r["href"]
-        return ss
-    url = f"https://setsuscans.com/?s={urllib.parse.quote_plus(title)}&post_type=wp-manga"
-    pr(url)
-    next_page = soup(url).select("div.nav-previous")
-    while next_page:
-        ss = pr(next_page)
-        next_page = ss.select("div.nav-previous")
+        return len(ts)
+    i = 1
+    cp = pr(i)
+    while cp // 12:
+        i += 1
+        cp = pr(i)
     return sr
 
 def search(s: Search) -> List[Manga]:
@@ -86,10 +85,8 @@ def ch_fn(url: str) -> List[str]:
 
 def chdls(url: str) -> List[Dict[Union[float, int, None], str]]:
     op = []
-    id = soup(url).select_one("#manga-chapters-holder")["data-id"]
-    data = {"action": "manga_get_chapters", "manga": id}
-    rch = soup("https://setsuscans.com/wp-admin/admin-ajax.php", method="post", data=data)
-    for c in rch.select(".wp-manga-chapter    a"):
+    rch = soup(f"https://mangasushi.net/manga/{urel(url).parts[2]}/ajax/chapters/", method="post")
+    for c in rch.select("li.wp-manga-chapter    a"):
         op.append({ast.literal_eval(urel(c["href"]).parts[3].split("-")[-1]): c["href"]})
     return op
 

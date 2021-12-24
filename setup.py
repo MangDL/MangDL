@@ -1,10 +1,13 @@
 from setuptools import find_packages, setup
 
+with open("version", "r") as f:
+    version = f.read().strip()
+
 setup(
     name="MangDL",
 	author="whinee",
 	author_email="whinyaan@gmail.com",
-    version="0.0.1",
+    version=version,
     description="The most inefficent Manga downloader for PC",
     url="https://github.com/MangDL/MangDL",
 	license="MIT",

@@ -30,6 +30,7 @@ cmd:
                   - hachirumi
                   - mangadex
                   - manganato
+                  - mangasushi
                   - setsuscans
               kwargs:
                 case_sensitive: false

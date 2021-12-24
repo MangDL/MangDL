@@ -12,7 +12,6 @@ from typing import Any, Callable, Dict, List, Type, Union
 import click
 import httpx
 import patoolib
-import regex as re
 from bs4 import BeautifulSoup
 from tabulate import tabulate
 from tqdm import tqdm
