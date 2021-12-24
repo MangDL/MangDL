@@ -2,6 +2,21 @@
     CHANGELOG
 </h1>
 
+## **MangDL v.0.0.0**
+
+### **ADDED**
+
+- <a target="_blank" href="https://mangasushi.net">Mangasushi</a> provider
+
+### **CHANGED**
+
+- Refactor Setsu Scans' manga function.
+
+### **FIXED**
+
+- Replace the version number in the `setup.py` to reflect the real version of the app.
+- Remove the line that imports the non-standard regex library in `mangdl/api/base.py`.
+
 ## **MangDL v.0.0.0-beta.1**
 
 ### **ADDED**
