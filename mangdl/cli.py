@@ -19,7 +19,7 @@ print(chalk.hex("D2748D").bold(r"""
    \ \_\    \ \_\\ \_\ \ \_\\ \_\＼ ＼____\\ \________\\ \_____/ \ \_____\
     \/_/     \/_/ \/_/  \/_/ \/_/  ＼/____/ \/________/ \/____/   \/_____/
 
-The most inefficient, non user-friendly and colorful manga downloader (and soon, also a reader)""") + chalk.hex("3279a1")('\nWIP ofc, whaddya expect?\n'))
+The most inefficient, non user-friendly and colorful manga downloader (and soon, also a reader)""") + chalk.hex("3279a1")('\nChat with whi~nyaan at https://discord.com/invite/JbAtUxGcJZ\n'))
 
 def cao(group: click.group, cmd: str) -> List[Callable[[Callable[[Any], Any]], Callable[[Any], Any]]]:
     """Retruns wrappers for a click command evaluated from the given arguments.
@@ -128,7 +128,8 @@ def command(group: click.group) -> Callable[[Callable[[Any], Any]], Callable[[An
 
 @click.group(context_settings={'help_option_names': ['-h', '--help']})
 def cli():
-    """Main command group.
+    """
+    Main command group.
     """
     pass
 

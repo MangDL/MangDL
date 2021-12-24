@@ -30,6 +30,7 @@ cmd:
                   - hachirumi
                   - mangadex
                   - manganato
+                  - setsuscans
               kwargs:
                 case_sensitive: false
         help:
@@ -316,19 +317,6 @@ cmd:
           - str
           - |-
             Set the color theme. Defaults to whine.
-      v:
-        args:
-          - verboselevel
-        kwargs:
-          count: true
-          default: 4
-          metavar: ''
-        help:
-          - N/A (count flag)
-          - |-
-            Set the varbose level of the logger. 0-7 with 0 being silent and 7 printing everything that is logged.
-            Defaults to 4.
-          - -vvv means verbose level of 3
   credits:
     args:
     kwargs:

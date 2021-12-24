@@ -3,7 +3,8 @@ from typing import Any, Dict, List, Union
 from yarl import URL
 
 from ...utils.utils import ddir, dt, dt_ts, squery
-from ..base import Ch, Downloader, Manga, Search, req, soup, ddos_guard, urel
+from ..base import Ch, Downloader, Manga, Search, ddos_guard, req, soup, urel
+
 
 def api_series(url: str):
     url = f"https://hachirumi.com/api/series/{urel(url).parts[3]}/"

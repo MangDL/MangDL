@@ -5,29 +5,26 @@ import shutil
 import sys
 import time
 from dataclasses import dataclass, field
-from functools import lru_cache, partial
+from functools import partial
 from multiprocessing.pool import ThreadPool
-from typing import Any, Callable, Dict, List, Union, Type
-
-from yarl import URL
+from typing import Any, Callable, Dict, List, Type, Union
 
 import click
 import httpx
 import patoolib
+import regex as re
 from bs4 import BeautifulSoup
 from tabulate import tabulate
 from tqdm import tqdm
 from yachalk import chalk
+from yarl import URL
 
 from ..utils import style
 from ..utils.exceptions import DownloadFailed
-from ..utils.globals import log
 
 METHODS = ["get", "options", "head", "post", "put", "patch", "delete"]
-
 SESSION = httpx.Client()
 
-@lru_cache
 def _req(
         url: str,
         ra: Callable[[httpx.Response], int]=None,
@@ -75,7 +72,7 @@ for r, kw in req_dict.items():
     for i in METHODS:
         setattr(r, i, partial(_req, method=i, **kw))
 
-def soup(url: str, req: Type[req]=req, **kwargs: Dict[str, Any]) -> BeautifulSoup:
+def soup(url: str, req: Type[req]=req, method: str="get", **kwargs: Dict[str, Any]) -> BeautifulSoup:
     """Returns a soup from the given url.
 
     Args:
@@ -85,7 +82,7 @@ def soup(url: str, req: Type[req]=req, **kwargs: Dict[str, Any]) -> BeautifulSou
     Returns:
         BeautifulSoup: the soup
     """
-    return BeautifulSoup(req.get(url, **kwargs).text, "lxml")
+    return BeautifulSoup(getattr(req, method)(url, **kwargs).text, "lxml")
 
 @dataclass
 class Vls:
@@ -296,25 +293,19 @@ class Downloader:
             n (int, optional): Times the download for this certain file is retried. Defaults to 0.
         """
         if (n+1) == self.retry:
-            log.error(f"Download failed for the {ordinal(self.retry)} time, halting the download.", "downloader")
             return False
         else:
-            if n:
-                log.warning(f"Download failed, retrying for the {ordinal(n)} time.", "downloader")
             with open(file[0] + ".tmp", "wb") as f:
                 try:
                     with httpx.stream("GET", file[1], headers=self.headers) as r:
                         if r.status_code == 200:
-                            log.spam(f"{file[1]} 200.", "downloader")
                             for chunk in r.iter_bytes(chunk_size=8192):
                                 f.write(chunk)
                         elif r.status_code == 429:
                             retry = self.ra(r)
-                            log.spam(f"{file[1]} 429. Retrying in {retry} seconds.", "downloader")
                             time.sleep(retry)
                             self._dlf(file, n)
                 except (httpx.ReadTimeout, httpx.ConnectTimeout):
-                    log.debug(f"{file[1]} failed, retrying for the {ordinal(n+1)} time.", "downloader")
                     self._dlf(file, n+1)
             return True
 
@@ -334,7 +325,6 @@ class Downloader:
         if f:
             os.replace(f"{file[0]}.tmp", file[0])
         else:
-            log.error(f"DDownload of {file[1]} failed.", "downloader")
             raise DownloadFailed(f"Download of {file[1]} failed.")
 
     def dlch(self, k: Union[int, float], v: List[str], n: int=0):
@@ -347,28 +337,23 @@ class Downloader:
         dl = True
         jdir = os.path.join(self.ddir, self.title, sanitize_filename(k))
         if self.check(k):
-            log.debug(f"Chapter {k} in range to be downloaded, will check if the folder/file exist and if overwrite flag is raised before proceeding to downloading the chapter.", "check")
             if os.path.isdir(jdir):
                 if self.overwrite:
                     shutil.rmtree(jdir)
                 else:
-                    log.debug(f"Skipping {jdir} as it exists and overwrite flag is not raised.", "downloader")
                     dl = False
             if os.path.isfile(f"{jdir}.{self.format}"):
                 if self.overwrite:
                     os.remove(f"{jdir}.{self.format}")
                 else:
-                    log.debug(f"Skipping {jdir}.{self.format} as it exists and overwrite flag is not raised.", "downloader")
                     dl = False
         if (n+1) == self.retry:
-            log.error(f"Download failed for {ordinal(self.retry)} time, will halt the download.", "downloader")
             dl = False
         if dl:
             chapter_name = str(k)
             jdir = os.path.join(self.ddir, self.title, sanitize_filename(chapter_name))
             dl = True
             if dl:
-                log.info(f"Downloading {chapter_name}.", "dl chapter")
                 files = []
                 for index, page in enumerate(self.ch_fn(v)):
                     filename = os.path.join(
@@ -430,7 +415,6 @@ class Downloader:
             title = ls[int(tblp(ls))]
             self.dl_chdls(chdls(sr[title]), title)
         else:
-            log.debug("No manga found.", "download")
             print(style.warning(f"No manga with similar title with the requested title or anything similar found. Use other search terms or remove some filters."))
 
 def urel(url: str):

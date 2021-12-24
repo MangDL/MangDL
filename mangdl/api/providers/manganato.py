@@ -3,12 +3,10 @@ import re
 from datetime import datetime
 from typing import Any, Callable, Dict, List, Union
 
-from ...utils.globals import log
 from ..base import Ch, Downloader, Manga, Search, soup
 
 
 def chapter(url: str) -> Ch:
-    log.debug(f"Converting {url} to Ch dataclass.", "chapter")
     c = soup("/".join(url.split("/")[:-1])).select_one(f'a[href="{url}"]').find_parent()
     a = c.select_one("a")
     ch = a["href"].split("-")[-1]
@@ -24,7 +22,6 @@ def chapter(url: str) -> Ch:
     )
 
 def manga(url: str, chs: int=0) -> Manga:
-    log.debug(f"Converting {url} to Manga dataclass.", "manga")
     ms = soup(url)
     ti = [i["class"][0] for i in ms.select(".table-label i")]
     si = [i["class"][0] for i in ms.select(".stre-label i")]
@@ -68,25 +65,20 @@ def manga(url: str, chs: int=0) -> Manga:
     )
 
 def search(s: Search):
-    log.info("Ignoring all keword arguments at the moment. Will add advanced searching later.", "search")
     title = re.sub(r'[^A-Za-z0-9 ]+', '', s.title).replace(" ", "_")
     sr = {}
     ms = soup(f"https://manganato.com/search/story/{title}")
     gp = ms.select_one(".group-page")
     if gp:
-        log.debug("Multiple pages found. Starting to paginate.", "paginator")
         for p in range(len(gp.select("a")) - 2):
-            log.debug(f"Paginating page {p+1}.", "paginator")
             for r in soup(f"https://manganato.com/search/story/hello?page={p+1}").select(".a-h.text-nowrap.item-title"):
                 sr[r["title"]] = r["href"]
     else:
-        log.debug("Only one page found.", "search")
         for r in ms.select(".a-h.text-nowrap.item-title"):
             sr[r["title"]] = r["href"]
     return sr
 
 def cli_search(title: str, **kwargs: Dict[str, Any]):
-    log.debug('No processing to do with the arguments, will be immediately passed to the function "search".', "cli search")
     return search(Search(title, **kwargs))
 
 def ch_fn(url: str) -> List[str]:

@@ -1,7 +1,6 @@
 import urllib
 from typing import Any, Dict, List, Union
 
-from ...utils.globals import log
 from ...utils.utils import dt
 from ..base import Ch, Downloader, Manga, Search, soup
 
@@ -51,14 +50,11 @@ def dl_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
     ms = soup(f"https://flamescans.org/?s={urllib.parse.quote_plus(title)}")
     pages = ms.select("a.page-numbers")
     if pages:
-        log.debug("Multiple pages found. Starting to paginate.", "paginator")
         for p in range(int(pages[-2].text)):
-            log.debug(f"Paginating page {p+1}.", "paginator")
             for r in soup(f"https://flamescans.org/page/{p+1}/?s={urllib.parse.quote_plus(title)}").select(".listupd .bs .bsx a"):
                 if not r.select_one(".limit .novelabel"):
                     sr[r["title"]] = r["href"]
     else:
-        log.debug("Only one page found.", "search")
         for r in ms.select(".listupd .bs .bsx a"):
             sr[r["title"]] = r["href"]
     return sr

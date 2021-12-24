@@ -1,13 +1,21 @@
 import ast
+import difflib
+import itertools
 import re
+import sys
 from datetime import datetime, timedelta
 from functools import lru_cache
 from os.path import dirname as dn
 from os.path import realpath as rp
 from time import strftime, strptime
 from typing import Any, Callable, Dict, List, Union
-import difflib
+import unicodedata
 
+# https://stackoverflow.com/a/93029
+ALL_CHARS = (chr(i) for i in range(sys.maxunicode))
+CATEGORIES = {'Cn'}
+CCHARS = ''.join(map(chr, itertools.chain(range(0x00,0x20), range(0x7f,0xa0))))
+CCHARS_RE = re.compile('[%s]' % re.escape(CCHARS))
 
 def dnrp(file: str, n: int=1) -> str:
     """
@@ -160,3 +168,6 @@ def squery(query: str, possibilities: List[str], cutoff: int=0.6, *, processor: 
         if (sequence_matcher.real_quick_ratio() >= cutoff and sequence_matcher.quick_ratio(
         ) >= cutoff and sequence_matcher.ratio() >= cutoff):
             yield (sequence_matcher.ratio(), search_value)
+
+def sanitize_text(s: str):
+    return unicodedata.normalize("NFKD", CCHARS_RE.sub('', s)).strip()

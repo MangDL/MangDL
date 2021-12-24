@@ -2,11 +2,28 @@
     CHANGELOG
 </h1>
 
+## **MangDL v.0.0.0-beta.1**
+
+### **ADDED**
+
+- <a target="_blank" href="https://setsuscans.com">Setsu Scans</a> provider
+
+### **CHANGED**
+
+- Removed logging.
+
+### **FIXED**
+
+- Mangadex provider (I actually forgot what I fixed there, don't ask me and my shitty memory).
+
 ## **MangDL v.0.0.0-beta.0**
 
 ### **ADDED**
 
 - Scripts for setting up portable packages in Windows.
+
+### **FIXED**
+- Windows packages should now work.
 
 ## **MangDL v.0.0.0-alpha.4**
 
@@ -42,7 +59,7 @@ PROVIDERS SPREE.
 
 ### **ADDED**
 
-- <a target="_blank" href="https://acescans.xyz">acescans.xyz</a> provider
+- <a target="_blank" href="https://acescans.xyz">Ace Scans</a> provider
 
 ### **FIXED**
 
@@ -52,7 +69,7 @@ PROVIDERS SPREE.
 
 ### **ADDED**
 
--  <a target="_blank" href="https://danke.moe">danke.moe</a> provider
+-  <a target="_blank" href="https://danke.moe">Danke fürs Lesen</a> provider
 
 ## **MangDL v.0.0.0-alpha.0**
 
@@ -60,7 +77,7 @@ START OF SEMANTIC VERSIONING.
 
 ### **ADDED**
 
-- <a target="_blank" href="https://hachirumi.com">hachirumi.com</a> provider
+- <a target="_blank" href="https://hachirumi.com">Hachirumi</a> provider
 
 ### **CHANGED**
 

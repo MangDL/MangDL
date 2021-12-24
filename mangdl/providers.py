@@ -1,9 +1,8 @@
 from importlib import import_module
-from typing import Any, Callable, Dict, List
+from typing import Any, Dict, List
 
 from .api.base import Ch, Manga, Search
 from .utils import globals
-from .utils.log import logger
 
 
 class Provider:
@@ -38,7 +37,7 @@ class Provider:
         local = locals()
         [local.pop(i) for i in ["self",]]
         return self.prov.manga(**local)
-    def dl_search(self, s: Search) -> Dict[str, str]:
+    def dl_search(self, title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
         """Used for downloading when imported.
         Args:
             s (Search): Search dataclass, search parameters for searching.
@@ -63,7 +62,6 @@ class Provider:
     def cli_search(
         self,
         title: str,
-        verbose: int=1,
         lang: str=None,
         excludelang: str=None,
         demo: str=None,
@@ -93,7 +91,6 @@ class Provider:
         """
 
         local = locals()
-        globals.log = logger(local.pop("verboselevel"))
         globals.style = local.pop("colortheme")
         [local.pop(i) for i in ["self",]]
         return self.prov.search(**local)
@@ -123,6 +120,5 @@ class Provider:
             if v:
                 op = op or v
             return op
-        globals.log = logger(kw("verboselevel", 4))
         globals.style = kw("colortheme", "whine")
         return self.prov.cli_dl(title, **kwargs)

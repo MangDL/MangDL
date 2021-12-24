@@ -5,8 +5,6 @@ from typing import Any, Dict, List, Union
 import httpx
 from yarl import URL
 
-from ...utils import globals
-from ...utils.globals import log
 from ...utils.settings import stg
 from ...utils.utils import ddir, de, dnrp, parse_list
 from ..base import Ch, Downloader, Manga, Search, Vls, req
@@ -21,10 +19,6 @@ op_links = {
     "mal": "https://myanimelist.net/manga/{}"
 }
 
-if not globals.log:
-    from ...utils.log import logger
-    log = logger(2)
-
 def ra(resp: httpx.Response) -> int:
     op = resp.headers.get("X-RateLimit-Retry-After")
     if op:
@@ -37,9 +31,7 @@ def value(d: Dict[Any, Any]) -> Any:
     return list(d.values())[0]
 
 def paginate(url: str, limit: int = 100, params: Dict[Any, Any] = {}) -> List[Dict[str, Any]]:
-    log.info(f'Paginating {url} with the following parameters excluding "limit" and "offset": {params}', 'paginator')
     def get_page(offset: int=0):
-        log.debug(f'Paginating results from {offset} to {offset+limit}', 'paginator')
         return req.get(url, ra, params={k: d[k] for d in [{"limit": limit, "offset": offset}, params] for k in d}).json()
 
     ls = []
@@ -50,7 +42,6 @@ def paginate(url: str, limit: int = 100, params: Dict[Any, Any] = {}) -> List[Di
     while x["total"] - (offset + 100) > 0:
         offset += 100
         ls.append(get_page(offset))
-    log.debug(f'Paginating finished. {len(ls)} page{"s are" if len(ls) > 1 else " is"} returned.', 'paginator')
     return ls
 
 def url_id(url: str) -> str:
@@ -161,26 +152,18 @@ def cli_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
         op = []
         v = de(v, [])
         strings = parse_list(kwargs[k])
-        v, lsn, w = [*v, *[None for _ in range(3 - len(v))]]
         if strings:
             for string in strings:
-                if v:
-                    if string in (v if type(v) is list else vls[v]):
+                if v and string in (v if type(v) is list else vls[v]):
                         op.append(v[string] if type(v) == dict else string)
-                    else:
-                        log.warning(f'"{string}" not in {lsn}.{f" {w}" if w else ""}', k)
                 else:
                     op.append(string)
             params[k] = op
-        else:
-            log.debug(f'"{k}" option is empty.', k)
     if kwargs["order"]:
         o, s = kwargs["order"].split(":")
         if o not in ['title', 'year', 'createdAt', 'updatedAt', 'latestUploadedChapter', 'followedCount', 'relevance']:
-            log.warning(f'"{o}" not in list of order. (title | year | createdAt | updatedAt | latestUploadedChapter | followedCount | relevance):(asc | desc)', "order")
             o = None
         if s not in ['asc', 'desc']:
-            log.warning(f'"{s}" not in list of order. (title | year | createdAt | updatedAt | latestUploadedChapter | followedCount | relevance):(asc | desc)', "order")
             s = None
         if o and s:
             params["order"] = Vls(o, s)
@@ -192,30 +175,18 @@ def cli_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
     it = not not kwargs["includetags"]
     if im:
         im = im.upper()
-        if im in ["AND", "OR"]:
-            if it:
-                params["includemode"] = im
-            else:
-                log.warning('"includemode" option has an argument passed to it despite the option "includetags" being empty, will not be used to filter search results.', "includemode")
+        if im in ["AND", "OR"] and it:
+            params["includemode"] = im
         else:
-            log.warning(f'"{im}" not in list of includedTagsMode. (AND | OR)', "includemode")
             im = None
-    elif it:
-        log.debug('"includemode" option is empty, dafaults to "AND".', "includetags")
     em = kwargs["excludemode"]
     et = not not kwargs["excludetags"]
     if em:
         em = em.upper()
-        if em in ["AND", "OR"]:
-            if et:
-                params["excludemode"] = em
-            else:
-                log.warning('"excludemode" option has an argument passed to it despite the option "excludetags" being empty, will not be used to filter search results.', "excludemode")
+        if em in ["AND", "OR"] and et:
+            params["excludemode"] = em
         else:
-            log.warning(f'"{em}" not in list of excludedTagsMode. (AND | OR)', "excludemode")
             em = None
-    elif et:
-        log.debug('"excludemode" option is empty, defaults to "OR".', "excludetags")
 
     return dl_search(Search(title, **params))
 
@@ -226,6 +197,7 @@ def ch_fn(url: str) -> List[str]:
     return [f"{bu}/data/{hash}/{i}" for i in ddir(resp_obj, "data/attributes/data")]
 
 def chdls(url: str) -> List[Dict[Union[float, int, None], str]]:
+    id = url_id(url)
     op = []
     for i in paginate(f"https://api.mangadex.org/manga/{id}/feed", 500, {"translatedLanguage[]": "en", "order[chapter]": "desc"}):
         for d in i["data"]:

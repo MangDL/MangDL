@@ -62,9 +62,9 @@ Website: [mangdl.rf.gd](http://mangdl.rf.gd)
 
 This project is a work in progress. A package will be released soon as a beta.
 
-To be updated, be sure to watch this repository and join the [Discord Support Server](JbAtUxGcJZ) for MangDL.
+To be updated, be sure to watch this repository and join the [Discord Support Server](https://discord.com/invite/JbAtUxGcJZ) for MangDL.
 
-For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF USAGE & DISCLAIMER.md](TERMS%20OF%20USAGE%20%26%20DISCLAIMER.md).
+For the terms of usage and legals, visit [license](license.md) and [terms of usage & disclaimer](tou_disc.md).
 
 ## **Features**
 
@@ -78,20 +78,10 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
 - Windows
 - MacOS
 - Linux
-- Android
-
-<details>
-    <summary><sub>NOTES</sub></summary>
-    <sub>
-        <i>
-            At the moment of writing, there is a fatal error that does not allow this project to run at Termux. Right now, it is being fixed.
-            To be updated in the latest commits, be sure to watch this repository.
-        </i>
-    </sub>
-</details>
 
 ## **Sites**
 
+- [acescans.xyz](https://acescans.xyz)
 - [danke.moe](https://danke.moe)
 - [flamescans.org](https://flamescans.org)
 - [hachirumi.com](https://hachirumi.com)
@@ -100,14 +90,16 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
 
 ### Coming soon™
 
-- [acescans.xyz](https://acescans.xyz)
 - [assortedscans.com](https://assortedscans.com)
 - [bunko.ml](https://bunko.ml)
-- [mangapill.com/](https://mangapill.com/)
+- [deathtollscans.net](https://deathtollscans.net)
+- [mangapill.com](https://mangapill.com/)
 - [mangareader.to](https://mangareader.to)
 - [mangarock.to](https://mangarock.to)
-- [setsuscans.com/](https://setsuscans.com/)
-- [web-ace.jp/youngaceup/](https://web-ace.jp/youngaceup)
+- [setsuscans.com](https://setsuscans.com/)
+- [web-ace.jp/youngaceup](https://web-ace.jp/youngaceup)
+- [windyfall.com](https://windyfall.com/)
+- [xunscans.xyz](https://xunscans.xyz/)
 
 <!-- TOC section. Update when adding sections and subsections fitted in TOC. -->
 ## **Table of Contents**
@@ -126,16 +118,15 @@ For the terms of usage and legals, visit [LICENSE.md](LICENSE.md) and [TERMS OF 
 - [**Known Issues and Limitations**](#known-issues-and-limitations)
 - [**Future of this project**](#future-of-this-project)
 - [**License**](#license)
-  - [<a target="_blank" href="https://choosealicense.com/licenses/mit/">MIT</a>](#mit)
 - [**Credits**](#credits)
-  - [Thank you:](#thank-you)
+  - [Thank you](#thank-you)
   - [MIT Logo](#mit-logo)
   - [Icons](#icons)
 
 <!-- Mention examples of application of this repository. -->
 ## **Usage**
 
-Before using this project, it is recommended to visit [LICENSE.md](LICENSE.md) and [TERMS OF USAGE & DISCLAIMER.md](TERMS%20OF%20USAGE%20%26%20DISCLAIMER.md) for the terms of usage and legals.
+Before using this project, it is recommended to visit [license](license.md) and [terms of usage & disclaimer](tou_disc.md) for the terms of usage, disclaimer, and legals.
 
 ```bash
 mangdl -h
@@ -258,68 +249,9 @@ The following are the required programs and/or packages to run this project:
     <img src="assets/images/prereq_3.png" alt="3">
     </details>
 
-If any or all of the above is not installed, follow [this link](INSTALLATION.md):
-
-After checking or installing Python, pip, and git in your machine, proceed to the [setup](#setup) section.
-
 ### **Setup**
 
-- Open your preferred console or terminal
-
-- Create a virtual environment using the following command:
-
-    ```bash
-    python3 -m venv venv
-    ```
-
-- Enter the virtual environment
-    - For [Windows 7 and up](https://www.microsoft.com/en-us/windows):
-        - For `cmd`, run the following command:
-
-            ```bash
-            venv\Scripts\activate.bat
-            ```
-
-        - For `powershell`, run the following command:
-
-            ```bash
-            venv\Scripts\activate.ps1
-            ```
-
-        - For `powershell core`, run the following command:
-
-            ```bash
-            venv/bin/Activate.ps1
-            ```
-
-    - For [Mac](https://www.apple.com/mac/)/[Linux](https://www.linux.org/)
-        - For `bash/zsh`, run the following command:
-
-            ```bash
-            source venv/bin/activate
-            ```
-
-        - For `fish`, run the following command:
-
-            ```bash
-            source venv/bin/activate.fish
-            ```
-
-        - For `csh/tcsh`, run the following command:
-
-            ```bash
-            source venv/bin/activate.csh
-            ```
-
-- Install the project and its python dependencies by running the following commands:
-
-    ```bash
-    python3 -m pip install git+https://www.github.com/MangDL/MangDL
-    python3 -m pip install --upgrade pip
-    python3 -m pip cache purge
-    ```
-
-- And you're done! You can now use the project. Check the [usage](#section) for examples on how to use this project.
+Follow [this link](http://mangdl.rf.gd/installation.html) to install MangDL in your machine.
 
 # TODO
 
