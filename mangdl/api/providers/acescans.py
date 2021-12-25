@@ -66,8 +66,7 @@ def dl_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
     if pages:
         for p in range(int(pages[-2].text)):
             for r in soup(f"https://acescans.xyz/page/{p+1}/?s={urllib.parse.quote_plus(title)}").select(".listupd .bs .bsx a"):
-                if not r.select_one(".limit .novelabel"):
-                    sr[r["title"]] = r["href"]
+                sr[r["title"]] = r["href"]
     else:
         for r in ms.select(".listupd .bs .bsx a"):
             sr[r["title"]] = r["href"]

@@ -2,7 +2,17 @@
     CHANGELOG
 </h1>
 
-## **MangDL v.0.0.0**
+## **MangDL v.0.1.0**
+
+### **ADDED**
+
+- <a target="_blank" href="https://paeanscans.com">Paean Scans</a> provider
+
+### **CHANGED**
+
+- Removed light novel checking for Mangasushi and Ace Scans provider scripts.
+
+## **MangDL v.0.0.1**
 
 ### **ADDED**
 

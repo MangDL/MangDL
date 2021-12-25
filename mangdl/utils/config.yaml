@@ -31,6 +31,7 @@ cmd:
                   - mangadex
                   - manganato
                   - mangasushi
+                  - paeanscans
                   - setsuscans
               kwargs:
                 case_sensitive: false
