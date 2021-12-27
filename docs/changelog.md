@@ -2,6 +2,27 @@
     CHANGELOG
 </h1>
 
+## **MangDL v.1.0.0-alpha.**
+
+### **ADDED**
+
+- `__main__.py` so MangDL cli can be used when installed programmatically.
+
+## **MangDL v.1.0.0-alpha.0**
+
+### **ADDED**
+
+- Templates for sites that uses Wordpress and other variants, and <a target="_blank" href="https://github.com/appu1232/guyamoe">guya.moe</a> manga reading framework.
+
+### **CHANGED**
+
+- Rewrote provider scripts to use a template if they have one.
+
+### **FIXED**
+
+- Lack of manganato provider script's `dl_search` function (literally wondering right now how that script works despite lacking one).
+- mangadex provider script's `dl_search` fixed to accept `title` and kwargs instead of just a `Search` dataclass.
+
 ## **MangDL v.0.1.0**
 
 ### **ADDED**

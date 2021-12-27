@@ -7,7 +7,7 @@ from ..base import Ch, Downloader, Manga, Search, soup
 
 template = "generic"
 
-def chapter(url) -> Ch:
+def chapter(url):
     c = soup("/".join(url.split("/")[:-1])).select_one(f'a[href="{url}"]').find_parent()
     a = c.select_one("a")
     ch = a["href"].split("-")[-1]
@@ -22,7 +22,7 @@ def chapter(url) -> Ch:
         imgs            = [i["src"] for i in soup(url).select(".container-chapter-reader img")]
     )
 
-def manga(url: str, chs: int=0) -> Manga:
+def manga(url, chs=0):
     ms = soup(url)
     ti = [i["class"][0] for i in ms.select(".table-label i")]
     si = [i["class"][0] for i in ms.select(".stre-label i")]
