@@ -3,13 +3,13 @@ import difflib
 import itertools
 import re
 import sys
+import unicodedata
 from datetime import datetime, timedelta
 from functools import lru_cache
 from os.path import dirname as dn
 from os.path import realpath as rp
 from time import strftime, strptime
 from typing import Any, Callable, Dict, List, Union
-import unicodedata
 
 # https://stackoverflow.com/a/93029
 ALL_CHARS = (chr(i) for i in range(sys.maxunicode))

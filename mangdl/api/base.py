@@ -147,7 +147,7 @@ class Manga:
     views           : int                           = None
     description     : str                           = "No description available."
     links           : Dict[str, str]                = field(default_factory=dict)
-    chapters        : Dict[Union[int, float], Ch]   = field(default_factory=dict)
+    chapters        : Dict[Union[int, float], Ch]   = field(default_factory=list)
 
 
 def tblp(ls: List[str], ct: str="title", prompt: str='Enter the index of the manga to be downloaded'):

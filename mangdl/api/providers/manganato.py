@@ -5,8 +5,9 @@ from typing import Any, Callable, Dict, List, Union
 
 from ..base import Ch, Downloader, Manga, Search, soup
 
+template = "generic"
 
-def chapter(url: str) -> Ch:
+def chapter(url) -> Ch:
     c = soup("/".join(url.split("/")[:-1])).select_one(f'a[href="{url}"]').find_parent()
     a = c.select_one("a")
     ch = a["href"].split("-")[-1]
@@ -64,8 +65,8 @@ def manga(url: str, chs: int=0) -> Manga:
         chapters        = chap_dict,
     )
 
-def search(s: Search):
-    title = re.sub(r'[^A-Za-z0-9 ]+', '', s.title).replace(" ", "_")
+def dl_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
+    title = re.sub(r'[^A-Za-z0-9 ]+', '', title).replace(" ", "_")
     sr = {}
     ms = soup(f"https://manganato.com/search/story/{title}")
     gp = ms.select_one(".group-page")
@@ -77,6 +78,9 @@ def search(s: Search):
         for r in ms.select(".a-h.text-nowrap.item-title"):
             sr[r["title"]] = r["href"]
     return sr
+
+def search(s: Search) -> List[Manga]:
+    return [manga(i) for i in dl_search(**s.__dict__).values()]
 
 def cli_search(title: str, **kwargs: Dict[str, Any]):
     return search(Search(title, **kwargs))

@@ -109,6 +109,8 @@ For the terms of usage and legals, visit [license](license.md) and [terms of usa
 - [hachirumi.com](https://hachirumi.com)
 - [mangadex.org](https://mangadex.org)
 - [manganato.com](https://manganato.com)
+- [mangasushi.net](https://mangasushi.net/)
+- [paeanscans.com](https://paeanscans.com/)
 - [setsuscans.com](https://setsuscans.com/)
 
 ### Coming soon™
@@ -119,7 +121,6 @@ For the terms of usage and legals, visit [license](license.md) and [terms of usa
 - [mangapill.com](https://mangapill.com/)
 - [mangareader.to](https://mangareader.to/)
 - [mangarock.to](https://mangarock.to/)
-- [mangasushi.net](https://mangasushi.net/)
 - [web-ace.jp/youngaceup](https://web-ace.jp/youngaceup/)
 - [windyfall.com](https://windyfall.com/)
 - [xunscans.xyz](https://xunscans.xyz/)

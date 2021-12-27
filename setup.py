@@ -2,6 +2,8 @@ from setuptools import find_packages, setup
 
 with open("version", "r") as f:
     version = f.read().strip()
+with open("docs/README.md", "r") as f:
+    ld = f.read().strip()
 
 setup(
     name="MangDL",
@@ -9,6 +11,7 @@ setup(
 	author_email="whinyaan@gmail.com",
     version=version,
     description="The most inefficent Manga downloader for PC",
+    long_description=ld,
     url="https://github.com/MangDL/MangDL",
 	license="MIT",
     classifiers=[

@@ -9,6 +9,8 @@ from ...utils.settings import stg
 from ...utils.utils import ddir, de, dnrp, parse_list
 from ..base import Ch, Downloader, Manga, Search, Vls, req
 
+template = "generic"
+
 op_links = {
     "al": "https://anilist.co/manga/{}",
     "ap": "https://www.anime-planet.com/manga/{}",
@@ -117,12 +119,13 @@ def manga(url: str, chs: int=0) -> Manga:
         chapters        = chap_dict,
     )
 
-def dl_search(s: Search) -> Dict[str, str]:
+def dl_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
+    local = {"title": title, **kwargs}
     params = []
     sr = {}
     ad = stg(f"mangadex/search", f"{dnrp(__file__, 3)}/utils/config.yaml")
-    for k in s.__dataclass_fields__:
-        v = getattr(s, k)
+    for k in local:
+        v = local.get(k)
         if type(v) is str:
             params.append(f"{k}={v}")
         elif type(v) is list:
