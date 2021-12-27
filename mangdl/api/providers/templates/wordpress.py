@@ -85,6 +85,7 @@ class template:
             genres          = mst("Genre(s)", lambda x: x.split(",")),
             updated_at      = dt(dates[0], r"%B %d, %Y") if dates else "1970-01-01T00:00:00",
             created_at      = dt(dates[-1], r"%B %d, %Y") if dates else "1970-01-01T00:00:00",
+            description     = sanitize_text(ms.select_one(".summary__content").text),
             chapters        = self.chdls(url, chs),
         )
 
@@ -94,7 +95,7 @@ class template:
         rpa = getattr(self.prov, "rpa", 12)
         cs_manga = getattr(self.prov, "cs_manga", "div.post-title")
         manga_check = getattr(self.prov, "manga_check", lambda x: True)
-        title_fn = getattr(self.prov, "title_fn", lambda x: x.select_one("a").title)
+        title_fn = getattr(self.prov, "title_fn", lambda x: x.select_one("a").text)
         link_fn = getattr(self.prov, "link_fn", lambda x: x.select_one("a")["href"])
         sr = {}
         def pr(num: int):

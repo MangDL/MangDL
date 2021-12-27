@@ -2,7 +2,18 @@
     CHANGELOG
 </h1>
 
-## **MangDL v.1.0.0-alpha.**
+## **MangDL v.1.0.0**
+
+### **ADDED**
+
+- <a target="_blank" href="https://xunscans.xyz">Xun Scans</a> provider
+- Description metadata for providers using the wordpress template.
+
+### **FIXED**
+
+- Title of the search results from the providers using the wordpress template.
+
+## **MangDL v.1.0.0-alpha.1**
 
 ### **ADDED**
 

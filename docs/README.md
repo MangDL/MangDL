@@ -9,16 +9,11 @@
     <span id="min-block-shrink">▀▄▀▄▀▄</span>
 </h1>
 
-
-
 <!-- Description. Preferrably 1 sentence long. -->
 <h3 align="center" style="font-weight: bold">
     Manga Downloader
 </h3>
 
-<h4 align="center" style="font-weight: bold">
-    Info
-</h4>
 <p align="center">
     <a href="https://github.com/MangDL/MangDL/issues">
         <img src="https://img.shields.io/github/issues/MangDL/MangDL.svg?style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAACVUlEQVR4nO3doW5UQRTG8XPaEHwLBgQhCGoQJLwAiiYY3qCG10DgCc/QJ0AgMCTUIkCCqiAhkCBQpNAW0g+xS5pguLv3DPeb3f/P35OZ+XJm7+yIGwEAAAAAALAQSW813pup5zHExtQDGOi0oMZJQY3megmkYjEJpBCBmCEQMwRihkDMVCzmcUGN5tYpEDqkEOcQM3SIGQIxQyBmCMQMgZghEDMVr70cDAvRIWYIxAyBmCEQMwRihkDMEIgZLqjMcB9ihi3LDIGYIRAzYxfzLDN/loyksS4CyczTiNCIEhUvBf9FF4HMjVnULl55I/oKZMy21cXvRwSB2OkpkDFbFoE0QIeYIRAzBGKGQMyMWVTOIQ3QIWYIxAyBmOFgaIYOMUMgZgjEDIGY4WBohg4xw2uvGTrEzFoEklMPYChJ1yPizpKPv87Mj5XjAQAAAACgiW5O6n+bn9zvRsStiNiK2Vy+RsT7iDjIzMMJh7c+JN2W9ELS2T++F/JS0rJ/tWAISXuSjhf4iMuJpIdTj3slSdqV9Gvh7+rMnrk/9fhXiqQLkg6XCOOPD5IuTj2PIXq5D3kQETdGPH9tXsNeL4HsFtS4V1CjuV4C2SmocbOgRnO9BLJVUONSQY3megnkqKDGt4IazfUSyCeTGs31EsirghoHBTUQESHpiqTvI84hPyRdnXoeQ3TRIZn5OSKejCjxNDO72LK6IWlT0rMluuO5pM2px7+SJG1IeiTpaOA29bi3MLq8D5F0OSL24vw+ZDvO70PexewHfD8zv0w2SAAAAAAAsAJ+A9PfbN9hclgfAAAAAElFTkSuQmCC">

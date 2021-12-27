@@ -14,7 +14,13 @@ setup(
     long_description=ld,
     long_description_content_type="text/markdown",
     url="https://github.com/MangDL/MangDL",
+    project_urls={
+        'Documentation': 'http://mangdl.rf.gd/docs',
+        'Source': 'https://github.com/MangDL/MangDL/',
+        'Tracker': 'https://github.com/MangDL/MangDL/issues',
+    },
 	license="MIT",
+    keywords='development python windows macos linux cli wordpress metadata scraper downloader zip tar rar manga provider reader cbr cbz cbt 7zip cb7',
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
