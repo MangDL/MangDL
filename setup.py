@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 with open("version", "r") as f:
     version = f.read().strip()
-with open("docs/README.md", "r") as f:
+with open("docs/README.md", "r", encoding="utf-8") as f:
     ld = f.read()
 
 setup(
