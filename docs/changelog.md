@@ -2,6 +2,42 @@
     CHANGELOG
 </h1>
 
+## **MangDL v.2.0.0**
+
+NOW, THIS IS A PROVIDER SPREE!
+
+### **ADDED**
+
+- <a target="_blank" href="https://www.cmreader.info">Chibimanga</a> provider
+
+- <a target="_blank" href="https://1stkissmanga.io">1ST Kiss MANGA</a> provider
+
+- <a target="_blank" href="https://mangakomi.com">Manga Komi</a> provider
+
+- <a target="_blank" href="https://mangazuki.me">manga ZUKI</a> provider
+
+- <a target="_blank" href="https://vinload.com">vinmanga</a> provider
+
+- <a target="_blank" href="https://zinmanga.com">Zinmanga</a> provider
+
+### **CHANGED**
+
+- `cloudflare` must be set to `True` in the provider script if the said provider is protected by cloudflare's UAM. This is in case a method of bypassing it has been found out.
+
+- Use `generic` as a template for providers who does not use a template.
+
+- Removed `Search` dataclass. You can now use `search` function without passing it, instead you pass the arguments directly.
+
+- `dt` function in `utils/utils.py` will now "dehumanize" the datetime passed if it contains the word "ago".
+
+- `provider` option for the CLI commands does not verify the input now.
+
+## **MangDL v.1.0.1**
+
+### **FIXED**
+
+- `setup.py` fixed as the pip installation for Windows OS not working due to the said OS apparently reading the `docs/README.md` in `cp1252` encoding instead of `utf-8`
+
 ## **MangDL v.1.0.0**
 
 ### **ADDED**

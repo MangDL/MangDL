@@ -99,6 +99,7 @@ For the terms of usage and legals, visit [license](license.md) and [terms of usa
 ## **Sites**
 
 - [acescans.xyz](https://acescans.xyz)
+- [cmreader.info](https://www.cmreader.info)
 - [danke.moe](https://danke.moe)
 - [flamescans.org](https://flamescans.org)
 - [hachirumi.com](https://hachirumi.com)
@@ -107,6 +108,7 @@ For the terms of usage and legals, visit [license](license.md) and [terms of usa
 - [mangasushi.net](https://mangasushi.net/)
 - [paeanscans.com](https://paeanscans.com/)
 - [setsuscans.com](https://setsuscans.com/)
+- [xunscans.xyz](https://xunscans.xyz/)
 
 ### Coming soon™
 
@@ -118,7 +120,8 @@ For the terms of usage and legals, visit [license](license.md) and [terms of usa
 - [mangarock.to](https://mangarock.to/)
 - [web-ace.jp/youngaceup](https://web-ace.jp/youngaceup/)
 - [windyfall.com](https://windyfall.com/)
-- [xunscans.xyz](https://xunscans.xyz/)
+
+And oh, expect some sites in [this list](https://piracy.moe/library/manga) to be added.
 
 <!-- TOC section. Update when adding sections and subsections fitted in TOC. -->
 ## **Table of Contents**
