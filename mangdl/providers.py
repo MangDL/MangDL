@@ -1,25 +1,38 @@
 from importlib import import_module
 from typing import Any, Dict, List
 
-from .api.base import Ch, Manga, Search
+from .api.base import Ch, Manga
 
+
+class CloudflareProtected(Exception):
+    pass
 
 class Provider:
     def __init__(self, prov: str):
         self.prov = import_module(f".{prov}", "mangdl.api.providers")
-        self.template = import_module(f".{self.prov.template}", "mangdl.api.providers.templates").template
+        if getattr(self.prov, "cloudflare", False):
+            raise CloudflareProtected(
+                f"""{prov} is protected by Cloudflare's UAM. If you know how to
+                bypass Cloudflare, do a pull reqeust at
+                https://github.com/MangDL/MangDL/pulls.""".replace('\n', ' ')
+            )
+        self.template = getattr(
+            import_module(f".{self.prov.template}", "mangdl.api.providers.templates"),
+            "template",
+            lambda x: x
+        )(self.prov)
 
     def chapter(self, url: str) -> Ch:
         local = locals()
         [local.pop(i) for i in ["self",]]
-        return self.template(self.prov).chapter(
+        return self.template.chapter(
             **local,
         )
 
     def manga(self, url: str, chs: int=0) -> Manga:
         local = locals()
         [local.pop(i) for i in ["self",]]
-        return self.template(self.prov).manga(
+        return self.template.manga(
             **local,
         )
 
@@ -32,26 +45,28 @@ class Provider:
         """
         local = locals()
         [local.pop(i) for i in ["self",]]
-        return self.template(self.prov).dl_search(
+        return self.template.dl_search(
             **local,
         )
 
-    def search(self, s: Search) -> List[Manga]:
+    def search(self, title: str, **kwargs: Dict[str, Any]) -> List[Manga]:
+        local = locals()
+        [local.pop(i) for i in ["self",]]
         op = []
-        for i in self.template(self.prov).dl_search(**s.__dict__).values():
+        for i in self.template.dl_search(**local).values():
             op.append(self.template.manga(i))
         return op
 
     def dl(self, url: str, **kwargs: Dict[str, Any]):
         local = locals()
         [local.pop(i) for i in ["self",]]
-        return self.template(self.prov).dl(
+        return self.template.dl(
             **local,
         )
 
     def cli_dl(self, title: str, **kwargs: Dict[str, Any]):
         local = locals()
         [local.pop(i) for i in ["self",]]
-        return self.template(self.prov).cli_dl(
+        return self.template.cli_dl(
             **local,
         )

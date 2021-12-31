@@ -11,6 +11,8 @@ from os.path import realpath as rp
 from time import strftime, strptime
 from typing import Any, Callable, Dict, List, Union
 
+import arrow
+
 # https://stackoverflow.com/a/93029
 ALL_CHARS = (chr(i) for i in range(sys.maxunicode))
 CATEGORIES = {'Cn'}
@@ -97,14 +99,18 @@ def dt(dt: str, format: str) -> str:
     Returns:
         str: Formatted datetime string
     """
-    dt = strftime("%Y-%m-%dT%H:%M:%S", strptime(dt, format))
-    tz = re.match(r"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})([-+])(\d{2}):(\d{2})", dt)
-    if tz:
-        iso, s, ho, mo = tz.groups()
-        s = -1 if s == "-" else 1
-        return (datetime.fromisoformat(iso) - (s * timedelta(hours=int(ho), minutes=int(mo)))).strftime("%Y-%m-%dT%H:%M:%S")
+    op = dt
+    if "ago" in dt:
+        arw = arrow.utcnow()
+        arw.dehumanize("2 days ago")
     else:
-        return dt
+        op = strftime("%Y-%m-%dT%H:%M:%S", strptime(dt, format))
+        tz = re.match(r"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})([-+])(\d{2}):(\d{2})", op)
+        if tz:
+            iso, s, ho, mo = tz.groups()
+            s = -1 if s == "-" else 1
+            op = (datetime.fromisoformat(iso) - (s * timedelta(hours=int(ho), minutes=int(mo)))).strftime("%Y-%m-%dT%H:%M:%S")
+    return op
 
 @lru_cache
 def dt_ts(ts: str) -> str:

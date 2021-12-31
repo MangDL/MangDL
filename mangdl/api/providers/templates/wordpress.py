@@ -17,10 +17,18 @@ class rch_fn:
 
 class template:
     def __init__(self, prov: ModuleType) -> None:
+        attr = {
+            "base_url": None,
+            "cover_src": "src",
+            "rch_fn": soup,
+            "scanlator": None,
+            "search_query_string": "post_type=wp-manga",
+            "src": "src",
+            "total_cs": ".c-blog__heading h1",
+        }
         self.prov = prov
-        ls = ["base_url", "rch_fn", "scanlator"]
-        for i in ls:
-            setattr(self, i, getattr(prov, i))
+        for k, v in attr.items():
+            setattr(self, k, getattr(prov, k, v))
         if type(self.rch_fn) == str:
             self.rch_fn = partial(
                 getattr(rch_fn, self.rch_fn),
@@ -30,10 +38,9 @@ class template:
         self.template = import_module(f".{self.prov.template}", "mangdl.api.providers.templates").template
 
     def ch_fn(self, url: str) -> List[str]:
-        src = getattr(self.prov, "src", "src")
         op = []
         for i in soup(url).select(".page-break img"):
-            op.append(sanitize_text(i[src]))
+            op.append(sanitize_text(i[self.src]))
         return op
 
     def chapter(self, url: str) -> Ch:
@@ -49,8 +56,7 @@ class template:
 
     def chdls(self, url: str, chs: int=0) -> List[Dict[Union[float, int, None], str]]:
         op = []
-        rch = self.rch_fn(url)
-        for c in rch.select("li.wp-manga-chapter    a"):
+        for c in self.rch_fn(url).select("li.wp-manga-chapter    a"):
             cch = c["href"]
             if chs == 2:
                 cch = self.chapter(cch)
@@ -72,19 +78,25 @@ class template:
         def mst(s: str, pp: Callable[[str], List[Any]]=lambda x: x):
             return pp(sanitize_text(meta.get(s))) if meta.get(s) else []
 
-        rch = self.rch_fn(url)
-        dates = [sanitize_text(i.text) for i in rch.select(".chapter-release-date")]
+        rd = [sanitize_text(i.text) for i in self.rch_fn(url).select(".chapter-release-date")]
+        def dates(idx: int):
+            op = "1970-01-01T00:00:00"
+            if rd:
+                rop = rd[idx]
+                if rop:
+                    op = dt(rop, r"%B %d, %Y")
+            return op
         return Manga(
             url             = url,
-            covers          = [ms.select_one(".summary_image img")["src"]],
+            covers          = [ms.select_one(".summary_image img")[self.cover_src]],
             title           = sanitize_text(ms.select_one("div.post-title h1").text),
             alt_titles      = mst("Alternative"),
             author          = mst("Author(s)", lambda x: x.split(",")),
             artist          = mst("Artist(s)", lambda x: x.split(",")),
             status          = {k: v for v, k in enumerate(["ongoing", "completed", "on hold"])}.get(meta["Status"].lower(), -1),
             genres          = mst("Genre(s)", lambda x: x.split(",")),
-            updated_at      = dt(dates[0], r"%B %d, %Y") if dates else "1970-01-01T00:00:00",
-            created_at      = dt(dates[-1], r"%B %d, %Y") if dates else "1970-01-01T00:00:00",
+            updated_at      = dates(0),
+            created_at      = dates(-1),
             description     = sanitize_text(ms.select_one(".summary__content").text),
             chapters        = self.chdls(url, chs),
         )
@@ -100,11 +112,11 @@ class template:
         sr = {}
         def pr(num: int):
             global total
-            url = f"{self.base_url}/page/{num}?s={quote_plus(title)}&post_type=wp-manga"
+            url = f"{self.base_url}/page/{num}?s={quote_plus(title)}&{self.search_query_string}"
             ms = soup(url)
             ts = ms.select(cs_manga)
             if not total:
-                total = int(sanitize_text(ms.select_one(".c-blog__heading h1").text).split()[0])
+                total = int(sanitize_text(ms.select_one(self.total_cs).text).split()[0])
             for r in ts:
                 if manga_check(r):
                     sr[title_fn(r)] = link_fn(r)

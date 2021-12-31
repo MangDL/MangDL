@@ -89,35 +89,6 @@ class Vls:
     ls      : List[str]
 
 @dataclass
-class Search:
-    title           : str
-    lang            : List[str]                             = field(default_factory=list)
-    excludelang     : List[str]                             = field(default_factory=list)
-    demo            : List[str]                             = field(default_factory=list)
-    contentrating   : List[str]                             = field(default_factory=list)
-    status          : List[str]                             = field(default_factory=list)
-    order           : str                                   = field(default_factory=dict)
-    authors         : List[str]                             = field(default_factory=list)
-    artists         : List[str]                             = field(default_factory=list)
-    year            : int                                   = None
-    includetags     : List[str]                             = field(default_factory=list)
-    includemode     : str                                   = None
-    excludetags     : List[str]                             = field(default_factory=list)
-    excludemode     : str                                   = None
-    range           : Callable[[Union[int, float]], bool]   = lambda *args, **kwargs: True
-    cover           : bool                                  = False
-    directory       : str                                   = None
-    overwrite       : bool                                  = False
-    retry           : int                                   = 3
-    retryprompt     : bool                                  = False
-    threads         : int                                   = 5
-    verbosity       : int                                   = 4
-    saveconfig      : str                                   = None
-    loadconfig      : str                                   = None
-    overridelc      : bool                                  = False
-
-
-@dataclass
 class Ch:
     url              : str
     ch               : Union[int, float, None]

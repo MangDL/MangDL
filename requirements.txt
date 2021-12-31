@@ -1,6 +1,7 @@
 setuptools
 wheel
 
+arrow
 bs4
 click
 httpx

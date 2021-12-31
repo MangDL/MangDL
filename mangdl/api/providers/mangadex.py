@@ -9,8 +9,6 @@ from ...utils.settings import stg
 from ...utils.utils import ddir, de, dnrp, parse_list
 from ..base import Ch, Downloader, Manga, Search, Vls, req
 
-template = "generic"
-
 op_links = {
     "al": "https://anilist.co/manga/{}",
     "ap": "https://www.anime-planet.com/manga/{}",

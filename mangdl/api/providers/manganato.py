@@ -5,7 +5,6 @@ from typing import Any, Callable, Dict, List, Union
 
 from ..base import Ch, Downloader, Manga, Search, soup
 
-template = "generic"
 
 def chapter(url):
     c = soup("/".join(url.split("/")[:-1])).select_one(f'a[href="{url}"]').find_parent()

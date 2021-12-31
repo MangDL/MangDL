@@ -21,25 +21,10 @@ cmd:
           - provider
         kwargs:
           metavar: ''
-          type:
-            Choice:
-              args:
-                - - acescans
-                  - danke
-                  - flamescans
-                  - hachirumi
-                  - mangadex
-                  - manganato
-                  - mangasushi
-                  - paeanscans
-                  - setsuscans
-              kwargs:
-                case_sensitive: false
         help:
           - str
           - |-
-            Choose a provider to download from.
-            (mangadex | manganato | mangakakalot). Defaults to "mangadex".
+            Choose a provider to download from. Defaults to "mangadex".
       l:
         args:
         - lang

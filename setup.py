@@ -30,6 +30,7 @@ setup(
 	include_package_data=True,
     python_requires=">=3.9",
 	install_requires=[
+        "arrow",
         "BeautifulSoup4",
 		"click",
         "httpx",
