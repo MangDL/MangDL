@@ -1,7 +1,5 @@
 from setuptools import find_packages, setup
-
-with open("version", "r") as ver:
-    version = ver.read().strip()
+from .version import v
 
 with open("docs/README.md", "r", encoding="utf-8") as ldf:
     ld = ldf.read()
@@ -10,7 +8,7 @@ setup(
     name="MangDL",
 	author="whinee",
 	author_email="whinyaan@gmail.com",
-    version=version,
+    version=v,
     description="The most inefficent Manga downloader for PC",
     long_description=ld,
     long_description_content_type="text/markdown",
