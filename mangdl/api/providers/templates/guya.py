@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Union
 from yarl import URL
 
 from ....utils.utils import ddir, dt, dt_ts, squery
-from ...base import Ch, Manga, Search, ddos_guard, req, soup, urel
+from ...base import Ch, Manga, ddos_guard, req, soup, urel
 
 
 class template:
@@ -89,9 +89,6 @@ class template:
             if list(squery(title, [series])):
                 sr[series] = self.base_url + series_url
         return sr
-
-    def search(self, s: Search) -> List[Manga]:
-        return [self.manga(i) for i in self.dl_search(s).values()]
 
     def cli_search(self, title: str, **kwargs: Dict[str, Any]):
         return self.dl_search(title, **kwargs)

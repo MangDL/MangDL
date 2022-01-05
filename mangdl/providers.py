@@ -16,11 +16,15 @@ class Provider:
                 bypass Cloudflare, do a pull reqeust at
                 https://github.com/MangDL/MangDL/pulls.""".replace('\n', ' ')
             )
-        self.template = getattr(
-            import_module(f".{self.prov.template}", "mangdl.api.providers.templates"),
+        tpl = getattr(
+            self.prov,
             "template",
-            lambda x: x
-        )(self.prov)
+            None
+        )
+        if tpl:
+            self.template = import_module(f".{tpl}", "mangdl.api.providers.templates").template(self.prov)
+        else:
+            self.template = import_module(f".{prov}", "mangdl.api.providers")
 
     def chapter(self, url: str) -> Ch:
         local = locals()

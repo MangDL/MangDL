@@ -4,7 +4,7 @@
 
 Copyright for portions of project [MangDL](https://github.com/MangDL/MangDL) are held by [Github Account [justfoolingaround](https://github.com/justfoolingaround) Owner, 2021] as part of project [AnimDL](https://github.com/justfoolingaround/AnimDL).
 
-All other copyright for project [MangDL](https://github.com/whinee/MangDL) are held by [Github Account [whinee](https://github.com/whinee) Owner, 2021].
+All other copyright for project [MangDL](https://github.com/MangDL/MangDL) are held by [Github Account [whinee](https://github.com/whinee) Owner, 2021].
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

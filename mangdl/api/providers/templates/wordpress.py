@@ -97,7 +97,7 @@ class template:
             genres          = mst("Genre(s)", lambda x: x.split(",")),
             updated_at      = dates(0),
             created_at      = dates(-1),
-            description     = sanitize_text(ms.select_one(".summary__content").text),
+            description     = sanitize_text(getattr(ms.select_one(".summary__content"), "text", "No description available.")),
             chapters        = self.chdls(url, chs),
         )
 

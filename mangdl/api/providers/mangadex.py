@@ -7,7 +7,7 @@ from yarl import URL
 
 from ...utils.settings import stg
 from ...utils.utils import ddir, de, dnrp, parse_list
-from ..base import Ch, Downloader, Manga, Search, Vls, req
+from ..base import Ch, Downloader, Manga, Vls, req
 
 op_links = {
     "al": "https://anilist.co/manga/{}",
@@ -142,9 +142,6 @@ def dl_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
             sr[value(ddir(comic, "attributes/title"))] = f'https://mangadex.org/title/{comic["id"]}'
     return sr
 
-def search(s: Search) -> List[Manga]:
-    return [manga(i) for i in dl_search(**s.__dict__).values()]
-
 def cli_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
     params = {}
     tags = {ddir(t, "attributes/name/en").lower(): t["id"] for t in req.get("https://api.mangadex.org/manga/tag", ra).json()["data"]}
@@ -189,7 +186,7 @@ def cli_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
         else:
             em = None
 
-    return dl_search(Search(title, **params))
+    return dl_search(title, **params)
 
 def ch_fn(url: str) -> List[str]:
     resp_obj = req.get(f"https://api.mangadex.org/chapter/{id}", ra).json()

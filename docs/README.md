@@ -27,7 +27,7 @@
     <a href="https://github.com/MangDL/MangDL/graphs/contributors">
         <img src="https://img.shields.io/github/contributors/MangDL/MangDL.svg?style=flat-square&logo=data:image/png;base64,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">
     </a>
-    <a href="http://mangdl.rf.gd/license.html">
+    <a href="https://mdl.pages.dev/license.html">
         <img src="https://img.shields.io/badge/LICENSE-A31F34?style=flat-square&logoWidth=25&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANwAAAByCAYAAAA4TL8fAAADvElEQVR4nO3bsYkdVxiG4c2EA6kCY5WgAt2AMuVbgntRC+rgcoeFTRbDcQ3/OxwxjJ8P/vTwBvOE8/J8PteuO47j35cTO47jubNvrfX5RNuvzW1/nWj7ubPt4+PjW21ba33Z2Xb1e9n5OHCn2oC74QHX24ALA27j48CdagPuhgdcbwMuDLiNjwN3qg24Gx5wvQ24MOA2Pg7cqTbgbnjA9TbgwoDb+Dhwp9qAu+EB19uACwNu4+PAnWoD7oYHXG8DLgy4jY8Dd6oNuBsecL0NuDDgNj4O3Kk24G54wPU24MKA2/g4cKfagLvhAdfbgAsDbuPjwJ1qA+6GB1xvAy4MuI2PA3eqDbgbHnC97bLg3t7evr+/v/+z69ZaX2vbWuuPnW1XP+B622XB2YUHXG4DzuYDLrcBZ/MBl9uAs/mAy23A2XzA5TbgbD7gchtwNh9wuQ04mw+43AaczQdcbgPO5gMutwFn8wGX24Cz+YDLbcDZfMDltsuCW2v9vdZ63Xh/nmj7dBzH6657PB4/attvGXC57crgfq69O/M/3OfN39yztv2WAZfbgGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AAZfagGttwAGX2oBrbcABl9qAa23AXRXc4/H4cRzH665ba32qbcDlNuCuCu7KAy63AQfcfMDlNuCAmw+43AYccPMBl9uAA24+4HIbcMDNB1xuAw64+YDLbcABNx9wuQ044OYDLrcBB9x8wOU24ICbD7jcBhxw8wGX24ADbj7gchtwwM0HXG4DDrj5gMttwAE3H3C5DTjg5gMutwEH3HzA5TbggJsPuNwGHHDzAZfbgANuPuByG3DAzQdcbgMOuPmAy23AATcfcLkNOODmAy63AQfcfMDlNuCAmw+43AYccPMBl9uAA24+4HIbcMDNB1xuAw64+YDLbcABNx9wuQ044OYDLrcBB9x8wOU24ICbD7jcBhxw8wGX2/7X4P4DxDPxnlw4RDoAAAAASUVORK5CYII=">
     </a>
 </p>
@@ -67,13 +67,13 @@ The most inefficient manga downloader for PC (and soon, also a reader)
 
 Github: [github.com/MangDL/MangDL](https://github.com/MangDL/MangDL)
 
-Website: [mangdl.rf.gd](http://mangdl.rf.gd)
+Website: [mdl.pages.dev](https://mdl.pages.dev)
 
 ## **Downloads**
 
 Since people are looking for the download first, here you go:
 
-Follow [this link](http://mangdl.rf.gd/installation.html) to install MangDL in your machine.
+Follow [this link](https://mdl.pages.dev/installation.html) to install MangDL in your machine.
 
 ## **Important**
 
@@ -98,30 +98,7 @@ For the terms of usage and legals, visit [license](license.md) and [terms of usa
 
 ## **Sites**
 
-- [acescans.xyz](https://acescans.xyz)
-- [cmreader.info](https://www.cmreader.info)
-- [danke.moe](https://danke.moe)
-- [flamescans.org](https://flamescans.org)
-- [hachirumi.com](https://hachirumi.com)
-- [mangadex.org](https://mangadex.org)
-- [manganato.com](https://manganato.com)
-- [mangasushi.net](https://mangasushi.net/)
-- [paeanscans.com](https://paeanscans.com/)
-- [setsuscans.com](https://setsuscans.com/)
-- [xunscans.xyz](https://xunscans.xyz/)
-
-### Coming soon™
-
-- [assortedscans.com](https://assortedscans.com/)
-- [bunko.ml](https://bunko.ml/)
-- [deathtollscans.net](https://deathtollscans.net/)
-- [mangapill.com](https://mangapill.com/)
-- [mangareader.to](https://mangareader.to/)
-- [mangarock.to](https://mangarock.to/)
-- [web-ace.jp/youngaceup](https://web-ace.jp/youngaceup/)
-- [windyfall.com](https://windyfall.com/)
-
-And oh, expect some sites in [this list](https://piracy.moe/library/manga) to be added.
+For the full list of providers, visit [this link](providers.md).
 
 <!-- TOC section. Update when adding sections and subsections fitted in TOC. -->
 ## **Table of Contents**
@@ -160,7 +137,7 @@ Downloading:
 mangdl dl <title> [OPTIONS]
 ```
 
-For programmatic use, visit the documentation: [mangdl.rf.gd/docs](http://mangdl.rf.gd/docs/index.html)
+For programmatic use, visit the documentation: [mdl.pages.dev/docs](https://mdl.pages.dev/docs/index.html)
 
 ## **Getting Started**
 
@@ -273,7 +250,7 @@ The following are the required programs and/or packages to run this project:
 
 ### **Setup**
 
-Follow [this link](http://mangdl.rf.gd/installation.html) to install MangDL in your machine.
+Follow [this link](https://mdl.pages.dev/installation.html) to install MangDL in your machine.
 
 # TODO
 
@@ -350,7 +327,7 @@ The TODO will be done, except for that, nothing else.
 
 Copyright for portions of project [MangDL](https://github.com/MangDL/MangDL) are held by [Github Account [justfoolingaround](https://github.com/justfoolingaround) Owner, 2021] as part of project [AnimDL](https://github.com/justfoolingaround/AnimDL).
 
-All other copyright for project [MangDL](https://github.com/whinee/MangDL) are held by [Github Account [whinee](https://github.com/whinee) Owner, 2021].
+All other copyright for project [MangDL](https://github.com/MangDL/MangDL) are held by [Github Account [whinee](https://github.com/whinee) Owner, 2021].
 
 Check the [LICENSE](LICENSE.md) for more details.
 

@@ -2,6 +2,21 @@
     CHANGELOG
 </h1>
 
+## **MangDL v.2.0.1**
+
+### **CHANGED**
+
+- Removed `search` function in `mangdl/api/providers/templates/guya.py`, `mangdl/api/providers/mangadex.py`, and `mangdl/api/providers/manganato.py`.
+
+### **FIXED**
+
+- Removed `from ...base import Search` in `mangdl/api/providers/templates/guya.py`.
+- Removed `from ..base import Search` in `mangdl/api/providers/mangadex.py` and `mangdl/api/providers/manganato.py`.
+- Fixed description metadata in `mangdl/api/providers/templates/wordpress.py`'s `manga` function to output "No description available." when the description is not available.
+- Fixed `cli_search` in `mangdl/api/providers/mangadex.py` and `mangdl/api/providers/manganato.py` to return `dl_search(title, **params)` instead of `dl_search(Search(title, **params))`.
+- Fixed `scanlator` in `mangdl/api/providers/setsuscans.py` to be assigned the value of "Setsu Scans" instead of "Paean Scans".
+- Fixed `mangdl/providers.py`'s `Provider` class' `init` function to import the right thing.
+
 ## **MangDL v.2.0.0**
 
 NOW, THIS IS A PROVIDER SPREE!
@@ -23,7 +38,7 @@ NOW, THIS IS A PROVIDER SPREE!
 ### **CHANGED**
 
 - `cloudflare` must be set to `True` in the provider script if the said provider is protected by cloudflare's UAM. This is in case a method of bypassing it has been found out.
-
+d
 - Use `generic` as a template for providers who does not use a template.
 
 - Removed `Search` dataclass. You can now use `search` function without passing it, instead you pass the arguments directly.

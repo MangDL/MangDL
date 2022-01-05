@@ -4,7 +4,7 @@ from mangdl.utils.utils import sanitize_text
 
 from ..base import urel
 
-scanlator = "Paean Scans"
+scanlator = "Setsu Scans"
 base_url = "https://setsuscans.com"
 template = "wordpress"
 

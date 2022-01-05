@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 from typing import Any, Callable, Dict, List, Union
 
-from ..base import Ch, Downloader, Manga, Search, soup
+from ..base import Ch, Downloader, Manga, soup
 
 
 def chapter(url):
@@ -78,11 +78,8 @@ def dl_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
             sr[r["title"]] = r["href"]
     return sr
 
-def search(s: Search) -> List[Manga]:
-    return [manga(i) for i in dl_search(**s.__dict__).values()]
-
 def cli_search(title: str, **kwargs: Dict[str, Any]):
-    return search(Search(title, **kwargs))
+    return dl_search(title, **kwargs)
 
 def ch_fn(url: str) -> List[str]:
     return [i["src"] for i in soup(url).select(".container-chapter-reader img")]
