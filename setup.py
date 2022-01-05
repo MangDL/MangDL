@@ -1,5 +1,5 @@
 from setuptools import find_packages, setup
-from .version import v
+from version import v
 
 with open("docs/README.md", "r", encoding="utf-8") as ldf:
     ld = ldf.read()
