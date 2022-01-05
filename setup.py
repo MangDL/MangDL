@@ -1,9 +1,10 @@
 from setuptools import find_packages, setup
 
-with open("version", "r") as f:
-    version = f.read().strip()
-with open("docs/README.md", "r", encoding="utf-8") as f:
-    ld = f.read()
+with open("version", "r") as ver:
+    version = ver.read().strip()
+
+with open("docs/README.md", "r", encoding="utf-8") as ldf:
+    ld = ldf.read()
 
 setup(
     name="MangDL",
@@ -15,7 +16,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/MangDL/MangDL",
     project_urls={
-        'Documentation': 'http://mangdl.rf.gd/docs',
+        'Documentation': 'https://mdl.pages.dev/docs',
         'Source': 'https://github.com/MangDL/MangDL/',
         'Tracker': 'https://github.com/MangDL/MangDL/issues',
     },
