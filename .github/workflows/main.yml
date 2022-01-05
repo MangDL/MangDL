@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     paths:
-      - version
+      - version.py
   workflow_dispatch:
 
 jobs:
@@ -42,11 +42,11 @@ jobs:
       - name: Version
         id: version
         run: |-
-          echo -n "::set-output name=version::$(cat ./version)"
+          python -c 'with open("version.py","r") as f: print(f"::set-output name=version::{f.read().strip()[3:-1]}")'
       - name: Prerelease
         id: prerel
         run: |-
-          python -c 'with open("version","r") as f: v=f.read();op=1 if ("alpha" in v) or ("beta" in v) else 0;op="true" if op else "false";print(f"::set-output name=prerel::{op}")'
+          python -c 'with open("version.py","r") as f: v=f.read().strip()[3:-1];op=1 if ("alpha" in v) or ("beta" in v) else 0;op="true" if op else "false";print(f"::set-output name=prerel::{op}")'
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
