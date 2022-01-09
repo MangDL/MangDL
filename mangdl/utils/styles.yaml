@@ -1,0 +1,31 @@
+whine:
+  colours:
+    t1: F3F78D
+    h1: f2f774
+    t2: FF8D5C
+    h2: ff7b42
+    t3: E84855
+    h3: e83140
+    t4: 3279a1
+    h4: 2273a1
+    ac1: F0544F
+    fg1: 2C497F
+    bg1: 808A9F
+    warning: FCDC4D
+  styles:
+    all:
+      padding: [0, 5]
+    table:
+      box: ROUNDED
+      row_styles: ["none", "dim"]
+      show_lines: true
+      title_justify: center
+
+      columns:
+        - header_style: h2
+          style: t2
+        - header_style: h3
+          style: t3
+        - header_style: h1
+          style: t1
+    panel:

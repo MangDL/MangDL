@@ -12,14 +12,15 @@ from typing import Any, Callable, Dict, List, Type, Union
 import click
 import httpx
 import patoolib
+import rich
 from bs4 import BeautifulSoup
-from tabulate import tabulate
 from tqdm import tqdm
 from yachalk import chalk
 from yarl import URL
 
 from ..utils import style
 from ..utils.exceptions import DownloadFailed
+from ..utils.style import ct
 
 METHODS = ["get", "options", "head", "post", "put", "patch", "delete"]
 SESSION = httpx.Client()
@@ -121,34 +122,24 @@ class Manga:
     chapters        : Dict[Union[int, float], Ch]   = field(default_factory=list)
 
 
-def tblp(ls: List[str], ct: str="title", prompt: str='Enter the index of the manga to be downloaded'):
+def tblp(ls: List[str], ht: str="title", prompt: str='Enter the index of the manga to be downloaded'):
     """Table prompt.
     Receive a list of items, format it in a table form and print,
     then prompt the user to choose from the list using an index.
 
     Args:
         ls (List[str]): List of items.
-        ct (str, optional): [description]. Defaults to "title".
+        ht (str, optional): [description]. Defaults to "title".
         prompt (str, optional): [description]. Defaults to 'Enter the index of the manga to be downloaded'.
 
     Returns:
         click.prompt: The input of the user.
     """
-    print(
-        tabulate(
-            [
-                [chalk.hex("FFD166").bold(i), chalk.hex("4E8098").bold(v)]
-                for i, v in enumerate(ls)
-            ],
-            [chalk.hex("e63946").bold("index"), chalk.hex("e76f51").bold(ct)],
-            tablefmt="pretty", colalign=("right", "left")
-        )
-    )
+    ct.panel("Search Results")
+    ct.table(["index", ht], enumerate(ls))
 
     return click.prompt(
-        chalk.hex("3279a1").bold(
-            f'{prompt}, defaults to 0'
-        ), '0',
+        style.ch_t4(f'{prompt}, defaults to 0'), '0',
         type=click.Choice(
             [str(i) for i in range(len(ls))]
         ),
@@ -233,6 +224,7 @@ class Downloader:
         ch_fn: Callable[[Any], List[str]],
         ra: Callable[[httpx.Response], int]=None,
         headers: Dict[str, Any] = {},
+        cookies: Dict[str, Any] = {},
         range: str='',
         directory: str=None,
         overwrite: bool=True,
@@ -244,7 +236,7 @@ class Downloader:
         **kwargs: Dict[str, Any]
     ):
         local = locals()
-        for i in ["ch_fn", "ra", "headers", "overwrite", "delfolder", "retry", "retryprompt", "threads"]:
+        for i in ["ch_fn", "ra", "headers", "cookies", "overwrite", "delfolder", "retry", "retryprompt", "threads"]:
             setattr(self, i, local[i])
         if ddir:= directory:
             self.ddir = ddir
@@ -267,7 +259,7 @@ class Downloader:
         else:
             with open(file[0] + ".tmp", "wb") as f:
                 try:
-                    with httpx.stream("GET", file[1], headers=self.headers) as r:
+                    with httpx.stream("GET", file[1], headers=self.headers, cookies=self.cookies) as r:
                         if r.status_code == 200:
                             for chunk in r.iter_bytes(chunk_size=8192):
                                 f.write(chunk)
@@ -333,7 +325,7 @@ class Downloader:
                         f"{index}.{get_extension(str(page))}"
                     ).replace("\\", "/")
                     files.append((filename, page))
-                fmt = style.t1(style.ac1(chapter_name) + " [{remaining_s:05.2f} secs, {rate_fmt:0>12}] " + style.ldb("{bar}") +" [{n:03d}/{total:03d}, {percentage:03.0f}%]")
+                fmt = style.t1(style.ch_ac1(chapter_name) + " [{remaining_s:05.2f} secs, {rate_fmt:0>12}] " + style.ldb("{bar}") +" [{n:03d}/{total:03d}, {percentage:03.0f}%]")
                 try:
                     with ThreadPool(self.threads) as pool:
                         list(tqdm(pool.imap(self.dlf, files), total=len(files), leave=True, unit=" img", disable=False, dynamic_ncols=True, smoothing=1, bar_format=fmt))
@@ -385,7 +377,7 @@ class Downloader:
             title = ls[int(tblp(ls))]
             self.dl_chdls(chdls(sr[title]), title)
         else:
-            print(style.warning(f"No manga with similar title with the requested title or anything similar found. Use other search terms or remove some filters."))
+            ct.panel(style.warning(f"No manga with similar title with the requested title or anything similar found. Use other search terms or remove some filters."))
 
 def urel(url: str):
     url = URL(url)

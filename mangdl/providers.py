@@ -62,15 +62,7 @@ class Provider:
         return op
 
     def dl(self, url: str, **kwargs: Dict[str, Any]):
-        local = locals()
-        [local.pop(i) for i in ["self",]]
-        return self.template.dl(
-            **local,
-        )
+        return self.template.dl(url, **kwargs)
 
     def cli_dl(self, title: str, **kwargs: Dict[str, Any]):
-        local = locals()
-        [local.pop(i) for i in ["self",]]
-        return self.template.cli_dl(
-            **local,
-        )
+        return self.template.cli_dl(title, **kwargs)

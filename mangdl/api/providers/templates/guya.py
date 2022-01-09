@@ -1,10 +1,12 @@
+from functools import partial
 from types import ModuleType
 from typing import Any, Dict, List, Union
 
 from yarl import URL
 
 from ....utils.utils import ddir, dt, dt_ts, squery
-from ...base import Ch, Manga, ddos_guard, req, soup, urel
+from ...base import (Ch, Downloader, Manga, ddos_cookies, ddos_guard, req,
+                     soup, urel)
 
 
 class template:
@@ -23,8 +25,9 @@ class template:
         url = urel(url)
         resp = self.api_series(url)
         meta = ddir(resp, f"chapters/{url.parts[4]}")
-        bui = f'{self.base_url}/media/manga/{url.parts[3]}/chapters/{meta["folder"]}/1/'
-        return [bui + i for i in ddir(meta, "groups/1")]
+        group, imgs = list(ddir(meta, "groups").items())[0]
+        bui = f'{self.base_url}/media/manga/{url.parts[3]}/chapters/{meta["folder"]}/{group}/'
+        return [bui + i for i in imgs]
 
     def chapter(self, url: str) -> Ch:
         resp = self.api_series(url)
@@ -33,7 +36,6 @@ class template:
         ch = int(url.parts[4])
         meta = ddir(resp, f"chapters/{ch}")
         ms = soup(f'{self.base_url}/read/manga/{slug}', ddos_guard)
-        bui = f'{self.base_url}/media/manga/{slug}/chapters/{meta["folder"]}/1/'
         return Ch(
             url              = url,
             ch               = ch,
@@ -43,7 +45,7 @@ class template:
             uploaded_at      = dt_ts(list(ddir(meta, "release_date").values())[0]),
             scanlator_groups = list(resp['groups'].values()),
             user             = [self.scanlator],
-            imgs             = [bui + i for i in list(ddir(meta, "groups").values())[0]],
+            imgs             = self.ch_fn(url),
         )
 
     def chdls(self, url: str, chs: int=0) -> List[Dict[Union[float, int, None], str]]:
@@ -92,3 +94,6 @@ class template:
 
     def cli_search(self, title: str, **kwargs: Dict[str, Any]):
         return self.dl_search(title, **kwargs)
+
+    def cli_dl(self, title: str, **kwargs: Dict[str, Any]):
+        Downloader(self.ch_fn, cookies=ddos_cookies, **kwargs).cli(self.cli_search, partial(self.chdls), title)

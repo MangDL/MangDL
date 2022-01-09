@@ -2,14 +2,34 @@
     CHANGELOG
 </h1>
 
-## **MangDL v.2.0.1**
+## **MangDL v.2.0.2**
+
+### **ADDED**
+
+- Added logging back with the `rich` library.
 
 ### **CHANGED**
 
-- Removed `search` function in `mangdl/api/providers/templates/guya.py`, `mangdl/api/providers/mangadex.py`, and `mangdl/api/providers/manganato.py`.
+- Changed `mangdl/api/base.py`'s `tblp` function to use the `rich` library for easier formatting and making more aesthetically pleasing tables.
+- Added `cookies` in the arguments of `mangdl/api/base.py`'s `Downloader.__init__` function for the downloader to be able to use custom cookies.
+- Honestly, who reads this. Anyways, using the `rich` library with the `yachalk` library for colorful printing and beautiful formatting.
+- Added `de` in the arguments of `mangdl/utils/utils.py`'s `ddir` function to be able to return that value in case the output evaluates to `False`.
 
 ### **FIXED**
 
+- Fixed `mangdl/api/providers/templates/guya.py`'s `template.ch_fn` function to get the image links from the first group.
+- Fixed `mangdl/api/providers/templates/guya.py`'s `template.chapter` function to use `self.ch_fn` instead of its own implementation for fetching the image links.
+- Added `template.cli_dl` in `mangdl/api/providers/templates/guya.py`.
+- Fixed `mangdl/api/providers/mangadex.py`'s `ch_fn` function to be able to fetch image links on the new version on mangadex v5 API.
+- Fixed `mangdl/api/providers/mangadex.py`'s `chapter` function to use `ch_fn` instead of its own implementation for fetching the image links.
+- Fixed the spelling of "colour" in `mangdl/utils/stg.json` to use the British English spelling instead of the American English spelling.
+
+## **MangDL v.2.0.1**
+
+NOW, THIS IS A BUGFIX!
+### **FIXED**
+
+- Removed `search` function in `mangdl/api/providers/templates/guya.py`, `mangdl/api/providers/mangadex.py`, and `mangdl/api/providers/manganato.py`.
 - Removed `from ...base import Search` in `mangdl/api/providers/templates/guya.py`.
 - Removed `from ..base import Search` in `mangdl/api/providers/mangadex.py` and `mangdl/api/providers/manganato.py`.
 - Fixed description metadata in `mangdl/api/providers/templates/wordpress.py`'s `manga` function to output "No description available." when the description is not available.

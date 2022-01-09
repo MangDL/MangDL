@@ -1,25 +1,60 @@
 import builtins
 import inspect
+import logging
 from typing import Any, Callable, List
 
 import click
+from rich.logging import RichHandler
 from tabulate import tabulate
 from yachalk import chalk
 
+from . import globals
 from .providers import Provider
 from .utils.settings import stg
+from .utils.style import pprint
 from .utils.utils import dd, de, dnrp
 
-print(chalk.hex("D2748D").bold(r"""
+lvls = [
+    "CRITICAL",
+    "ERROR",
+    "WARNING",
+    "INFO",
+    "DEBUG",
+    "NOTSET",
+]
+
+def fn_log(lvl: int):
+    if lvl == 1:
+        l = "NOTSET"
+    else:
+        l = lvls[lvl - 2]
+
+    logging.basicConfig(
+        level=l,
+        format="%(message)s",
+        datefmt="[%H:%M:%S.%f]",
+        handlers=[RichHandler(
+            omit_repeated_times=False,
+            markup=True,
+            rich_tracebacks=True
+        )]
+    )
+
+    op = logging.getLogger("rich")
+    if lvl == 1:
+        logging.disable()
+    globals.log = op
+
+pprint(r"""[#D2748D bold]
  _____   ___     _____    _____     __   _________   ______    __
 /\    ＼/   \   / ____＼ /\    ＼  /\ \ /\  ______\ /\  ___＼ /\ \
 \ \ \＼   /\ \ /\ \__/\ \\ \ \＼ ＼\ \ \\ \ \_____/_\ \ \_/\ \\ \ \
  \ \ \ ＼/\ \ \\ \  ____ \\ \ \ ＼ ＼ \ \\ \ \ /\__ \\ \ \\ \ \\ \ \
   \ \ \‾‾  \ \ \\ \ \__/\ \\ \ \  ＼ ＼\ \\ \ \\/__\ \\ \ \\_\ \\ \ \____
    \ \_\    \ \_\\ \_\ \ \_\\ \_\＼ ＼____\\ \________\\ \_____/ \ \_____\
-    \/_/     \/_/ \/_/  \/_/ \/_/  ＼/____/ \/________/ \/____/   \/_____/
-
-The most inefficient, non user-friendly and colorful manga downloader (and soon, also a reader)""") + chalk.hex("3279a1")('\nChat with whi~nyaan at https://discord.com/invite/JbAtUxGcJZ\n'))
+    \/_/     \/_/ \/_/  \/_/ \/_/  ＼/____/ \/________/ \/____/   \/_____/""")
+pprint("[#D2748D bold]The most inefficient, non user-friendly and colorful manga downloader (and soon, also a reader)")
+pprint("[#3279a1]Chat with whi~nyaan at https://discord.com/invite/JbAtUxGcJZ\n")
 
 def cao(group: click.group, cmd: str) -> List[Callable[[Callable[[Any], Any]], Callable[[Any], Any]]]:
     """Retruns wrappers for a click command evaluated from the given arguments.
@@ -140,6 +175,7 @@ def dl(title: str, **kwargs: dict[str, Any]):
     Args:
         title (str): The title of the manga to be search for and download.
     """
+    fn_log(kwargs.pop("loglevel"))
     Provider(kwargs.pop("provider", "mangadex")).cli_dl(title, **kwargs)
 
 @command(cli)

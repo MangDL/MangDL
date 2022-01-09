@@ -8,6 +8,7 @@ httpx
 lxml
 patool
 pyyaml
+rich
 tabulate
 toml
 tqdm

@@ -68,7 +68,7 @@ def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -> Dict[Any, Any
             op[a] = v
     return op
 
-def ddir(d: Dict[Any, Any], dir: str) -> Any:
+def ddir(d: Dict[Any, Any], dir: str, de: Any={}) -> Any:
     """Retrieve dictionary value using recursive indexing with a string.
     ex.:
         `ddir({"data": {"attr": {"ch": 1}}}, "data/attr/ch")`
@@ -85,7 +85,7 @@ def ddir(d: Dict[Any, Any], dir: str) -> Any:
     op = d
     for a in dir.split("/"):
         op = op[a]
-    return op
+    return op or de
 
 @lru_cache
 def dt(dt: str, format: str) -> str:

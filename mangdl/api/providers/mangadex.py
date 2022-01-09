@@ -50,14 +50,25 @@ def url_id(url: str) -> str:
         url = url.relative()
     return url.parts[2]
 
+def ch_fn(url: str):
+    resp = req.get(f"https://api.mangadex.org/at-home/server/{url_id(url)}", ra=ra).json()
+    return [f'{resp["baseUrl"]}/data/{ddir(resp, "chapter/hash")}/{i}' for i in ddir(resp, "chapter/data")]
+
+def chdls(self, url: str, chs: int=0) -> List[Dict[Union[float, int, None], str]]:
+    op = []
+    for c in self.rch_fn(url).select("li.wp-manga-chapter    a"):
+        cch = c["href"]
+        if chs == 2:
+            cch = self.chapter(cch)
+        op.append({self.prov.rch_num_fun(c["href"]): cch})
+    return op
+
 def chapter(url: str) -> Ch:
     id = url_id(url)
     resp_obj = req.get(f"https://api.mangadex.org/chapter/{id}", params={"includes[]": "scanlation_group"}).json()
 
     def attr(dir: str):
         return ddir(resp_obj, f"data/attributes/{dir}")
-
-    bu = req.get(f"https://api.mangadex.org/at-home/server/{ddir(resp_obj, 'data/id')}", ra).json()["baseUrl"]
 
     ch = attr("chapter")
     vol = attr("volume")
@@ -67,12 +78,12 @@ def chapter(url: str) -> Ch:
         vol         = ast.literal_eval(vol) if vol else vol,
         title       = attr("title"),
         uploaded_at = attr("publishAt"),
-        imgs        = [f"{bu}/data/{attr('hash')}/{i}" for i in attr("data")],
+        imgs        = ch_fn(url),
     )
 
 def manga(url: str, chs: int=0) -> Manga:
     id = url_id(url)
-    resp_obj = req.get(f"https://api.mangadex.org/manga/{id}?includes[]=author&includes[]=artist&includes[]=cover_art", ra).json()
+    resp_obj = req.get(f"https://api.mangadex.org/manga/{id}?includes[]=author&includes[]=artist&includes[]=cover_art", ra=ra).json()
     relps = ddir(resp_obj, "data/relationships")
 
     def attr(dir: str) -> Any:
@@ -187,12 +198,6 @@ def cli_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
             em = None
 
     return dl_search(title, **params)
-
-def ch_fn(url: str) -> List[str]:
-    resp_obj = req.get(f"https://api.mangadex.org/chapter/{id}", ra).json()
-    hash = ddir(resp_obj, 'data/attributes/hash')
-    bu = req.get(f"https://api.mangadex.org/at-home/server/{ddir(resp_obj, 'data/id')}", ra).json()["baseUrl"]
-    return [f"{bu}/data/{hash}/{i}" for i in ddir(resp_obj, "data/attributes/data")]
 
 def chdls(url: str) -> List[Dict[Union[float, int, None], str]]:
     id = url_id(url)
