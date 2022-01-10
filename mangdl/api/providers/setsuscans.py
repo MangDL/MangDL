@@ -2,8 +2,6 @@ from ast import literal_eval
 
 from mangdl.utils.utils import sanitize_text
 
-from ..base import urel
-
 scanlator = "Setsu Scans"
 base_url = "https://setsuscans.com"
 template = "wordpress"
@@ -14,9 +12,6 @@ src = "data-src"
 
 def ch_num_fn(soup):
     return literal_eval(soup.select_one("#chapter-heading").text.split("-")[-1][9:])
-
-def rch_num_fun(url: str):
-    return literal_eval(".".join(urel(url).parts[3].split("-")[1:]))
 
 def manga_id_fn(soup) -> str:
     return soup.select_one("#manga-chapters-holder")["data-id"]

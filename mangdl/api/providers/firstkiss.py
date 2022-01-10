@@ -1,6 +1,6 @@
 from ast import literal_eval
 
-from ..base import soup, urel
+from ..base import soup
 
 cloudflare = True
 
@@ -10,9 +10,6 @@ template = "wordpress"
 
 def ch_num_fn(soup):
     return literal_eval(".".join(soup.select_one("#wp-manga-current-chap")["value"].split("-")[1:]))
-
-def rch_num_fun(url):
-    return literal_eval(".".join(urel(url).parts[3].split("-")[1:]))
 
 def manga_id_fn(soup) -> str:
     cdata = soup.select_one("#wp-manga-js-extra").text

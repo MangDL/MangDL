@@ -1,0 +1,138 @@
+ac:
+  cf: Cloudflare UAM
+  gm: guya.moe
+  wp: WordPress
+
+notes:
+  cf: |-
+    Protected by Cloudflare's UAM. Does not work at the moment.
+
+sites:
+  1ST Kiss MANGA:
+    url: https://1stkissmanga.io
+    flag:
+      - cf
+    pf: wp
+    test:
+      - firstkiss
+      - https://1stkissmanga.io/manga/start-directly-as-shenhao/
+      - https://1stkissmanga.io/manga/start-directly-as-shenhao/chapter-8/
+      - shenhao
+  Ace Scans:
+    url: https://acescans.xyz
+    pf: wp
+    test:
+      - acescans
+      - https://acescans.xyz/manga/waka-chan-is-pushy-again/
+      - https://acescans.xyz/waka-chan-is-pushy-again-chapter-3/
+      - pushy
+  Chibimanga:
+    url: https://www.cmreader.info
+    pf: wp
+    test:
+      - chibimanga
+      - https://www.cmreader.info/manga/akuma-no-ichigo/
+      - https://www.cmreader.info/manga/akuma-no-ichigo/chapter-5/
+      - akuma
+  Danke fürs Lesen:
+    url: https://danke.moe
+    pf: gm
+    test:
+      - danke
+      - https://danke.moe/read/manga/senpai-wa-otokonoko/
+      - https://danke.moe/read/manga/senpai-wa-otokonoko/23/1/
+      - senpai
+  Flame Scans:
+    url: https://flamescans.org
+    pf: wp
+    test:
+      - flamescans
+      - https://flamescans.org/series/omniscient-readers-viewpoint/
+      - https://flamescans.org/omniscient-readers-viewpoint-chapter-87/
+      - omni
+  Hachirumi:
+    url: https://hachirumi.com
+    pf: gm
+    test:
+      - hachirumi
+      - https://hachirumi.com/read/manga/mikuzu-oneshots-collection/
+      - https://hachirumi.com/read/manga/mikuzu-oneshots-collection/46/1/
+      - kira
+  MangaDex:
+    url: https://mangadex.org
+    test:
+      - mangadex
+      - https://mangadex.org/title/a96676e5-8ae2-425e-b549-7f15dd34a6d8/komi-san-wa-komyushou-desu
+      - https://mangadex.org/chapter/6f90e279-fdcd-4f86-b9a6-560059179a10
+      - otokonoko
+  Manga Komi:
+    url: https://mangakomi.com
+    pf: wp
+    test:
+      - mangakomi
+      - https://mangakomi.com/manga/ha-buk-paengs-youngest-son/
+      - https://mangakomi.com/manga/ha-buk-paengs-youngest-son/chapter-14/
+      - return
+  Manganato:
+    url: https://manganato.com
+    test:
+      - manganato
+      - https://manganato.com/manga-mt990128
+      - https://readmanganato.com/manga-mt990128/chapter-32
+      - There's
+  Mangasushi:
+    url: https://mangasushi.net
+    pf: wp
+    test:
+      - mangasushi
+      - https://mangasushi.net/manga/kuro-no-maou-1962/
+      - https://mangasushi.net/manga/kuro-no-maou-1962/chapter-30/
+      - sukinako
+  manga ZUKI:
+    url: https://mangazuki.me
+    pf: wp
+    test:
+      - mangazuki
+      - https://mangazuki.me/manga/tales-of-demons-and-gods/
+      - https://mangazuki.me/manga/tales-of-demons-and-gods/tales-of-demons-and-gods-303
+      - tales
+  Paean Scans:
+    url: https://paeanscans.com
+    pf: wp
+    test:
+      - paeanscans
+      - https://paeanscans.com/manga/osanamama/
+      - https://paeanscans.com/manga/osanamama/3/
+      - osanamama
+  Setsu Scans:
+    url: https://setsuscans.com
+    pf: wp
+    test:
+      - setsuscans
+      - https://setsuscans.com/manga/i-like-takachiho-honoka-senpai-so-so-much-that-i-cant-help-myself/
+      - https://setsuscans.com/manga/i-like-takachiho-honoka-senpai-so-so-much-that-i-cant-help-myself/chapter-1-1/
+      - honoka
+  vinmanga:
+    url: https://vinload.com
+    pf: wp
+    test:
+      - vinmanga
+      - https://vinload.com/manga/just-another-love/
+      - https://vinload.com/manga/just-another-love/chapter-0/
+      - just another love
+  Xun Scans:
+    url: https://xunscans.xyz
+    pf: wp
+    test:
+    - xunscans
+    - https://xunscans.xyz/manga/growing-tired-of-the-lazy-high-elf-life-after-120-years/
+    - https://xunscans.xyz/manga/growing-tired-of-the-lazy-high-elf-life-after-120-years/chapter-6/
+    - tired
+  Zinmanga:
+    url: https://zinmanga.com
+    pf: wp
+    test:
+    - zinmanga
+    - https://zinmanga.com/manga/queen-of-avalon/
+    - https://zinmanga.com/manga/queen-of-avalon/chapter-1/
+    - Queen of Avalon

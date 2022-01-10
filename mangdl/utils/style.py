@@ -39,7 +39,7 @@ class ct:
     def panel(text: str):
         console.print(Align.center(Panel(text, **ddir(syml, "styles/panel"), **SA)))
 
-    def table(cols: List[str], rows: List[str]):
+    def table(cols: List[str], rows: List[List[str]]):
         stb = table
         box = getattr(rich.box, stb.pop("box"))
 

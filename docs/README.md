@@ -56,7 +56,7 @@ The most inefficient manga downloader for PC (and soon, also a reader)
 
 <div id="quotes">
     <blockquote>
-        <p dir="auto"><b>❝<i>...but I don't think you'll write code valuable enough for them</i></b> (Content creators and/or owners) <b><i>to do that (file a DMCA strike against MangDL).</i>❞</b></p>
+        <p dir="auto"><b>❝<i>...but I don't think you'll write code valuable enough for them</i></b> (Content creators and/or owners) <b><i>to do that</i></b> (file a DMCA strike against MangDL)<b><i>.</i>"</b></p>
         <p dir="auto">- <a href="https://github.com/justfoolingaround">KR</a></p>
     </blockquote>
     <blockquote>

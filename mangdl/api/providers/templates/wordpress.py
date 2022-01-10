@@ -3,24 +3,37 @@ from importlib import import_module
 from types import ModuleType
 from typing import Any, Callable, Dict, List, Union
 from urllib.parse import quote_plus
+from ast import literal_eval
 
 from bs4 import BeautifulSoup
 
 from ....utils.utils import dt, sanitize_text
-from ...base import Ch, Downloader, Manga, soup
+from ...base import Ch, Downloader, Manga, soup, urel
 
+class ch_num_fn:
+    def breadcrumb(soup):
+        return literal_eval(soup.select_one("ol.breadcrumb .active").text.split()[-1])
+
+    def wmcc(soup):
+        return literal_eval(".".join(soup.select_one("#wp-manga-current-chap")["value"].split("-")[1:]))
 
 class rch_fn:
     def setsu(url: str, base_url: str, manga_id_fn: Callable[[BeautifulSoup], Union[int, float]]):
         data = {"action": "manga_get_chapters", "manga": str(manga_id_fn(soup(url)))}
         return soup(f"{base_url}/wp-admin/admin-ajax.php", method="post", data=data)
 
+class rch_num_fn:
+    def tdo(url):
+        return literal_eval(".".join(urel(url).parts[3].split("-")[1:]))
+
 class template:
     def __init__(self, prov: ModuleType) -> None:
         attr = {
             "base_url": None,
             "cover_src": "src",
+            "ch_num_fn": ch_num_fn.breadcrumb,
             "rch_fn": soup,
+            "rch_num_fn": rch_num_fn.tdo,
             "scanlator": None,
             "search_query_string": "post_type=wp-manga",
             "src": "src",
@@ -35,6 +48,11 @@ class template:
                 base_url=self.base_url,
                 manga_id_fn=self.prov.manga_id_fn
             )
+        for i in ["ch_num_fn", "rch_num_fn"]:
+            gi = getattr(self, i)
+            if type(gi) == str:
+                setattr(self, i, getattr(globals()[i], getattr(prov, i, gi), gi))
+
         self.template = import_module(f".{self.prov.template}", "mangdl.api.providers.templates").template
 
     def ch_fn(self, url: str) -> List[str]:
@@ -47,7 +65,7 @@ class template:
         ms = soup(url)
         return Ch(
             url              = url,
-            ch               = self.prov.ch_num_fn(ms),
+            ch               = self.ch_num_fn(ms),
             vol              = None,
             title            = sanitize_text(ms.select_one("ol.breadcrumb .active").text.split("-")[-1]),
             scanlator_groups = [self.scanlator],
@@ -60,7 +78,7 @@ class template:
             cch = c["href"]
             if chs == 2:
                 cch = self.chapter(cch)
-            op.append({self.prov.rch_num_fun(c["href"]): cch})
+            op.append({self.rch_num_fn(c["href"]): cch})
         return op
 
     def manga(self, url: str, chs: int=0) -> Manga:
