@@ -3,7 +3,7 @@ setup(
     name="MangDL",
     author="whinee",
     author_email="whinyaan@gmail.com",
-    version='3.0.0.0',
+    version='3.0.0.1',
     description="The most inefficent Manga downloader for PC",
     long_description='''<!-- Repository Name. Preferrably 1-5 words long. -->
 <p align="center">
