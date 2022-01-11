@@ -235,6 +235,7 @@ class Downloader:
         threads: int=30,
         **kwargs: Dict[str, Any]
     ):
+        self.kwargs = kwargs
         local = locals()
         for i in ["ch_fn", "ra", "headers", "cookies", "overwrite", "delfolder", "retry", "retryprompt", "threads"]:
             setattr(self, i, local[i])
@@ -371,7 +372,7 @@ class Downloader:
         chdls: Callable[[str], List[Dict[Union[float, int, None], str]]],
         title: str,
     ):
-        sr = cli_search(title)
+        sr = cli_search(title, **self.kwargs)
         if sr:
             ls = list(sr.keys())
             title = ls[int(tblp(ls))]

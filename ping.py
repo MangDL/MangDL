@@ -43,7 +43,6 @@ t = Table(
 
 def _req(
         url: str,
-        ra: Callable[[httpx.Response], int]=None,
         method: str = "get",
         *args: List[Any],
         **kwargs: Dict[str, Any]
@@ -51,12 +50,11 @@ def _req(
     try:
         resp = getattr(SESSION, method)(url, follow_redirects=True, *args, **kwargs)
         if resp.status_code in [503, 429]:
-            if ra:
-                time.sleep(2)
-                return _req(url, ra, method, *args, **kwargs)
+            time.sleep(2)
+            return _req(url, method, *args, **kwargs)
     except:
         time.sleep(2)
-        return _req(url, ra, method, *args, **kwargs)
+        return _req(url, method, *args, **kwargs)
     return resp
 
 class req:
@@ -97,7 +95,7 @@ def fping(item):
     except:
         test = False
 
-    pr = req.get(f'https://api.justyy.workers.dev/api/ping/?host={host}&cached', timeout=10).text
+    pr = req.get(f'https://api.justyy.workers.dev/api/ping/?host={host}&cached').text
     if pr == "null":
         ping = 0
         ol = False

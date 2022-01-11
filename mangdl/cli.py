@@ -176,7 +176,7 @@ def dl(title: str, **kwargs: dict[str, Any]):
         title (str): The title of the manga to be search for and download.
     """
     fn_log(kwargs.pop("loglevel"))
-    Provider(kwargs.pop("provider", "mangadex")).cli_dl(title, **kwargs)
+    Provider(kwargs.pop("provider")).cli_dl(title, **kwargs)
 
 @command(cli)
 def credits():

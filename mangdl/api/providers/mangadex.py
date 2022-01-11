@@ -54,15 +54,6 @@ def ch_fn(url: str):
     resp = req.get(f"https://api.mangadex.org/at-home/server/{url_id(url)}", ra=ra).json()
     return [f'{resp["baseUrl"]}/data/{ddir(resp, "chapter/hash")}/{i}' for i in ddir(resp, "chapter/data")]
 
-def chdls(self, url: str, chs: int=0) -> List[Dict[Union[float, int, None], str]]:
-    op = []
-    for c in self.rch_fn(url).select("li.wp-manga-chapter    a"):
-        cch = c["href"]
-        if chs == 2:
-            cch = self.chapter(cch)
-        op.append({self.prov.rch_num_fun(c["href"]): cch})
-    return op
-
 def chapter(url: str) -> Ch:
     id = url_id(url)
     resp_obj = req.get(f"https://api.mangadex.org/chapter/{id}", params={"includes[]": "scanlation_group"}).json()
@@ -204,7 +195,7 @@ def chdls(url: str) -> List[Dict[Union[float, int, None], str]]:
     op = []
     for i in paginate(f"https://api.mangadex.org/manga/{id}/feed", 500, {"translatedLanguage[]": "en", "order[chapter]": "desc"}):
         for d in i["data"]:
-            op.append({ddir(d, "attributes/chapter"): d["id"]})
+            op.append({ddir(d, "attributes/chapter"): f'https://mangadex.org/chapter/{d["id"]}'})
     return op
 
 def dl(url: str, **kwargs: Dict[str, Any]):

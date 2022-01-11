@@ -96,6 +96,8 @@ class template:
         def mst(s: str, pp: Callable[[str], List[Any]]=lambda x: x):
             return pp(sanitize_text(meta.get(s))) if meta.get(s) else []
 
+        title_fn = getattr(self.prov, "manga_title", None)
+
         rd = [sanitize_text(i.text) for i in self.rch_fn(url).select(".chapter-release-date")]
         def dates(idx: int):
             op = "1970-01-01T00:00:00"
@@ -107,7 +109,7 @@ class template:
         return Manga(
             url             = url,
             covers          = [ms.select_one(".summary_image img")[self.cover_src]],
-            title           = sanitize_text(ms.select_one("div.post-title h1").text),
+            title           = title_fn(ms) if title_fn else sanitize_text(ms.select_one("div.post-title h1").text),
             alt_titles      = mst("Alternative"),
             author          = mst("Author(s)", lambda x: x.split(",")),
             artist          = mst("Artist(s)", lambda x: x.split(",")),

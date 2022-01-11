@@ -20,6 +20,7 @@ cmd:
         args:
           - provider
         kwargs:
+          default: mangadex
           metavar: ''
         help:
           - str
