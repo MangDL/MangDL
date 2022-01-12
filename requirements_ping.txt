@@ -1,0 +1,6 @@
+httpx
+icmplib
+MangDL
+pyyaml
+rich
+yarl

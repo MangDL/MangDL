@@ -18,7 +18,10 @@ class ch_num_fn:
         return literal_eval(".".join(soup.select_one("#wp-manga-current-chap")["value"].split("-")[1:]))
 
 class rch_fn:
-    def setsu(url: str, base_url: str, manga_id_fn: Callable[[BeautifulSoup], Union[int, float]]):
+    def msa(url: str, base_url: str, **kwargs: Dict[str, Any]):
+        url = f"{base_url}/manga/{urel(url).parts[2]}/ajax/chapters/"
+        return soup(url, method="post")
+    def setsu(url: str, base_url: str, manga_id_fn: Callable[[BeautifulSoup], Union[int, float]], **kwargs: Dict[str, Any]):
         data = {"action": "manga_get_chapters", "manga": str(manga_id_fn(soup(url)))}
         return soup(f"{base_url}/wp-admin/admin-ajax.php", method="post", data=data)
 
@@ -42,11 +45,12 @@ class template:
         self.prov = prov
         for k, v in attr.items():
             setattr(self, k, getattr(prov, k, v))
+        rfk = ["manga_id_fn"]
         if type(self.rch_fn) == str:
             self.rch_fn = partial(
                 getattr(rch_fn, self.rch_fn),
                 base_url=self.base_url,
-                manga_id_fn=self.prov.manga_id_fn
+                **{i: getattr(self.prov, i, None) for i in rfk}
             )
         for i in ["ch_num_fn", "rch_num_fn"]:
             gi = getattr(self, i)
@@ -57,7 +61,7 @@ class template:
 
     def ch_fn(self, url: str) -> List[str]:
         op = []
-        for i in soup(url).select(".page-break img"):
+        for i in soup(f"{url}?style=list").select(".page-break img"):
             op.append(sanitize_text(i[self.src]))
         return op
 

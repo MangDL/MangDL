@@ -52,7 +52,8 @@ def de(a: Any, d: Any) -> Any:
         return d
 
 def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -> Dict[Any, Any]:
-    """Defaults dictionary. Overwrite the items in the default dict with the
+    """
+    Defaults dictionary. Overwrite the items in the default dict with the
     items in the d dict.
 
     Args:
@@ -69,7 +70,8 @@ def dd(default: Dict[Any, Any], d: Union[Dict[Any, Any], None]) -> Dict[Any, Any
     return op
 
 def ddir(d: Dict[Any, Any], dir: str, de: Any={}) -> Any:
-    """Retrieve dictionary value using recursive indexing with a string.
+    """
+    Retrieve dictionary value using recursive indexing with a string.
     ex.:
         `ddir({"data": {"attr": {"ch": 1}}}, "data/attr/ch")`
         will return `1`
@@ -152,7 +154,8 @@ def parse_list(opt: Union[str, None]):
         return None
 
 def squery(query: str, possibilities: List[str], cutoff: int=0.6, *, processor: Callable[[Any], Any]=lambda r: r):
-    """Custom search query.
+    """
+    Custom search query.
 
     Args:
         query (str): String to search for in the possibilities.

@@ -12,10 +12,8 @@ from typing import Any, Callable, Dict, List, Type, Union
 import click
 import httpx
 import patoolib
-import rich
 from bs4 import BeautifulSoup
 from tqdm import tqdm
-from yachalk import chalk
 from yarl import URL
 
 from ..utils import style
@@ -33,7 +31,8 @@ def _req(
         *args: List[Any],
         **kwargs: Dict[str, Any]
     ) -> httpx.Response:
-    """Custom request function with retry after capabilities for 429s.
+    """
+    Custom request function with retry after capabilities for 429s.
 
     Args:
         url (str): URL to send the request to.
@@ -73,7 +72,8 @@ for r, kw in req_dict.items():
         setattr(r, i, partial(_req, method=i, **kw))
 
 def soup(url: str, req: Type[req]=req, method: str="get", **kwargs: Dict[str, Any]) -> BeautifulSoup:
-    """Returns a soup from the given url.
+    """
+    Returns a soup from the given url.
 
     Args:
         url (str): URL to get the soup from.
@@ -123,7 +123,8 @@ class Manga:
 
 
 def tblp(ls: List[str], ht: str="title", prompt: str='Enter the index of the manga to be downloaded'):
-    """Table prompt.
+    """
+    Table prompt.
     Receive a list of items, format it in a table form and print,
     then prompt the user to choose from the list using an index.
 
@@ -149,7 +150,8 @@ def tblp(ls: List[str], ht: str="title", prompt: str='Enter the index of the man
 
 
 def sanitize_filename(filename: str) -> str:
-    """Sanitize the given filename.
+    """
+    Sanitize the given filename.
 
     Args:
         filename (str): The filename to be sanitized.
@@ -161,7 +163,8 @@ def sanitize_filename(filename: str) -> str:
 
 
 def get_extension(filename: str) -> str:
-    """Get the file extension of a file from the given filename.
+    """
+    Get the file extension of a file from the given filename.
 
     Args:
         filename (str): The filename to get the file extension from.
@@ -172,7 +175,8 @@ def get_extension(filename: str) -> str:
     return filename.strip("/").split("/")[-1].split("?")[0].split(".")[-1]
 
 def ordinal(n: int) -> str:
-    """Convert the given number to ordinal number.
+    """
+    Convert the given number to ordinal number.
 
     Args:
         n (int): The number to convert into ordinal number.
@@ -183,7 +187,8 @@ def ordinal(n: int) -> str:
     return "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
 
 def _cr(rs: str):
-    """The function that calculates the range.
+    """
+    The function that calculates the range.
 
     Args:
         rs (str): The range string where the range is calculated from.
@@ -201,7 +206,8 @@ def _cr(rs: str):
         return lambda *args, **kwargs: True
 
 def cr(rs: str) -> Callable[[int], bool]:
-    """Returns a function that checks if the given int is within the range or not.
+    """
+    Returns a function that checks if the given int is within the range or not.
     The range is calculated from the given string.
 
     Args:
@@ -249,7 +255,8 @@ class Downloader:
         self.check = cr(range)
 
     def _dlf(self, file: list[str], n: int=0):
-        """The core individual image downloader.
+        """
+        The core individual image downloader.
 
         Args:
             file (str): List containing the filename and the url of the file.
@@ -273,7 +280,8 @@ class Downloader:
             return True
 
     def dlf(self, file: List[str]):
-        """Individual image downloader.
+        """
+        Individual image downloader.
 
         Args:
             file (str): List containing the filename and the url of the file.
@@ -291,7 +299,8 @@ class Downloader:
             raise DownloadFailed(f"Download of {file[1]} failed.")
 
     def dlch(self, k: Union[int, float], v: List[str], n: int=0):
-        """Individual chapter downloader.
+        """
+        Individual chapter downloader.
 
         Args:
             k (Union[int, float]): Chapter number.

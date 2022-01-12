@@ -3,7 +3,7 @@ setup(
     name="MangDL",
     author="whinee",
     author_email="whinyaan@gmail.com",
-    version='3.0.0.4',
+    version='3.0.1.0',
     description="The most inefficent Manga downloader for PC",
     long_description='''<!-- Repository Name. Preferrably 1-5 words long. -->
 <p align="center">
@@ -39,6 +39,9 @@ setup(
     </a>
 </p>
 <p align="center">
+    <a href="https://app.codacy.com/gh/MangDL/MangDL/dashboard?branch=master">
+        <img alt="Codacy Badge" src="https://img.shields.io/codacy/grade/93418e488727439bb71f3f779860ced2/?style=flat-square">
+    </a>
     <a href="https://github.com/MangDL/MangDL/releases">
         <img alt="GitHub release (latest by date including pre-releases)" src="https://img.shields.io/github/v/release/MangDL/MangDL?include_prereleases&style=flat-square">
     </a>

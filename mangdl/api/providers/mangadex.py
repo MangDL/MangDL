@@ -123,7 +123,7 @@ def dl_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
     local = {"title": title, **kwargs}
     params = []
     sr = {}
-    ad = stg(f"mangadex/search", f"{dnrp(__file__, 3)}/utils/config.yaml")
+    ad = stg("mangadex/search", f"{dnrp(__file__, 3)}/utils/config.yaml")
     for k in local:
         v = local.get(k)
         if type(v) is str:

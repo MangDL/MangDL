@@ -1,6 +1,6 @@
 from ast import literal_eval
 
-from ..base import soup, urel
+from ..base import urel
 
 scanlator = "Paean Scans"
 base_url = "https://paeanscans.com"
@@ -18,7 +18,3 @@ def rch_num_fn(url):
 def manga_id_fn(soup) -> str:
     cdata = soup.select_one("#wp-manga-js-extra").text
     return literal_eval(cdata[29:-12])["manga_id"]
-
-def rch_fn(url):
-    data = {"action": "manga_get_chapters", "manga": str(manga_id_fn(soup(url)))}
-    return soup(f"{base_url}/wp-admin/admin-ajax.php", method="post", data=data)

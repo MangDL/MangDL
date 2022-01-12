@@ -3,7 +3,7 @@ import time
 from functools import partial
 from multiprocessing.pool import ThreadPool
 from operator import itemgetter
-from typing import Any, Callable, Dict, List
+from typing import Any, Dict, List
 
 import httpx
 import yaml
@@ -49,7 +49,7 @@ def _req(
     ) -> httpx.Response:
     try:
         resp = getattr(SESSION, method)(url, follow_redirects=True, *args, **kwargs)
-        if resp.status_code in [503, 429]:
+        if resp.status_code == 503:
             time.sleep(2)
             return _req(url, method, *args, **kwargs)
     except:
@@ -84,8 +84,8 @@ def fping(item):
         notes.append(vn.get(i))
 
     try:
-        pn, m, ch, dls = v["test"]
-        prov = Provider(pn)
+        m, ch, dls = v["test"]
+        prov = Provider(k)
         prov.manga(m)
         prov.chapter(ch)
         prov.dl_search(dls)

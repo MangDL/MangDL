@@ -8,107 +8,101 @@ notes:
     Protected by Cloudflare's UAM. Does not work at the moment.
 
 sites:
-  1ST Kiss MANGA:
+  acescans:
+    url: https://acescans.xyz
+    pf: wp
+    test:
+      - https://acescans.xyz/manga/waka-chan-is-pushy-again/
+      - https://acescans.xyz/waka-chan-is-pushy-again-chapter-3/
+      - pushy
+  chibimanga:
+    url: https://www.cmreader.info
+    pf: wp
+    test:
+      - https://www.cmreader.info/manga/akuma-no-ichigo/
+      - https://www.cmreader.info/manga/akuma-no-ichigo/chapter-5/
+      - akuma
+  danke:
+    url: https://danke.moe
+    pf: gm
+    test:
+      - https://danke.moe/read/manga/senpai-wa-otokonoko/
+      - https://danke.moe/read/manga/senpai-wa-otokonoko/23/1/
+      - senpai
+  firstkiss:
     url: https://1stkissmanga.io
     flag:
       - cf
     pf: wp
     test:
-      - firstkiss
       - https://1stkissmanga.io/manga/start-directly-as-shenhao/
       - https://1stkissmanga.io/manga/start-directly-as-shenhao/chapter-8/
       - shenhao
-  Ace Scans:
-    url: https://acescans.xyz
-    pf: wp
-    test:
-      - acescans
-      - https://acescans.xyz/manga/waka-chan-is-pushy-again/
-      - https://acescans.xyz/waka-chan-is-pushy-again-chapter-3/
-      - pushy
-  Chibimanga:
-    url: https://www.cmreader.info
-    pf: wp
-    test:
-      - chibimanga
-      - https://www.cmreader.info/manga/akuma-no-ichigo/
-      - https://www.cmreader.info/manga/akuma-no-ichigo/chapter-5/
-      - akuma
-  Danke fürs Lesen:
-    url: https://danke.moe
-    pf: gm
-    test:
-      - danke
-      - https://danke.moe/read/manga/senpai-wa-otokonoko/
-      - https://danke.moe/read/manga/senpai-wa-otokonoko/23/1/
-      - senpai
-  Flame Scans:
+  flamescans:
     url: https://flamescans.org
     pf: wp
     test:
-      - flamescans
       - https://flamescans.org/series/omniscient-readers-viewpoint/
       - https://flamescans.org/omniscient-readers-viewpoint-chapter-87/
       - omni
-  Hachirumi:
+  hachirumi:
     url: https://hachirumi.com
     pf: gm
     test:
-      - hachirumi
       - https://hachirumi.com/read/manga/mikuzu-oneshots-collection/
       - https://hachirumi.com/read/manga/mikuzu-oneshots-collection/46/1/
       - kira
-  MangaDex:
+  mangadex:
     url: https://mangadex.org
     test:
-      - mangadex
       - https://mangadex.org/title/a96676e5-8ae2-425e-b549-7f15dd34a6d8/komi-san-wa-komyushou-desu
       - https://mangadex.org/chapter/6f90e279-fdcd-4f86-b9a6-560059179a10
       - otokonoko
-  Manga Komi:
+  mangakomi:
     url: https://mangakomi.com
     pf: wp
     test:
-      - mangakomi
       - https://mangakomi.com/manga/ha-buk-paengs-youngest-son/
       - https://mangakomi.com/manga/ha-buk-paengs-youngest-son/chapter-14/
       - return
-  Manganato:
+  manganato:
     url: https://manganato.com
     test:
-      - manganato
       - https://manganato.com/manga-mt990128
       - https://readmanganato.com/manga-mt990128/chapter-32
       - There's
-  Mangasushi:
+  mangasushi:
     url: https://mangasushi.net
     pf: wp
     test:
-      - mangasushi
-      - https://mangasushi.net/manga/kuro-no-maou-1962/
-      - https://mangasushi.net/manga/kuro-no-maou-1962/chapter-30/
+      - https://mangasushi.net/manga/yakudatazu-skill-ni-jinsei-o-sosogikomi-25-nen-imasara-saikyou-no-boukentan-midori-kashi-no-akira/
+      - https://mangasushi.net/manga/yakudatazu-skill-ni-jinsei-o-sosogikomi-25-nen-imasara-saikyou-no-boukentan-midori-kashi-no-akira/chapter-19/
       - sukinako
-  manga ZUKI:
+  mangaweeaboo:
+    url: https://mangasushi.net
+    pf: wp
+    test:
+      - https://mangaweeaboo.com/manga/after-a-heartbreak-my-bitter-childhood-friend-is-now-sweet-like-sugar/
+      - https://mangaweeaboo.com/manga/after-a-heartbreak-my-bitter-childhood-friend-is-now-sweet-like-sugar/chapter-2-2/
+      - childhood
+  mangazuki:
     url: https://mangazuki.me
     pf: wp
     test:
-      - mangazuki
       - https://mangazuki.me/manga/tales-of-demons-and-gods/
       - https://mangazuki.me/manga/tales-of-demons-and-gods/tales-of-demons-and-gods-303
       - tales
-  Paean Scans:
+  paeanscans:
     url: https://paeanscans.com
     pf: wp
     test:
-      - paeanscans
       - https://paeanscans.com/manga/osanamama/
       - https://paeanscans.com/manga/osanamama/3/
       - osanamama
-  Setsu Scans:
+  setsuscans:
     url: https://setsuscans.com
     pf: wp
     test:
-      - setsuscans
       - https://setsuscans.com/manga/i-like-takachiho-honoka-senpai-so-so-much-that-i-cant-help-myself/
       - https://setsuscans.com/manga/i-like-takachiho-honoka-senpai-so-so-much-that-i-cant-help-myself/chapter-1-1/
       - honoka
@@ -116,23 +110,20 @@ sites:
     url: https://vinload.com
     pf: wp
     test:
-      - vinmanga
       - https://vinload.com/manga/just-another-love/
       - https://vinload.com/manga/just-another-love/chapter-0/
       - just another love
-  Xun Scans:
+  xunscans:
     url: https://xunscans.xyz
     pf: wp
     test:
-    - xunscans
-    - https://xunscans.xyz/manga/growing-tired-of-the-lazy-high-elf-life-after-120-years/
-    - https://xunscans.xyz/manga/growing-tired-of-the-lazy-high-elf-life-after-120-years/chapter-6/
-    - tired
-  Zinmanga:
+      - https://xunscans.xyz/manga/growing-tired-of-the-lazy-high-elf-life-after-120-years/
+      - https://xunscans.xyz/manga/growing-tired-of-the-lazy-high-elf-life-after-120-years/chapter-6/
+      - tired
+  zinmanga:
     url: https://zinmanga.com
     pf: wp
     test:
-    - zinmanga
-    - https://zinmanga.com/manga/queen-of-avalon/
-    - https://zinmanga.com/manga/queen-of-avalon/chapter-1/
-    - Queen of Avalon
+      - https://zinmanga.com/manga/queen-of-avalon/
+      - https://zinmanga.com/manga/queen-of-avalon/chapter-1/
+      - Queen of Avalon
