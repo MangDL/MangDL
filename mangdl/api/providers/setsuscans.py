@@ -16,9 +16,6 @@ def manga_title(ms):
 def ch_num_fn(soup):
     return literal_eval(soup.select_one("#chapter-heading").text.split("-")[-1][9:])
 
-def manga_id_fn(soup) -> str:
-    return soup.select_one("#manga-chapters-holder")["data-id"]
-
 def manga_check(soup):
     return not sanitize_text(soup.select_one(".mg_genres a").text) == "Bilibili"
 

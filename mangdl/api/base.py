@@ -245,8 +245,8 @@ class Downloader:
         local = locals()
         for i in ["ch_fn", "ra", "headers", "cookies", "overwrite", "delfolder", "retry", "retryprompt", "threads"]:
             setattr(self, i, local[i])
-        if ddir:= directory:
-            self.ddir = ddir
+        if directory:
+            self.ddir = directory
         elif sys.platform == "win32":
             self.ddir = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop', 'Manga')
         else:
@@ -365,7 +365,7 @@ class Downloader:
         for r in chdls:
             ch, arg = list(r.items())[0]
             if ch:
-                if type(ch) is int or type(ch) is float:
+                if isinstance(ch, Union[int, float]):
                     k = ch
                 else:
                     k = ast.literal_eval(ch)

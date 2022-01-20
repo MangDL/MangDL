@@ -2,7 +2,7 @@ import json
 from os import path
 from os.path import abspath as ap
 from os.path import dirname as dn
-from typing import Any
+from typing import Any, Dict
 
 import toml
 import yaml
@@ -65,7 +65,7 @@ def wr_stg(stg: str, value: Any, file: str = path.join(dn(ap(__file__)), "stg.js
     """
     stg_dict = readcfg(file)
 
-    def modify(stg: str, value: Any, stg_dict: dict[Any:Any]):
+    def modify(stg: str, value: Any, stg_dict: Dict[Any, Any]):
         path_ls = stg.split("/")
         key = path_ls[0]
         if len(path_ls) > 1:

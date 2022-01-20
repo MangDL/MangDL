@@ -52,12 +52,25 @@ sites:
       - https://hachirumi.com/read/manga/mikuzu-oneshots-collection/
       - https://hachirumi.com/read/manga/mikuzu-oneshots-collection/46/1/
       - kira
+  lhtranslation:
+    url: https://lhtranslation.net
+    pf: gm
+    test:
+      - https://lhtranslation.net/manga/did-you-think-you-could-run-after-reincarnating-nii-san/
+      - https://lhtranslation.net/manga/did-you-think-you-could-run-after-reincarnating-nii-san/chapter-8-2/
+      - nii
   mangadex:
     url: https://mangadex.org
     test:
       - https://mangadex.org/title/a96676e5-8ae2-425e-b549-7f15dd34a6d8/komi-san-wa-komyushou-desu
       - https://mangadex.org/chapter/6f90e279-fdcd-4f86-b9a6-560059179a10
       - otokonoko
+  mangahub:
+    url: https://mangahub.online
+    test:
+      - https://mangahub.online/manga/rise-of-the-demon-king/
+      - https://mangahub.online/manga/rise-of-the-demon-king/chapter-284/
+      - rise
   mangakomi:
     url: https://mangakomi.com
     pf: wp
@@ -71,6 +84,13 @@ sites:
       - https://manganato.com/manga-mt990128
       - https://readmanganato.com/manga-mt990128/chapter-32
       - There's
+  # mangasee:
+  #   url: https://mangasee123.com/
+  #   pf: wp
+  #   test:
+  #     - https://mangasee123.com/manga/Youkoso-Jitsuryoku-Shijou-Shugi-No-Kyoushitsu-E
+  #     - https://mangasee123.com/read-online/Youkoso-Jitsuryoku-Shijou-Shugi-No-Kyoushitsu-E-chapter-50.html
+  #     - osanamama
   mangasushi:
     url: https://mangasushi.net
     pf: wp
@@ -99,6 +119,13 @@ sites:
       - https://paeanscans.com/manga/osanamama/
       - https://paeanscans.com/manga/osanamama/3/
       - osanamama
+  readmanhua:
+    url: https://readmanhua.net
+    pf: wp
+    test:
+      - https://readmanhua.net/manga/absolute-resonance/
+      - https://readmanhua.net/manga/absolute-resonance/chapter-13-2/
+      - osanamama
   setsuscans:
     url: https://setsuscans.com
     pf: wp
@@ -106,6 +133,13 @@ sites:
       - https://setsuscans.com/manga/i-like-takachiho-honoka-senpai-so-so-much-that-i-cant-help-myself/
       - https://setsuscans.com/manga/i-like-takachiho-honoka-senpai-so-so-much-that-i-cant-help-myself/chapter-1-1/
       - honoka
+  ultralight:
+    url: https://readlight.org
+    pf: wp
+    test:
+      - https://readlight.org/title/momitai
+      - https://readlight.org/title/momitai/2/
+      - momitai
   vinmanga:
     url: https://vinload.com
     pf: wp

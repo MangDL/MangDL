@@ -138,7 +138,7 @@ def parse_list(opt: Union[str, None]):
         opt (Union[str, None]): The object to be evaluated.
     """
 
-    if type(opt) is str:
+    if isinstance(opt, str):
         opt = opt[1:-1]
         try:
             opts = list(ast.literal_eval(opt))

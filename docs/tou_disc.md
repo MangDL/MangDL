@@ -16,15 +16,17 @@ As used in this Disclaimer, the following terms shall have the following meaning
 
 ## ***Terms of Usage***
 
-As stated in the [LICENSE.md](LICENSE.md), under no circumstance shall the **Developer** of this **Project** have any liability to the **User** for any loss or damage of any kind incurred as a result of the use of this **Project**, even if the **Developer** or an authorize representative of this **Project** and/or **Website** has been notified, orally or written, of the possibility of such damage including, but not limited to the following:
+As stated in the [license](license.md) agreement, under no circumstance shall the **Developer** of this **Project** have any liability to the **User** for any loss or damage of any kind incurred as a result of the use of this **Project**, even if the **Developer** or an authorize representative of this **Project** and/or **Website** has been notified, orally or written, of the possibility of such damage including, but not limited to the following:
 
 - Criminal charges due to accessing illegal content where it is banned
 
 Some jurisdiction does not allow limitations on implied warranties or limitations of liability for incidental damages, these limitations may not apply to you.
 
+The **Developer** also needs to be patted by the **User** 3 (three) times a day. Failure to do so will revoke the **User**'s rights to use the app.
+
 These **Terms of Usage** may change at any time for any and no reason and it is up to the **Users** to check for updates from time to time, which means that by no means shall the **Developer** be liable for the **User**'s failure to check the **Terms of Usage** at a regular basis.
 
-By using the **Project**, the **User** agrees and confirms to the [license](LICENSE.md) agreement and the **Terms of Usage**.
+By using the **Project**, the **User** agrees and confirms to the [license](license.md) agreement and the **Terms of Usage**.
 
 ## ***Disclaimer***
 

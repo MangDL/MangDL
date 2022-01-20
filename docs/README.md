@@ -33,7 +33,7 @@
 </p>
 <p align="center">
     <a href="https://app.codacy.com/gh/MangDL/MangDL/dashboard?branch=master">
-        <img alt="Codacy Badge" src="https://img.shields.io/codacy/grade/93418e488727439bb71f3f779860ced2/?style=flat-square">
+        <img alt="Codacy Badge" src="https://img.shields.io/codacy/grade/93418e488727439bb71f3f779860ced2?style=flat-square">
     </a>
     <a href="https://github.com/MangDL/MangDL/releases">
         <img alt="GitHub release (latest by date including pre-releases)" src="https://img.shields.io/github/v/release/MangDL/MangDL?include_prereleases&style=flat-square">
@@ -44,7 +44,7 @@
 </p>
 <p align="center">
     <a target="_blank" href="https://discord.com/invite/JbAtUxGcJZ">
-        <img src="https://img.shields.io/discord/889508240495366184.svg?style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAQAAADa613fAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQflCwsPNhJbdTGBAAABx0lEQVR42u1byw7DIAxbUP//l7fDVGktFPIwFDr7vDzcOElF2etFEARBEARBEP8CiZm/35lD6W0JJpInYkkoZl3ChqSAwNe7nY6gKfilFauOoEhIB5Fa/MqIjhgRAd6Y2g6y2bbJiI/G2XFkAOh8taiIncbRJWqGtb3WqUiEBnoQt3zXqBiJ7K567pLrGDUiydPkI1aiNa7ctcExg0FBZEYaNSrpKa/xjyEiawnrWlzPrsjM9biqCZt9AWnNLqyyuCit6aW1grBK4qK0JpfWKsLKxUVpkciIHvF2iOdkBXEa8+sjoZtOecDpsOksrTwJxfGmw6YzkXICjTNBh81/Tq2VlmGeMfcIiZCIksh6rQ6tSJl+/aF4bNq+wtLKE2in5LEZ0CPHJHQpeWyUb7+r9sj+asPxSyIkQiIPJSKCutBkGa36mMnm+I4NocNmdz5idQbuNLbT63kvyB9n/7XxFaU3Gbv/jIj3Et+4i2d1K2dS468CtiwDCUnwizDWPvwNETeSbZHPcUHf2SN0MPG2+3YFdsekGXY4ovaCKLrImO5wX5fVhUFULx5j0z6Hu7oG/G+F6yfX798K8/YpQRAEQRAEQRAEMTM+AjWseCjwIcoAAAAASUVORK5CYII=">
+        <img src="https://invidget.switchblade.xyz/JbAtUxGcJZ">
     </a>
 </p>
 
@@ -72,19 +72,15 @@ Github: [github.com/MangDL/MangDL](https://github.com/MangDL/MangDL)
 
 Website: [mdl.pages.dev](https://mdl.pages.dev)
 
+To be updated, be sure to watch this repository and join the [Discord Support Server](https://discord.com/invite/JbAtUxGcJZ) for MangDL.
+
+For the terms of usage and legals, visit [license](license.md) and [terms of usage & disclaimer](tou_disc.md).
+
 ## **Downloads**
 
 Since people are looking for the download first, here you go:
 
-Follow [this link](https://mdl.pages.dev/installation.html) to install MangDL in your machine.
-
-## **Important**
-
-This project is a work in progress, use at your own risk.
-
-To be updated, be sure to watch this repository and join the [Discord Support Server](https://discord.com/invite/JbAtUxGcJZ) for MangDL.
-
-For the terms of usage and legals, visit [license](license.md) and [terms of usage & disclaimer](tou_disc.md).
+Follow [this link](https://mdl.pages.dev/installation) to install MangDL in your machine.
 
 ## **Features**
 
@@ -101,12 +97,11 @@ For the terms of usage and legals, visit [license](license.md) and [terms of usa
 
 ## **Sites**
 
-For the full list of providers, visit [this link](providers.md).
+For the full list of providers, visit [this link](https://mdl.pages.dev/providers).
 
 <!-- TOC section. Update when adding sections and subsections fitted in TOC. -->
 ## **Table of Contents**
 
-- [**Important**](#important)
 - [**Features**](#features)
   - [Supported OSes](#supported-oses)
 - [**Sites**](#sites)
@@ -181,7 +176,7 @@ The following are the required programs and/or packages to run this project:
 
         </details>
 
-    ![uni](assets/images/prereq_uni.png)
+    ![uni](assets/images/prereq.png)
 
 - For windows:
     - [Chocolatey](https://chocolatey.org)
@@ -204,11 +199,6 @@ The following are the required programs and/or packages to run this project:
 
         </details>
 
-    <details>
-    <summary>You should get a similar output like the following image:</summary>
-    <img src="assets/images/prereq_1.png" alt="1">
-    </details>
-
 - For [macOS](https://www.apple.com/mac/):
     - [Homebrew](https://brew.sh)
         <details>
@@ -230,11 +220,6 @@ The following are the required programs and/or packages to run this project:
 
         </details>
 
-    <details>
-    <summary>You should get a similar output like the following image:</summary>
-    <img src="assets/images/prereq_2.png" alt="2">
-    </details>
-
 - For [Linux](https://www.linux.org/)
     - [p7zip](https://github.com/jinfeihan57/p7zip)
         <details>
@@ -246,50 +231,59 @@ The following are the required programs and/or packages to run this project:
 
         </details>
 
-    <details>
-    <summary>You should get a similar output like the following image:</summary>
-    <img src="assets/images/prereq_3.png" alt="3">
-    </details>
-
 ### **Setup**
 
 Follow [this link](https://mdl.pages.dev/installation.html) to install MangDL in your machine.
 
-# TODO
+## TODO
 
-### Main to do
+### Legend
 
-- [ ] Documentation
+- 🟢: Completed
+- 🟡: In progress
+- 🟠: Paused, not a priority
+- 🔴: Yet to be done
+- 🔵: Halted, considered completed despite not being done
 
-    - [x] Bare-bones sites
+---
 
-    - [ ] Migrate every .md file to https://mangdl.github.io
+- 🟢 Create portables
+    - 🟢 Linux
+    - 🟢 Windows
+    - 🟢 MacOS
+        (Not really satisfied with the solution)
 
-- [ ] Library
+- 🟡 Add features
+    - 🔵 Saving command options to config file
+    - 🔴 Submission of new color theme
+    - 🔴 Returning/Downloading translated languages using locale of the machine
+        (and an option to override it)
+    - 🔴 Fully opt-in 99% configurable analytics
+        (for new and some sampled features)
 
-    - [ ] Manga Update notifier
+- 🟢 Create installables
+    - 🟢 Linux
+    - 🟢 Windows
+    - 🟢 MacOS
+        (Not really satisfied with the solution)
 
-    - [ ] Backupable library with an option to store an offsite backup in [supabase.io](https://supabase.io)
+- 🟡 Documentation
+    - 🟢 Bare-bones sites
+    - 🟢 Migrate to https://mdl.pages.dev/
+    - 🟢 Complete documentation
+    - 🟢 Installation instructions
+    - 🔴 Examples of programmatic usage
 
-- [ ] GUI
+- 🔴 Library
+    - 🔴 Manga Update notifier
+    - 🔴 Backupable library
+        (with an option to store an offsite backup in https://supabase.io/)
+    - 🔴 MAL / Anilist sync
 
-    - [ ] Reader
-
-- [ ] MAL / Anilist sync
-
-- [ ] Fully opt-in 99% configureable (mostly opinionated) analytics for new and some sampled features
-
-### Side Quests
-
-- [ ] Installation instructions for Android users
-
-- [ ] Package update notifier
-
-- [ ] Saving command options to config file
-
-- [ ] Submission of new color theme for the CLI and possibly for the future GUI
-
-- [ ] Returning/Downloading translated languages using locale of the machine and an option to override it
+- 🟡 GUI
+    - 🟡 Homepage
+    - 🔴 Reader
+    - 🔴 Backend
 
 ## **Contributions**
 

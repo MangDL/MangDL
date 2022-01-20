@@ -24,7 +24,7 @@ class Provider:
         if tpl:
             self.template = import_module(f".{tpl}", "mangdl.api.providers.templates").template(self.prov)
         else:
-            self.template = import_module(f".{prov}", "mangdl.api.providers")
+            self.template = self.prov
 
     def chapter(self, url: str) -> Ch:
         local = locals()

@@ -5,6 +5,7 @@ from multiprocessing.pool import ThreadPool
 from operator import itemgetter
 from typing import Any, Dict, List
 
+import click
 import httpx
 import yaml
 from rich import box
@@ -18,9 +19,7 @@ from mangdl.utils import style
 
 console = Console()
 
-KV_URL = "https://kv.whi-ne.workers.dev"
 METHODS = ["get", "options", "head", "post", "put", "patch", "delete"]
-SESSION = httpx.Client()
 
 with open("url.yml", "r") as f:
     fyml = yaml.safe_load(f)
@@ -48,14 +47,15 @@ def _req(
         **kwargs: Dict[str, Any]
     ) -> httpx.Response:
     try:
-        resp = getattr(SESSION, method)(url, follow_redirects=True, *args, **kwargs)
+        resp = getattr(httpx, method)(url, follow_redirects=True, *args, **kwargs)
         if resp.status_code == 503:
             time.sleep(2)
             return _req(url, method, *args, **kwargs)
+        else:
+            return resp
     except:
         time.sleep(2)
         return _req(url, method, *args, **kwargs)
-    return resp
 
 class req:
     pass
@@ -69,6 +69,19 @@ def ei(b: bool):
     else:
         op = style.h3("0")
     return op
+
+def olp(host):
+    pr = req.get(f'https://api.justyy.workers.dev/api/ping/?host={host}&cached').text
+    if pr == "null":
+        ping = 0
+        ol = False
+    else:
+        try:
+            ping = pr.split(r'\/')[-3]
+        except:
+            return olp(host)
+        ol = True
+    return ol, ping
 
 def fping(item):
     k, v = item
@@ -95,13 +108,7 @@ def fping(item):
     except:
         test = False
 
-    pr = req.get(f'https://api.justyy.workers.dev/api/ping/?host={host}&cached').text
-    if pr == "null":
-        ping = 0
-        ol = False
-    else:
-        ping = pr.split('\/')[-3]
-        ol = True
+    ol, ping = olp(host)
 
     op[k] = {
         "url": url,
@@ -116,11 +123,16 @@ def fping(item):
     }
     t.add_row(k, ei(ol & test), ei(ol), ei(test))
 
-with ThreadPool(20) as pool:
-    pool.map(fping, fyml["sites"].items())
-    pool.close()
-    pool.join()
+@click.command()
+@click.argument('kv')
+def main(kv):
+    with ThreadPool(20) as pool:
+        pool.map(fping, fyml["sites"].items())
+        pool.close()
+        pool.join()
 
-req.post(KV_URL, json={"all": json.dumps(dict(sorted(op.items(), key=itemgetter(0))), indent=None)})
+    req.post(f'https://{kv}.whi-ne.workers.dev', json={"ping": json.dumps(dict(sorted(op.items(), key=itemgetter(0))), indent=None)})
+    console.print(Align.center(t))
 
-console.print(Align.center(t))
+if __name__ == '__main__':
+    main()

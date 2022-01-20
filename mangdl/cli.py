@@ -135,7 +135,7 @@ def cao(group: click.group, cmd: str) -> List[Callable[[Callable[[Any], Any]], C
                 h = "\n".join(f'{" " * ((n + 3)-(0 if i else len(j)))}{j}' for i, j in enumerate(h.split("\n"))) if h else ""
                 e = "\n" + "\n".join(f'{" " * (n + (11 if i else 5))}{"Ex.: " if not i else ""}{j}' for i, j in enumerate(e.split("\n"))) if e else ""
                 kw["help"] = f'\b\n{t}{" "*((n + 3) - len(t))}{h}{e}'
-                if type(kt) is dict:
+                if isinstance(kt, dict):
                     ktk, ktv = list(kt.items())[0]
                     kta, ktkw = [i[1] for i in ktv.items()]
                     kw["type"] = getattr(click, ktk)(*kta, **ktkw if ktkw else {})
@@ -169,7 +169,6 @@ def command(group: click.group) -> Callable[[Callable[[Any], Any]], Callable[[An
 @click.group(context_settings={'help_option_names': ['-h', '--help']})
 def cli():
     """Main command group."""
-    pass
 
 @command(cli)
 def dl(title: str, **kwargs: dict[str, Any]):

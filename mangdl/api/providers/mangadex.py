@@ -126,15 +126,15 @@ def dl_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
     ad = stg("mangadex/search", f"{dnrp(__file__, 3)}/utils/config.yaml")
     for k in local:
         v = local.get(k)
-        if type(v) is str:
+        if isinstance(v, str):
             params.append(f"{k}={v}")
-        elif type(v) is list:
+        elif isinstance(v, list):
             for vv in v:
                 params.append(f"{ad[k]}[]={vv}")
-        elif type(v) is dict:
+        elif isinstance(v, dict):
             for vk, vv in v.items():
                 params.append(f"{ad[k]}[{vk}]={vv}")
-        elif type(v) is Vls:
+        elif isinstance(v, Vls):
             for vk in v.ls:
                 vv = v.vdict.get(vk, None)
                 if vv:
@@ -154,8 +154,8 @@ def cli_search(title: str, **kwargs: Dict[str, Any]) -> Dict[str, str]:
         strings = parse_list(kwargs[k])
         if strings:
             for string in strings:
-                if v and string in (v if type(v) is list else vls[v]):
-                        op.append(v[string] if type(v) == dict else string)
+                if v and string in (v if isinstance(v, list) else vls[v]):
+                        op.append(v[string] if isinstance(v, dict) else string)
                 else:
                     op.append(string)
             params[k] = op
