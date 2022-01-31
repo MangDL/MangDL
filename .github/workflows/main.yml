@@ -70,8 +70,12 @@ jobs:
         run: |-
           sudo apt install appstream
       - name: Build
+        env:
+          python_ver: 3.10
+          python_ver_minor: 3.10.2
+
         run: |-
-          wget -O python.AppImage https://github.com/niess/python-appimage/releases/download/python3.10/python3.10.2-cp310-cp310-manylinux2014_x86_64.AppImage
+          wget -O python.AppImage "https://github.com/niess/python-appimage/releases/download/python"$python_ver"/python"$python_ver_minor"-cp310-cp310-manylinux2014_x86_64.AppImage"
           chmod +x python.AppImage
           wget -O tool.AppImage https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
           chmod +x ./tool.AppImage
@@ -101,7 +105,7 @@ jobs:
               sys.argv[0] = re.sub("r(-script\.pyw|\.exe)?$", "", sys.argv[0])
               sys.exit(cli())' > ./mangdl-linux-x86_64/AppRun
           rm -rf ./mangdl-linux-x86_64/python.png
-          rm -rf ./mangdl-linux-x86_64/python3.10.1.desktop
+          rm -rf "./mangdl-linux-x86_64/python"$python_ver_minor".desktop"
           wget -O ./mangdl-linux-x86_64/logo.png https://github.com/MangDL/mangdl.rf.gd/raw/master/docs/assets/images/icons/logo-white.png
           chmod +x ./mangdl-linux-x86_64/mangdl.desktop
           rm -rf build/
