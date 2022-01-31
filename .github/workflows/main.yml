@@ -71,7 +71,7 @@ jobs:
           sudo apt install appstream
       - name: Build
         run: |-
-          wget -O python.AppImage https://github.com/niess/python-appimage/releases/download/python3.10/python3.10.1-cp310-cp310-manylinux2014_x86_64.AppImage
+          wget -O python.AppImage https://github.com/niess/python-appimage/releases/download/python3.10/python3.10.2-cp310-cp310-manylinux2014_x86_64.AppImage
           chmod +x python.AppImage
           wget -O tool.AppImage https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
           chmod +x ./tool.AppImage
