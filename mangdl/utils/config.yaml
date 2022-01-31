@@ -1,3 +1,18 @@
+main:
+  args:
+  kwargs:
+  arguments:
+  options:
+    v:
+      args:
+        - version
+      kwargs:
+        is_flag: true
+        metavar: ''
+      help:
+        - N/A (flag)
+        - |-
+          Prints the version of the program.
 cmd:
   dl:
     args:
@@ -327,6 +342,17 @@ cmd:
         It's the credits, whaddya expect?
     arguments:
     options:
+  version:
+    args:
+    kwargs:
+    help:
+      - Print version.
+      - |-
+        Print version of the program.
+    arguments:
+    options:
+
+
 mangadex:
   cli_search:
     lang:

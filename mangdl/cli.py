@@ -11,7 +11,7 @@ from yachalk import chalk
 from . import globals
 from .providers import Provider
 from .utils.settings import stg
-from .utils.style import pprint
+from .utils.style import ct, pprint
 from .utils.utils import dd, de, dnrp
 
 lvls = [
@@ -196,3 +196,8 @@ def credits():
 - To whi~nyaan, my alter ego, for just existing (and purring, ofc)
 - And to everyone who supported me from the very beginning of this humble
   project to its release!\n"""))
+
+@command(cli)
+def version():
+    from .version import __version__
+    ct.panel(__version__)

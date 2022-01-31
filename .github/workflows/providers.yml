@@ -1,6 +1,7 @@
 name: Providers
 
 on:
+  push:
   schedule:
     - cron:  '*/5 * * * *'
   workflow_dispatch:
@@ -16,7 +17,9 @@ jobs:
       with:
         python-version: "3.10"
     - name: Setup
-      run: python -m pip install -r requirements_ping.txt
+      run: python -m pip install -r requirements.txt
     - name: Run ping.py
+      env:
+        KV: ${{ secrets.kv }}
       run: |
-        python ping.py
+        python main.py $KV
