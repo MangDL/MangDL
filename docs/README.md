@@ -74,6 +74,12 @@ Website: [mdl.pages.dev](https://mdl.pages.dev)
 
 To be updated, be sure to watch this repository and join the [Discord Support Server](https://discord.com/invite/JbAtUxGcJZ) for MangDL.
 
+## **Important**
+
+Due to lack of activity, and developer's interest, I, the developer and author of this repository will kill this app.
+
+I have plans on rewriting it. I, however, do not promise.
+
 For the terms of usage and legals, visit [license](license.md) and [terms of usage & disclaimer](tou_disc.md).
 
 ## **Downloads**
